@@ -1,0 +1,20 @@
+<app-loading *ngIf="loading" class="text-center"></app-loading>
+<app-alert-danger
+  *ngIf="!loading && err"
+  [errorMessage]="err"
+></app-alert-danger>
+<app-profile-data
+  *ngIf="!loading && !err"
+  [userData]="userData"
+></app-profile-data>
+<section *ngIf="userPosts.length > 0">
+  <app-posts-list [posts]="userPosts"></app-posts-list>
+</section>
+<section *ngIf="userReviews.length > 0">
+  <h6 class="text-center" style="margin-top: 20px">
+    ماذا قالو عنك يا<strong style="color: #328bda">
+      {{ userData.userName }}</strong
+    >
+  </h6>
+  <app-testimonial-list [testimonials]="userReviews"></app-testimonial-list>
+</section>

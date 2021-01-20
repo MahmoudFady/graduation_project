@@ -1,0 +1,216 @@
+<div class="container">
+  <h2>نشر وظيفه</h2>
+
+  <form class="row" [formGroup]="postForm" (ngSubmit)="onAddPost()">
+    <div class="col-sm-6 col-md-3">
+      <div class="input-container" class="form-group">
+        <label for=""
+          ><img src="../../assets/img/download.png" alt="" />الوظيفه</label
+        >
+        <input type="text" placeholder="الوظيفه" formControlName="job" />
+        <i
+          class="fa fa-check"
+          *ngIf="postForm.get('job').touched && postForm.get('job').valid"
+        ></i>
+        <i
+          class="fa fa-exclamation-circle"
+          *ngIf="postForm.get('job').touched && postForm.get('job').invalid"
+        ></i>
+      </div>
+      <div
+        class="input-error"
+        *ngIf="postForm.get('job').errors && postForm.get('job').touched"
+      >
+        <p>
+          <span *ngIf="postForm.get('job').errors['required']"
+            >الوظيفه مطلوبه</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="input-container" class="form-group">
+        <label for=""
+          ><img src="../../assets/img/locjpg.jpg" alt="" />المحافظه</label
+        >
+        <input
+          type="text"
+          placeholder="المحافظه"
+          formControlName="creatorBigCity"
+        />
+        <i
+          class="fa fa-check"
+          *ngIf="
+            postForm.get('creatorBigCity').touched &&
+            postForm.get('creatorBigCity').valid
+          "
+        ></i>
+        <i
+          class="fa fa-exclamation-circle"
+          *ngIf="
+            postForm.get('creatorBigCity').touched &&
+            postForm.get('creatorBigCity').invalid
+          "
+        ></i>
+      </div>
+      <div
+        class="input-error"
+        *ngIf="
+          postForm.get('creatorBigCity').errors &&
+          postForm.get('creatorBigCity').touched
+        "
+      >
+        <p>
+          <span *ngIf="postForm.get('creatorBigCity').errors['required']"
+            >المحافظه مطلوبه</span
+          >
+        </p>
+      </div>
+    </div>
+    <br />
+    <div class="col-sm-6 col-md-3">
+      <div class="input-container" class="form-group">
+        <label for=""
+          ><img src="../../assets/img/locjpg.jpg" alt="" />المدينه</label
+        >
+        <input
+          type="text"
+          placeholder="المدينه"
+          formControlName="creatorCity"
+        />
+        <i
+          class="fa fa-check"
+          *ngIf="
+            postForm.get('creatorCity').touched &&
+            postForm.get('creatorCity').valid
+          "
+        ></i>
+        <i
+          class="fa fa-exclamation-circle"
+          *ngIf="
+            postForm.get('creatorCity').touched &&
+            postForm.get('creatorCity').invalid
+          "
+        ></i>
+      </div>
+      <div
+        class="input-error"
+        *ngIf="
+          postForm.get('creatorCity').errors &&
+          postForm.get('creatorCity').touched
+        "
+      >
+        <p>
+          <span *ngIf="postForm.get('creatorCity').errors['required']"
+            >المدينه مطلوبه</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+      <div class="input-container" class="form-group">
+        <label for=""><i class="fa fa-phone"></i> رقم الهاتف </label>
+        <input
+          type="number"
+          placeholder="رقم الهاتف"
+          formControlName="creatorPhone"
+        />
+        <i
+          class="fa fa-check"
+          *ngIf="
+            postForm.get('creatorPhone').touched &&
+            postForm.get('creatorPhone').valid
+          "
+        ></i>
+        <i
+          class="fa fa-exclamation-circle"
+          *ngIf="
+            postForm.get('creatorPhone').touched &&
+            postForm.get('creatorPhone').invalid
+          "
+        ></i>
+      </div>
+
+      <div
+        class="input-error"
+        *ngIf="
+          postForm.get('creatorPhone').errors &&
+          postForm.get('creatorPhone').touched
+        "
+      >
+        <p>
+          <span *ngIf="postForm.get('creatorPhone').errors['required']"
+            >الهاتف مطلوبه</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <div class="input-container" class="form-group">
+        <label for=""> <i class="fa fa-pen"></i>كتابه نص</label>
+        <textarea
+          style="height: 80px; line-height: normal"
+          type="text"
+          formControlName="postText"
+        ></textarea>
+        <i
+          class="fa fa-check"
+          *ngIf="
+            postForm.get('postText').touched && postForm.get('postText').valid
+          "
+        ></i>
+        <i
+          class="fa fa-exclamation-circle"
+          *ngIf="
+            postForm.get('postText').touched && postForm.get('postText').invalid
+          "
+        ></i>
+      </div>
+      <div
+        class="input-error"
+        *ngIf="
+          postForm.get('postText').errors && postForm.get('postText').touched
+        "
+      >
+        <p>
+          <span *ngIf="postForm.get('postText').errors['required']">
+            مطلوبه</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="images-container" style="margin-right: 20px">
+      <a (click)="f.click()"><i class="fa fa-image"></i> ارفاق بعض الصور</a>
+      <input
+        type="file"
+        multiple
+        #f
+        style="display: none"
+        (change)="onImagesPicked($event)"
+      />
+      <div *ngIf="postImages.length > 0" class="images-preview">
+        <img *ngFor="let img of postImages" [src]="img" alt="" />
+      </div>
+    </div>
+    <div style="margin-right: 20px">
+      <input type="checkbox" formControlName="createByWorker" id="myCheck" />
+      <label for="myCheck">نشر كحرفي</label>
+    </div>
+    <div *ngIf="postForm.valid">
+      <button [disabled]="loading">
+        <i class="fa fa-paper-plane"></i> نشر
+      </button>
+    </div>
+  </form>
+</div>
+<section class="create-post-navigations">
+  <app-loading *ngIf="loading" class="text-center"></app-loading>
+  <app-alert-danger
+    [errorMessage]="errorMessage"
+    *ngIf="!loading && !postCreated"
+  ></app-alert-danger>
+  <app-alert-success
+    [successMessage]="'تم النشر'"
+    *ngIf="postCreated"
+  ></app-alert-success>
+</section>

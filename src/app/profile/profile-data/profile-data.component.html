@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xs-8 col-sm-8 col-md-4">
+      <div class="header-container">
+        <img [src]="userData.profileImage" [alt]="userData.userName" />
+        <h4>{{ userData.userName }}</h4>
+      </div>
+      <div *ngIf="userData.job">
+        <p><i class="fa fa-briefcase"> </i>{{ userData.job }}</p>
+      </div>
+      <div *ngIf="userData._id === activeUserId">
+        <p><i class="fa fa-envelope"> </i>{{ userData.userEmail }}</p>
+      </div>
+      <div>
+        <p><i class="fa fa-phone"> </i> {{ userData.userPhone }}</p>
+      </div>
+      <div>
+        <p>
+          <i class="fa fa-map-marker"></i> {{ userData.userBigCity }} ,
+          {{ userData.userCity }}
+        </p>
+      </div>
+      <div class="button-container" *ngIf="userData._id === activeUserId">
+        <button class="edit" type="button" [routerLink]="['/edit-profile']">
+          <i class="fa fa-edit"></i>
+          تعديل
+        </button>
+        <button class="logout" type="button" (click)="onLogout()">
+          <i class="fa fa-sign-out-alt"></i> خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

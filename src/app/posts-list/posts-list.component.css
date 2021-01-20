@@ -1,0 +1,88 @@
+h1 {
+  text-align: center;
+  margin: 30px auto;
+}
+.single-post {
+  position: relative;
+  overflow: hidden;
+}
+.post-job {
+  text-align: center;
+  height: 40px;
+  width: 150px;
+  position: absolute;
+  left: -36px;
+  top: 19px;
+  color: #ffff;
+  transform: rotate(-45deg);
+  line-height: 40px;
+}
+i {
+  color: #1c7ed6;
+  margin-left: 10px;
+  float: right;
+}
+.container {
+  margin-top: 20px;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+}
+.row > div > div {
+  padding: 20px;
+  box-shadow: 1px 1px 5px #cccccc;
+  margin: 10px auto;
+  text-align: right;
+  padding-right: 20px;
+  width: 100%;
+  overflow: hidden;
+}
+.row > div header {
+  height: 60px;
+  line-height: 60px;
+  margin-bottom: 20px;
+}
+.row > div header h5 {
+  height: 60px;
+  line-height: 60px;
+  padding-right: 80px;
+}
+.row > div > div > div.post-header img {
+  float: right;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+}
+.row > div > div > div.post-images img {
+  width: 50%;
+  height: 150px;
+}
+.row .post-controls {
+  margin: 10px auto;
+  height: 50px;
+}
+.row .post-controls button {
+  border: none;
+  border-radius: 30px;
+  color: #ffffff;
+}
+.row .post-controls button > i {
+  margin: 5px;
+}
+.row .post-controls button.btn-danger i {
+  color: #ffffff !important;
+}
+.row .post-controls button.btn-dark i {
+  color: #000000 !important;
+}
+.row .post-controls button.btn-dark {
+  background-color: #dadada;
+  float: left;
+  color: #000000;
+}
+.alert-post {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}

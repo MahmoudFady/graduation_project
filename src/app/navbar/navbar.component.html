@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand" href="#">شغلني</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <i class="fa fa-bars"></i>
+  </button>
+  <div class=""></div>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a
+        class="nav-link"
+        class="nav-link"
+        routerLinkActive="active"
+        routerLink="/home"
+        ><i class="fa fa-home"></i> الرئيسه
+      </a>
+      <a class="nav-link" routerLinkActive="active" routerLink="/jobs"
+        ><i class="fa fa-briefcase"></i> الوظائف</a
+      >
+      <a class="nav-link" routerLinkActive="active" routerLink="/create-post"
+        ><i class="fa fa-paper-plane"></i> نشر وظيفه</a
+      >
+      <a class="nav-link" routerLinkActive="active" routerLink="/search"
+        ><i class="fa fa-search"></i> بحث</a
+      >
+      <a
+        *ngIf="!isAuthenticated && !isAuthSaved"
+        class="nav-link"
+        routerLinkActive="active"
+        routerLink="/signin"
+        ><i class="fa fa-sign-in-alt"></i> تسجيل دخول</a
+      >
+      <a
+        *ngIf="!isAuthenticated && !isAuthSaved"
+        class="nav-link"
+        routerLinkActive="active"
+        routerLink="/signup"
+        ><i class="fa fa-user-plus"></i> انشاء حساب</a
+      >
+      <a
+        *ngIf="isAuthenticated || isAuthSaved"
+        class="nav-link"
+        routerLinkActive="active"
+        routerLink="/profile"
+        ><i class="fa fa-user-circle"></i> الحساب الشخصي</a
+      >
+      <a
+        *ngIf="isAuthenticated || isAuthSaved"
+        class="nav-link"
+        style="cursor: pointer"
+        (click)="onLogout()"
+        ><i class="fa fa-sign-out-alt"></i> تسجيل خروج</a
+      >
+    </div>
+  </div>
+</nav>

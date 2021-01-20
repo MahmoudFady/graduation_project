@@ -1,0 +1,21 @@
+<form #f="ngForm" (ngSubmit)="onAddTestimonial(f)">
+  <div class="form-group">
+    <i class="fa fa-pen"></i>
+    <input
+      class="form-control"
+      type="text"
+      placeholder="رايك"
+      name="userOpnion"
+      required
+      ngModel
+      #userOpnion="ngModel"
+    />
+  </div>
+  <button *ngIf="f.valid">ارسال <i class="fa fa-arrow-left"></i></button>
+</form>
+<div class="alert alert-danger" role="alert" *ngIf="errMsg">
+  {{ errMsg }}
+</div>
+<div class="alert alert-success" role="alert" *ngIf="successMsg">
+  {{ successMsg }}
+</div>

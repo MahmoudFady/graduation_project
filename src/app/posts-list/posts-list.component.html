@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+    <div *ngFor="let post of posts" class="col-xs-8 col-sm-8 col-md-6">
+      <div class="single-post">
+        <div
+          class="post-job"
+          [ngStyle]="{
+            backgroundColor: post.createByWorker ? '#f00' : 'green'
+          }"
+        >
+          <span>{{ post.job }}</span>
+        </div>
+        <div class="post-header">
+          <a (click)="onGetUser(post.creator._id)"
+            ><header>
+              <img
+                [src]="post.creator.profileImage"
+                [alt]="post.creator.userName"
+              />
+              <h5>{{ post.creator.userName }}</h5>
+            </header></a
+          >
+        </div>
+        <div class="post-date">
+          <i class="fa fa-calendar-week"></i>
+          <p>{{ post.postDate }}</p>
+        </div>
+        <div class="post-address-phone">
+          <div>
+            <i class="fa fa-phone"></i>
+            <p>{{ post.creatorPhone }}</p>
+          </div>
+          <div>
+            <i class="fa fa-globe"></i>
+            <p>
+              {{ post.creatorBigCity }} ,
+              {{ post.creatorCity }}
+            </p>
+          </div>
+        </div>
+        <div class="post-text">
+          <i class="fa fa-pen"></i>
+          <p>{{ post.postText }}</p>
+        </div>
+        <div class="post-images" *ngIf="post.postImages.length > 0">
+          <img
+            [ngStyle]="{
+              width: post.postImages.length === 1 ? '100%' : '50%'
+            }"
+            *ngFor="let img of post.postImages"
+            [src]="img"
+            alt=""
+          />
+        </div>
+        <div class="post-controls">
+          <button
+            *ngIf="post.creator._id === userId"
+            (click)="onDeletePost(post._id)"
+            class="btn btn-danger"
+          >
+            <i class="fa fa-trash"></i>
+            حذف
+          </button>
+          <button class="btn btn-dark">
+            <i class="fa fa-comment"></i>
+            تعليق
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="alert-post" *ngIf="deleltePost">
+  <app-alert-danger [errorMessage]="'تم الحذف'"></app-alert-danger>
+</section>

@@ -1,0 +1,8 @@
+<app-loading *ngIf="loading"></app-loading>
+<app-alert-danger [errorMessage]="errMsg" *ngIf="errMsg"></app-alert-danger>
+<div class="redo" *ngIf="!loading && errMsg">
+  <a href="/jobs">
+    <i class="fa fa-redo"></i>
+  </a>
+</div>
+<app-posts-list *ngIf="!loading" [posts]="posts"></app-posts-list>

@@ -1,0 +1,72 @@
+<div class="container">
+  <form class="row" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="col-md">
+      <div class="form-group">
+        <label for=""
+          ><img src="../../assets/img/download.png" alt="" />الوظيفه</label
+        >
+        <input
+          type="text"
+          placeholder="الوظيفه"
+          [ngModel]="userData.job"
+          name="job"
+          required
+          #job="ngModel"
+          minlength="4"
+        />
+        <p *ngIf="job.errors && job.touched">
+          <span *ngIf="job.errors.required">الوظيفه مطلوبه</span>
+          <span *ngIf="job.errors.minlength">الوظيفه خاطئه</span>
+        </p>
+      </div>
+    </div>
+    <div class="col-md">
+      <label for=""
+        ><img src="../../assets/img/locjpg.jpg" alt="" />المحافظه</label
+      >
+      <input
+        type="text"
+        placeholder="المحافظه"
+        [ngModel]="userData.userBigCity"
+        name="bigCity"
+        required
+        minlength="5"
+        #bigCity="ngModel"
+      />
+      <p *ngIf="bigCity.errors && bigCity.touched">
+        <span *ngIf="bigCity.errors.required">المحافظه مطلوبه</span>
+        <span *ngIf="bigCity.errors.minlength">المحافظه خاطئه</span>
+      </p>
+    </div>
+    <br />
+    <div class="col-md">
+      <label for=""
+        ><img src="../../assets/img/locjpg.jpg" alt="" />المدينه</label
+      >
+      <input
+        type="text"
+        placeholder="المدينه"
+        [ngModel]="userData.userCity"
+        name="city"
+        required
+        minlength="5"
+        #city="ngModel"
+      />
+      <p *ngIf="city.errors && city.touched">
+        <span *ngIf="city.errors.required">المدينه مطلوبه</span>
+        <span *ngIf="city.errors.minlength">المدينه خاطئه</span>
+      </p>
+    </div>
+    <div style="margin-right: 20px">
+      <input type="checkbox" name="isWorker" [ngModel]="false" />
+      <label for="">البحث كحرفي</label>
+    </div>
+    <div>
+      <button *ngIf="f.valid">بحث <i class="fa fa-search"></i></button>
+    </div>
+  </form>
+</div>
+<div class="text-center">
+  <img src="../../assets/img/search_def.jpg" alt="" />
+  <h6>ابحث عن وظيفتك</h6>
+</div>

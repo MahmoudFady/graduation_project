@@ -1,0 +1,28 @@
+a i {
+  margin-left: 10px;
+}
+.btn-controls {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-controls button {
+  border: none;
+  height: 50px;
+  width: 30.3%;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.btn-controls button:nth-of-type(2) {
+  background-color: #f00;
+  color: #fff;
+}
+.porfileEdited-alert {
+  position: fixed;
+  bottom: 43px;
+  width: 100%;
+  z-index: 1;
+}
+input.ng-valid {
+  border: 1px solid green !important;
+}
