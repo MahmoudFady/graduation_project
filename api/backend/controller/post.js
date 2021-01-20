@@ -70,23 +70,69 @@ exports.addPost = async (decode, req, res, next) => {
 
 //DELETE POST BY ID
 exports.deletePost = async (decode, req, res, next) => {
+  //GET USER BY FROM RECIVED TOKEN
   const creator = decode.userId;
-  const postId = req.params.id;
+  //GET POST ID FROM PARAMS OBJECT
+  const postId = req.params["postId"];
+  // GET POST BY ID THEN DELETE IT
   const deletedPost = await Post.findOneAndDelete({ _id: postId, creator });
   res.status(200).json({
     message: "post deleted",
     deletedPost,
   });
 };
-// GET POST FOR SPECIAL USER
+// GET POSTS FOR SPECIAL USER < CREATOR VALUE>
 exports.userPosts = async (decode, req, res, next) => {
+  // GET USER ID FROM RECIVED TOKEN
   const userId = decode.userId;
-  const userPosts = await Post.find({ creator: userId }).populate({
-    path: "creator",
-    select: "_id profileImage userName",
-  });
+  // THEN GET ALL POSTS WHICH IT IS CREATOR FIELD MATH THAT USER ID
+  const userPosts = await Post.find({ creator: userId })
+    // POPULATE THE CREATOR OF EACH POST
+    .populate({
+      path: "creator",
+      select: "_id profileImage userName",
+    })
+    // THEN POPULATE ALL COMMENTS WHICH BELOGN TO THAT POST
+    .populate({
+      path: "comments",
+      // THEN POPULATE THE CREATRO OF THAT COMMENT
+      populate: {
+        path: "creator",
+        select: "_id profileImage userName",
+      },
+    });
   res.status(200).json({
     message: "user posts ",
     userPosts,
   });
+};
+//GET POST BY ID
+exports.getPostById = async (req, res, next) => {
+  const postId = req.params["postId"];
+  const post = await Post.findById(postId)
+    // POPULATE THE CREATOR OF EACH POST
+    .populate({
+      path: "creator",
+      select: "_id profileImage userName",
+    })
+    // THEN POPULATE ALL COMMENTS WHICH BELOGN TO THAT POST
+    .populate({
+      path: "comments",
+      // THEN POPULATE THE CREATRO OF THAT COMMENT
+      populate: {
+        path: "creator",
+        select: "_id profileImage userName",
+      },
+    });
+  if (post) {
+    res.status(200).json({
+      message: "get post with id : " + postId,
+      post,
+    });
+  } else {
+    res.status(200).json({
+      message: "faild to get  post with id : " + postId,
+      alert: "we suggest that id is not exist",
+    });
+  }
 };

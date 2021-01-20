@@ -105,8 +105,11 @@ exports.deletePost = function _callee3(decode, req, res, next) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          creator = decode.userId;
-          postId = req.params.id;
+          //GET USER BY FROM RECIVED TOKEN
+          creator = decode.userId; //GET POST ID FROM PARAMS OBJECT
+
+          postId = req.params["postId"]; // GET POST BY ID THEN DELETE IT
+
           _context3.next = 4;
           return regeneratorRuntime.awrap(Post.findOneAndDelete({
             _id: postId,
@@ -126,7 +129,7 @@ exports.deletePost = function _callee3(decode, req, res, next) {
       }
     }
   });
-}; // GET POST FOR SPECIAL USER
+}; // GET POSTS FOR SPECIAL USER < CREATOR VALUE>
 
 
 exports.userPosts = function _callee4(decode, req, res, next) {
@@ -135,13 +138,24 @@ exports.userPosts = function _callee4(decode, req, res, next) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
-          userId = decode.userId;
+          // GET USER ID FROM RECIVED TOKEN
+          userId = decode.userId; // THEN GET ALL POSTS WHICH IT IS CREATOR FIELD MATH THAT USER ID
+
           _context4.next = 3;
           return regeneratorRuntime.awrap(Post.find({
             creator: userId
-          }).populate({
+          }) // POPULATE THE CREATOR OF EACH POST
+          .populate({
             path: "creator",
             select: "_id profileImage userName"
+          }) // THEN POPULATE ALL COMMENTS WHICH BELOGN TO THAT POST
+          .populate({
+            path: "comments",
+            // THEN POPULATE THE CREATRO OF THAT COMMENT
+            populate: {
+              path: "creator",
+              select: "_id profileImage userName"
+            }
           }));
 
         case 3:
@@ -154,6 +168,52 @@ exports.userPosts = function _callee4(decode, req, res, next) {
         case 5:
         case "end":
           return _context4.stop();
+      }
+    }
+  });
+}; //GET POST BY ID
+
+
+exports.getPostById = function _callee5(req, res, next) {
+  var postId, post;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          postId = req.params["postId"];
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(Post.findById(postId) // POPULATE THE CREATOR OF EACH POST
+          .populate({
+            path: "creator",
+            select: "_id profileImage userName"
+          }) // THEN POPULATE ALL COMMENTS WHICH BELOGN TO THAT POST
+          .populate({
+            path: "comments",
+            // THEN POPULATE THE CREATRO OF THAT COMMENT
+            populate: {
+              path: "creator",
+              select: "_id profileImage userName"
+            }
+          }));
+
+        case 3:
+          post = _context5.sent;
+
+          if (post) {
+            res.status(200).json({
+              message: "get post with id : " + postId,
+              post: post
+            });
+          } else {
+            res.status(200).json({
+              message: "faild to get  post with id : " + postId,
+              alert: "we suggest that id is not exist"
+            });
+          }
+
+        case 5:
+        case "end":
+          return _context5.stop();
       }
     }
   });
