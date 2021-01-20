@@ -14,6 +14,8 @@ var postRoutes = require("./router/post");
 
 var reviewRoutes = require("./router/review");
 
+var commentRoutes = require("./router/comment");
+
 var reportRoutes = require("./router/report");
 
 var path = require("path");
@@ -46,5 +48,6 @@ app.use(function (req, res, next) {
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/review", reviewRoutes);
+app.use("/api/comment", commentRoutes);
 app.use("/api/report", reportRoutes);
 module.exports = app;

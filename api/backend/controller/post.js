@@ -1,10 +1,20 @@
+const post = require("../model/post");
 const Post = require("../model/post");
 // get all posts
 exports.getAllPosts = async (req, res, next) => {
-  const posts = await Post.find().populate({
-    path: "creator",
-    select: "_id profileImage userName",
-  });
+  const posts = await Post.find()
+    .populate({
+      path: "creator",
+      select: "_id profileImage userName",
+    })
+    .populate({
+      path: "comments",
+      populate: {
+        path: "creator",
+        select: "_id profileImage userName",
+      },
+    });
+
   if (posts.length > 0) {
     res.status(200).json({
       message: "get all posts",

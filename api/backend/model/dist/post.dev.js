@@ -14,6 +14,10 @@ var postSchema = new mongoose.Schema({
   postImages: Array,
   createByWorker: Boolean,
   postDate: String,
-  job: String
+  job: String,
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment"
+  }]
 });
 module.exports = mongoose.model("Post", postSchema);

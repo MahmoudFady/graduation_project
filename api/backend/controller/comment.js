@@ -1,0 +1,47 @@
+const Comment = require("../model/comment");
+const User = require("../model/user");
+const Post = require("../model/post");
+exports.addComment = async (decode, req, res, next) => {
+  // GET POST ID TO ADD THIS COMMENT
+  const postId = req.params["postId"];
+  // GET CREATOR ID FORM RECIVED TOKEN
+  const creator = decode.userId;
+  const { commentText } = req.body;
+  // HANDLE CODE IF USER SEND IAMGES
+  let commentImages = [];
+  if (req.files) {
+    const url = `${req.protocol}://${req.get("host")}/uploads/`;
+    commentImages = req.files.map((file) => {
+      return url + file.filename;
+    });
+  }
+  // SET COMMENT DATE
+  const commentDate = new Date().toLocaleDateString();
+  // SAVE COMMENT DATA INTO DB
+  const newComment = await new Comment({
+    creator,
+    commentText,
+    commentImages,
+    commentDate,
+  }).save();
+  const oldPost = await Post.findById(postId);
+  const oldComments = oldPost.comments;
+  let newComments = [];
+  console.log(oldComments.length);
+  if (oldComments.length == 0) {
+    console.log("now comments yet");
+    newComments = [newComment._id];
+  } else {
+    newComments = oldComments;
+    newComments.push(newComment._id);
+  }
+  const newPost = await Post.updateOne(
+    { _id: postId },
+    {
+      $set: {
+        comments: newComments,
+      },
+    }
+  );
+  console.log(newComments);
+};

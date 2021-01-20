@@ -9,5 +9,6 @@ const postSchema = new mongoose.Schema({
   createByWorker: Boolean,
   postDate: String,
   job: String,
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 module.exports = mongoose.model("Post", postSchema);

@@ -1,5 +1,7 @@
 "use strict";
 
+var post = require("../model/post");
+
 var Post = require("../model/post"); // get all posts
 
 
@@ -13,6 +15,12 @@ exports.getAllPosts = function _callee(req, res, next) {
           return regeneratorRuntime.awrap(Post.find().populate({
             path: "creator",
             select: "_id profileImage userName"
+          }).populate({
+            path: "comments",
+            populate: {
+              path: "creator",
+              select: "_id profileImage userName"
+            }
           }));
 
         case 2:
