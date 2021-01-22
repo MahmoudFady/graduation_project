@@ -47,15 +47,17 @@ exports.addComment = function _callee(decode, req, res, next) {
           oldPost = _context.sent;
           oldComments = oldPost.comments;
           newComments = [];
-          console.log(oldComments.length);
+          console.log(oldComments.length); // IF THAT POST DOES NOT HAVE COMMENTS
 
           if (oldComments.length == 0) {
             console.log("now comments yet");
             newComments = [newComment._id];
-          } else {
-            newComments = oldComments;
-            newComments.push(newComment._id);
-          }
+          } // ELSE THAT POST HASE COMMENTS
+          else {
+              newComments = oldComments;
+              newComments.push(newComment._id);
+            } // THEN ADD NEW COMMENT ID TO COMMENTS FIELD OF THAT POST
+
 
           _context.next = 18;
           return regeneratorRuntime.awrap(Post.updateOne({
@@ -68,7 +70,11 @@ exports.addComment = function _callee(decode, req, res, next) {
 
         case 18:
           newPost = _context.sent;
-          console.log(newComments);
+          res.status(200).json({
+            message: "comment add",
+            newPost: newPost,
+            newComment: newComment
+          });
 
         case 20:
         case "end":

@@ -24,17 +24,22 @@ exports.addComment = async (decode, req, res, next) => {
     commentImages,
     commentDate,
   }).save();
+  //GET OLD COMMENTS OF THAT POST
   const oldPost = await Post.findById(postId);
   const oldComments = oldPost.comments;
   let newComments = [];
   console.log(oldComments.length);
+  // IF THAT POST DOES NOT HAVE COMMENTS
   if (oldComments.length == 0) {
     console.log("now comments yet");
     newComments = [newComment._id];
-  } else {
+  }
+  // ELSE THAT POST HASE COMMENTS
+  else {
     newComments = oldComments;
     newComments.push(newComment._id);
   }
+  // THEN ADD NEW COMMENT ID TO COMMENTS FIELD OF THAT POST
   const newPost = await Post.updateOne(
     { _id: postId },
     {
@@ -43,5 +48,9 @@ exports.addComment = async (decode, req, res, next) => {
       },
     }
   );
-  console.log(newComments);
+  res.status(200).json({
+    message: "comment add",
+    newPost,
+    newComment,
+  });
 };
