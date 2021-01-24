@@ -244,7 +244,13 @@ exports.getUser = function _callee3(req, res, next) {
             creator: userId
           }).populate({
             path: "creator",
-            select: "_id userName profileImage"
+            select: "_id profileImage userName"
+          }).populate({
+            path: "comments",
+            populate: {
+              path: "creator",
+              select: "_id profileImage userName"
+            }
           }));
 
         case 7:

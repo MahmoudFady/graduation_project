@@ -50,7 +50,6 @@ exports.addComment = async (decode, req, res, next) => {
   );
   res.status(200).json({
     message: "comment add",
-    newPost,
     newComment,
   });
 };

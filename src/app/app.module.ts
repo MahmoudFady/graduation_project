@@ -1,3 +1,5 @@
+import { CommentsListComponent } from './create-post/post-single/comments-list/comments-list.commponent';
+import { SinglePostComponent } from './create-post/post-single/post-single.component';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,7 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { PostsListComponent } from './posts-list/posts-list.component';
+import { PostsListComponent } from './create-post/posts-list/posts-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from './create-post/post.service';
 import { AuthService } from './auth/auth.service';
@@ -34,6 +36,7 @@ import { SubscribeComponent } from './home/subscribe/subscribe.component';
 import { TestimonialComponent } from './home/testimonial/testimonial.component';
 import { AddTestimonialComponent } from './home/testimonial/add-testimonial/add-testimonial.component';
 import { TestimonialListComponent } from './home/testimonial/testimonial-list/testimonial-list.component';
+import { CreateCommentComponent } from './create-post/post-single/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,11 @@ import { TestimonialListComponent } from './home/testimonial/testimonial-list/te
     TestimonialComponent,
     AddTestimonialComponent,
     TestimonialListComponent,
+    SinglePostComponent,
+    CreateCommentComponent,
+    CommentsListComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,

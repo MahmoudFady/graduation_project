@@ -72,7 +72,6 @@ exports.addComment = function _callee(decode, req, res, next) {
           newPost = _context.sent;
           res.status(200).json({
             message: "comment add",
-            newPost: newPost,
             newComment: newComment
           });
 

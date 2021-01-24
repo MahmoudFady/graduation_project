@@ -158,10 +158,19 @@ exports.getUser = async (req, res, next) => {
   const userId = req.params.id;
   const user = await User.findById(userId).select("-userPassword -__v");
   if (user) {
-    const userPosts = await Post.find({ creator: userId }).populate({
-      path: "creator",
-      select: "_id userName profileImage",
-    });
+    const userPosts = await Post.find({ creator: userId })
+      .populate({
+        path: "creator",
+        select: "_id profileImage userName",
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "creator",
+          select: "_id profileImage userName",
+        },
+      });
+
     res.status(200).json({
       message: "successfully get user",
       user,

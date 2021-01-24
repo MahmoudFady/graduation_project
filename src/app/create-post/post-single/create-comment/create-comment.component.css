@@ -1,0 +1,7 @@
+.alert {
+  border-radius: 30px;
+  width: fit-content;
+}
+.alert a {
+  text-decoration: none;
+}

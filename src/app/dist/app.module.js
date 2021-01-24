@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var comments_list_commponent_1 = require("./create-post/post-single/comments-list/comments-list.commponent");
+var post_single_component_1 = require("./create-post/post-single/post-single.component");
 var auth_interceptor_service_1 = require("./auth/auth-interceptor.service");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
@@ -19,7 +21,7 @@ var profile_component_1 = require("./profile/profile.component");
 var signup_component_1 = require("./auth/signup/signup.component");
 var home_component_1 = require("./home/home.component");
 var create_post_component_1 = require("./create-post/create-post.component");
-var posts_list_component_1 = require("./posts-list/posts-list.component");
+var posts_list_component_1 = require("./create-post/posts-list/posts-list.component");
 var forms_1 = require("@angular/forms");
 var post_service_1 = require("./create-post/post.service");
 var auth_service_1 = require("./auth/auth.service");
@@ -42,6 +44,7 @@ var subscribe_component_1 = require("./home/subscribe/subscribe.component");
 var testimonial_component_1 = require("./home/testimonial/testimonial.component");
 var add_testimonial_component_1 = require("./home/testimonial/add-testimonial/add-testimonial.component");
 var testimonial_list_component_1 = require("./home/testimonial/testimonial-list/testimonial-list.component");
+var create_comment_component_1 = require("./create-post/post-single/create-comment/create-comment.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -73,6 +76,9 @@ var AppModule = /** @class */ (function () {
                 testimonial_component_1.TestimonialComponent,
                 add_testimonial_component_1.AddTestimonialComponent,
                 testimonial_list_component_1.TestimonialListComponent,
+                post_single_component_1.SinglePostComponent,
+                create_comment_component_1.CreateCommentComponent,
+                comments_list_commponent_1.CommentsListComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,

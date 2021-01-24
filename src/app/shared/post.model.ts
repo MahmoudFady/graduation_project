@@ -1,3 +1,5 @@
+import { from } from 'rxjs';
+import { Comment } from './comment.model';
 export interface Post {
   _id: string;
   creator: {
@@ -13,4 +15,5 @@ export interface Post {
   createByWorker: boolean;
   postDate: string;
   postImages: string[] | FileList;
+  comments: Comment[];
 }

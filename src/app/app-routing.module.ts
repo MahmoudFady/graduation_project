@@ -1,3 +1,4 @@
+import { SinglePostComponent } from './create-post/post-single/post-single.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,6 @@ const routes: Routes = [
     path: 'jobs',
     component: JobsComponent,
   },
-  { path: 'create-post', component: CreatePostComponent },
   { path: 'search', component: SearchComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
@@ -28,12 +28,13 @@ const routes: Routes = [
     path: 'view-profile/:id',
     component: ViewProfileComponent,
   },
-
   {
     path: 'edit-profile',
     component: EditProfileComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'create-post', component: CreatePostComponent },
+  { path: 'post/:postId', component: SinglePostComponent },
   { path: 'error-page', component: ErrorPageComponent },
   { path: '**', redirectTo: 'error-page' },
 ];

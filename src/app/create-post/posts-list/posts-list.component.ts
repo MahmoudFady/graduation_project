@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from '../shared/post.model';
-import { PostService } from '../create-post/post.service';
+import { Post } from '../../shared/post.model';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-posts-list',
@@ -22,6 +22,7 @@ export class PostsListComponent implements OnInit {
     this.deleltePost = false;
     this.userId = this.authService.getLocalStorageData()._id;
   }
+  // GET THE CREATOR OF POST
   onGetUser(id: string) {
     const activeUserId = this.authService.getLocalStorageData()._id;
     if (id === activeUserId) {
@@ -30,12 +31,17 @@ export class PostsListComponent implements OnInit {
       this.router.navigate([`/view-profile/${id}`]);
     }
   }
-  onDeletePost(id: string) {
+  // DELETE POST
+  onDeletePost(postId: string) {
     this.deleltePost = true;
-    console.log(id);
-    this.postService.deletePost(id);
+    console.log(postId);
+    this.postService.deletePost(postId);
     setTimeout(() => {
       this.deleltePost = false;
     }, 1200);
+  }
+  // ADD NEW COMMENT TO POST'S COMMENTS
+  onAddComment(postId: string) {
+    this.router.navigate(['/post/' + postId]);
   }
 }

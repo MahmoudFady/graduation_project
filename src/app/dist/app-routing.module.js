@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppRoutingModule = void 0;
+var post_single_component_1 = require("./create-post/post-single/post-single.component");
 var jobs_component_1 = require("./jobs/jobs.component");
 var view_profile_component_1 = require("./view-profile/view-profile.component");
 var core_1 = require("@angular/core");
@@ -27,7 +28,6 @@ var routes = [
         path: 'jobs',
         component: jobs_component_1.JobsComponent
     },
-    { path: 'create-post', component: create_post_component_1.CreatePostComponent },
     { path: 'search', component: search_component_1.SearchComponent },
     { path: 'signin', component: signin_component_1.SigninComponent },
     { path: 'signup', component: signup_component_1.SignupComponent },
@@ -41,6 +41,8 @@ var routes = [
         component: edit_profile_component_1.EditProfileComponent,
         canActivate: [auth_guard_1.AuthGuard]
     },
+    { path: 'create-post', component: create_post_component_1.CreatePostComponent },
+    { path: 'post/:postId', component: post_single_component_1.SinglePostComponent },
     { path: 'error-page', component: error_page_component_1.ErrorPageComponent },
     { path: '**', redirectTo: 'error-page' },
 ];

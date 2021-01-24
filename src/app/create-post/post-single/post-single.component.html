@@ -1,0 +1,40 @@
+<section class="post-single">
+  <div class="container flex-lg-row">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="post-header">
+          <header>
+            <img
+              [src]="post.creator.profileImage"
+              [alt]="post.creator.userName"
+            />
+            <h6>{{ post.creator.userName }}</h6>
+            <span>{{ post.postDate }}</span>
+          </header>
+          <div class="postText">
+            <p><i class="fa fa-pen"></i> {{ post.postText }}</p>
+          </div>
+          <div class="postImages" *ngIf="post.postImages.length > 0">
+            <img *ngFor="let img of post.postImages" [src]="img" alt="" />
+          </div>
+        </div>
+        <app-create-comment
+          [postId]="post._id"
+          [postComments]="postComments"
+        ></app-create-comment>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <app-comments-list
+          *ngIf="postComments.length > 0"
+          [postComments]="postComments"
+        ></app-comments-list>
+        <div *ngIf="postComments.length === 0">
+          <h4>
+            كن اول من يعلق علي ما نشره
+            <strong>{{ post.creator.userName }}</strong>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

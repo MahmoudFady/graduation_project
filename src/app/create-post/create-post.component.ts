@@ -1,10 +1,7 @@
-import { UserData } from './../auth/auth.service';
 import { PostService } from './post.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
-import { userInfo } from 'os';
-import { join } from 'path';
 
 @Component({
   selector: 'app-create-post',
