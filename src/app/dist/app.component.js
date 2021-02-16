@@ -12,6 +12,8 @@ var AppComponent = /** @class */ (function () {
     function AppComponent() {
         this.title = 'grad-project';
     }
+    AppComponent.prototype.constructo = function () { };
+    AppComponent.prototype.ngOnInit = function () { };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app-root',

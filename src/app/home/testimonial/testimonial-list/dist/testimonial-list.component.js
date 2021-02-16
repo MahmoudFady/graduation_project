@@ -12,9 +12,7 @@ var TestimonialListComponent = /** @class */ (function () {
     function TestimonialListComponent() {
         this.testimonials = [];
     }
-    TestimonialListComponent.prototype.ngOnInit = function () {
-        console.log(this.testimonials);
-    };
+    TestimonialListComponent.prototype.ngOnInit = function () { };
     __decorate([
         core_1.Input()
     ], TestimonialListComponent.prototype, "testimonials");

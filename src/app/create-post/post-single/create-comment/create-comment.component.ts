@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/auth/auth.service';
-import { Comment } from './../../../shared/comment.model';
+import { Comment } from './comment.model';
 import { PostService } from 'src/app/create-post/post.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';

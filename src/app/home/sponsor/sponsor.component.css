@@ -1,0 +1,6 @@
+.sponsor {
+  text-align: center;
+}
+.sponsor h1 {
+  color: var(--mainColor);
+}

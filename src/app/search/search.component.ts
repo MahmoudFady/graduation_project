@@ -1,8 +1,8 @@
+import { SearchService } from './search.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
-import { Post } from '../shared/post.model';
-import { PostService } from '../create-post/post.service';
+import { Post } from '../create-post/post.model';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +10,14 @@ import { PostService } from '../create-post/post.service';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
+  searched: boolean = false;
   selectedPosts: Post[] = [];
+  selectedUsers: {
+    _id: string;
+    userName: string;
+    profileImage: string;
+    userPhone: string;
+  }[];
   resualt: string;
   userData: { job: string; userBigCity: string; userCity: string } = {
     job: '',
@@ -19,8 +26,8 @@ export class SearchComponent implements OnInit {
   };
 
   constructor(
-    public autService: AuthService,
-    public postService: PostService
+    private autService: AuthService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +45,14 @@ export class SearchComponent implements OnInit {
     }
   }
   onSubmit(f: NgForm): void {
-    console.log(f.value);
+    const { job, bigCity, city, isWorker } = f.value;
+    this.searchService
+      .search(job, bigCity, city, isWorker)
+      .subscribe((resualt) => {
+        console.log(resualt);
+        this.searched = true;
+        this.selectedPosts = resualt.posts;
+        this.selectedUsers = resualt.users;
+      });
   }
 }

@@ -36,7 +36,6 @@ var ProfileComponent = /** @class */ (function () {
         var userId = this.authService.getLocalStorageData()._id;
         this.authService.getUserById(userId).subscribe(function (getUserResponse) {
             if (getUserResponse) {
-                console.log(getUserResponse);
                 _this.userData = getUserResponse.user;
                 _this.userPosts = getUserResponse.userPosts;
                 _this.postService.reverUserPosts(_this.userPosts);

@@ -62,11 +62,21 @@
       <label for="">البحث كحرفي</label>
     </div>
     <div>
-      <button *ngIf="f.valid">بحث <i class="fa fa-search"></i></button>
+      <button *ngIf="f.valid"><i class="fa fa-search"></i></button>
     </div>
   </form>
 </div>
-<div class="text-center">
+<div class="container" *ngIf="searched && selectedPosts.length > 0">
+  <h4 class="text-center">
+    تم العثور علي <strong>{{ selectedPosts.length }}</strong>
+    {{ selectedPosts[0].job }}
+  </h4>
+  <app-posts-list [posts]="selectedPosts"></app-posts-list>
+</div>
+<div class="container" *ngIf="searched && selectedUsers.length > 0">
+  <app-users-search-list [users]="selectedUsers"></app-users-search-list>
+</div>
+<div class="text-center" *ngIf="!searched">
   <img src="../../assets/img/search_def.jpg" alt="" />
   <h6>ابحث عن وظيفتك</h6>
 </div>

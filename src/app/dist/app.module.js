@@ -7,11 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var footer_component_1 = require("./home/footer/footer.component");
+var sponsor_component_1 = require("./home/sponsor/sponsor.component");
+var users_search_list_component_1 = require("./search/users-search-list/users-search-list.component");
 var comments_list_commponent_1 = require("./create-post/post-single/comments-list/comments-list.commponent");
 var post_single_component_1 = require("./create-post/post-single/post-single.component");
 var auth_interceptor_service_1 = require("./auth/auth-interceptor.service");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
+// SOCKET IO SET UP
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
@@ -29,9 +33,9 @@ var http_1 = require("@angular/common/http");
 var auth_guard_1 = require("./auth/auth.guard");
 var edit_profile_component_1 = require("./edit-profile/edit-profile.component");
 var error_page_component_1 = require("./error-page/error-page.component");
-var loading_component_1 = require("./loading/loading.component");
-var alert_danger_component_1 = require("./alert-danger/alert-danger.component");
-var alert_success_component_1 = require("./alert-success/alert-success.component");
+var loading_component_1 = require("./shared/loading/loading.component");
+var alert_danger_component_1 = require("./shared/alert-danger/alert-danger.component");
+var alert_success_component_1 = require("./shared/./alert-success/alert-success.component");
 var profile_data_component_1 = require("./profile/profile-data/profile-data.component");
 var view_profile_component_1 = require("./view-profile/view-profile.component");
 var jobs_component_1 = require("./jobs/jobs.component");
@@ -45,6 +49,7 @@ var testimonial_component_1 = require("./home/testimonial/testimonial.component"
 var add_testimonial_component_1 = require("./home/testimonial/add-testimonial/add-testimonial.component");
 var testimonial_list_component_1 = require("./home/testimonial/testimonial-list/testimonial-list.component");
 var create_comment_component_1 = require("./create-post/post-single/create-comment/create-comment.component");
+var search_service_1 = require("./search/search.service");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -79,6 +84,9 @@ var AppModule = /** @class */ (function () {
                 post_single_component_1.SinglePostComponent,
                 create_comment_component_1.CreateCommentComponent,
                 comments_list_commponent_1.CommentsListComponent,
+                sponsor_component_1.SponsorComponent,
+                footer_component_1.FooterComponent,
+                users_search_list_component_1.UsersSearchList,
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -97,6 +105,7 @@ var AppModule = /** @class */ (function () {
                     useClass: auth_interceptor_service_1.AuthInterceptor,
                     multi: true
                 },
+                search_service_1.SearchService,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

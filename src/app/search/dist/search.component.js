@@ -9,9 +9,10 @@ exports.__esModule = true;
 exports.SearchComponent = void 0;
 var core_1 = require("@angular/core");
 var SearchComponent = /** @class */ (function () {
-    function SearchComponent(autService, postService) {
+    function SearchComponent(autService, searchService) {
         this.autService = autService;
-        this.postService = postService;
+        this.searchService = searchService;
+        this.searched = false;
         this.selectedPosts = [];
         this.userData = {
             job: '',
@@ -30,7 +31,16 @@ var SearchComponent = /** @class */ (function () {
         }
     };
     SearchComponent.prototype.onSubmit = function (f) {
-        console.log(f.value);
+        var _this = this;
+        var _a = f.value, job = _a.job, bigCity = _a.bigCity, city = _a.city, isWorker = _a.isWorker;
+        this.searchService
+            .search(job, bigCity, city, isWorker)
+            .subscribe(function (resualt) {
+            console.log(resualt);
+            _this.searched = true;
+            _this.selectedPosts = resualt.posts;
+            _this.selectedUsers = resualt.users;
+        });
     };
     SearchComponent = __decorate([
         core_1.Component({

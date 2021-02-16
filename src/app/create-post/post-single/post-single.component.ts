@@ -1,7 +1,7 @@
-import { Comment } from './../../shared/comment.model';
+import { Comment } from './create-comment/comment.model';
 import { PostService } from 'src/app/create-post/post.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Post } from './../../shared/post.model';
+import { Post } from '../post.model';
 
 import { Component, OnInit } from '@angular/core';
 @Component({

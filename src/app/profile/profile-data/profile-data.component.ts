@@ -12,7 +12,6 @@ export class ProfileDataComponent implements OnInit {
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
     this.activeUserId = this.authService.getLocalStorageData()._id;
-    console.log(this.activeUserId);
   }
   onLogout(): void {
     this.authService.logout();

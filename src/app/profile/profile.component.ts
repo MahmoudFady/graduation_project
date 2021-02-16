@@ -3,7 +3,7 @@ import {
   TestimonialService,
 } from './../home/testimonial/testimonial.service';
 import { PostService } from '../create-post/post.service';
-import { Post } from './../shared/post.model';
+import { Post } from '../create-post/post.model';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserData } from '../auth/auth.service';
 
@@ -46,8 +46,6 @@ export class ProfileComponent implements OnInit {
         userPosts: Post[];
       }) => {
         if (getUserResponse) {
-          console.log(getUserResponse);
-
           this.userData = getUserResponse.user;
           this.userPosts = getUserResponse.userPosts;
           this.postService.reverUserPosts(this.userPosts);

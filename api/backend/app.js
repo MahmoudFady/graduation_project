@@ -6,6 +6,7 @@ const userRoutes = require("./router/user");
 const postRoutes = require("./router/post");
 const reviewRoutes = require("./router/review");
 const commentRoutes = require("./router/comment");
+const searchRoutes = require("./router/search");
 const reportRoutes = require("./router/report");
 const path = require("path");
 
@@ -42,10 +43,12 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/search", searchRoutes);
 app.use("/api/report", reportRoutes);
 
 module.exports = app;

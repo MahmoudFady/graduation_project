@@ -1,7 +1,5 @@
 "use strict";
 
-var post = require("../model/post");
-
 var Post = require("../model/post"); // get all posts
 
 

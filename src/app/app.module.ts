@@ -1,10 +1,17 @@
+import { FooterComponent } from './home/footer/footer.component';
+import { SponsorComponent } from './home/sponsor/sponsor.component';
+import { UsersSearchList } from './search/users-search-list/users-search-list.component';
 import { CommentsListComponent } from './create-post/post-single/comments-list/comments-list.commponent';
 import { SinglePostComponent } from './create-post/post-single/post-single.component';
+
 import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// SOCKET IO SET UP
+
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
@@ -21,9 +28,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { LoadingComponent } from './loading/loading.component';
-import { AlertDangerComponent } from './alert-danger/alert-danger.component';
-import { AlertSuccessComponent } from './alert-success/alert-success.component';
+import { LoadingComponent } from './shared/loading/loading.component';
+import { AlertDangerComponent } from './shared/alert-danger/alert-danger.component';
+import { AlertSuccessComponent } from './shared/./alert-success/alert-success.component';
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { JobsComponent } from './jobs/jobs.component';
@@ -37,6 +44,8 @@ import { TestimonialComponent } from './home/testimonial/testimonial.component';
 import { AddTestimonialComponent } from './home/testimonial/add-testimonial/add-testimonial.component';
 import { TestimonialListComponent } from './home/testimonial/testimonial-list/testimonial-list.component';
 import { CreateCommentComponent } from './create-post/post-single/create-comment/create-comment.component';
+
+import { SearchService } from './search/search.service';
 
 @NgModule({
   declarations: [
@@ -68,6 +77,9 @@ import { CreateCommentComponent } from './create-post/post-single/create-comment
     SinglePostComponent,
     CreateCommentComponent,
     CommentsListComponent,
+    SponsorComponent,
+    FooterComponent,
+    UsersSearchList,
   ],
 
   imports: [
@@ -88,6 +100,7 @@ import { CreateCommentComponent } from './create-post/post-single/create-comment
       useClass: AuthInterceptor,
       multi: true,
     },
+    SearchService,
   ],
   bootstrap: [AppComponent],
 })

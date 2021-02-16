@@ -2,7 +2,7 @@ import {
   Testimonial,
   TestimonialService,
 } from './../home/testimonial/testimonial.service';
-import { Post } from './../shared/post.model';
+import { Post } from '../create-post/post.model';
 import { AuthService, UserData } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';

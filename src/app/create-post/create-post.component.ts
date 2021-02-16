@@ -99,6 +99,15 @@ export class CreatePostComponent implements OnInit {
             this.postCreated = true;
             this.loading = false;
             this.postForm.reset();
+            this.postForm.patchValue({
+              creatorBigCity,
+              creatorCity,
+              creatorPhone,
+              createByWorker: false,
+            });
+            this.postForm.get('createByWorker').updateValueAndValidity();
+            this.postForm.get('creatorBigCity').updateValueAndValidity();
+            this.postImages = [];
             setTimeout(() => {
               this.postCreated = false;
             }, 1000);

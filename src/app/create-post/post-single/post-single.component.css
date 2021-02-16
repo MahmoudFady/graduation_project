@@ -25,6 +25,10 @@ header span {
   margin-top: -10px;
   padding-right: 45px;
 }
+.postImages > img {
+  width: 120px;
+  height: 80px;
+}
 .post-comments {
   height: 640px;
   overflow-y: auto;

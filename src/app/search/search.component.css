@@ -1,5 +1,5 @@
 .container {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 form {
   margin: auto;
@@ -35,11 +35,12 @@ input[type="checkbox"] {
 button {
   display: inline-block;
   margin-right: 20px;
-  height: 30px;
   width: 120px;
   background-color: #1c7ed6;
   color: #ffffff;
-  height: 40px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
   border: none;
   border-radius: 30px;
 }

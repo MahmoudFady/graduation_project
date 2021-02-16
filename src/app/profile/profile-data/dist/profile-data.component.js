@@ -15,7 +15,6 @@ var ProfileDataComponent = /** @class */ (function () {
     }
     ProfileDataComponent.prototype.ngOnInit = function () {
         this.activeUserId = this.authService.getLocalStorageData()._id;
-        console.log(this.activeUserId);
     };
     ProfileDataComponent.prototype.onLogout = function () {
         this.authService.logout();

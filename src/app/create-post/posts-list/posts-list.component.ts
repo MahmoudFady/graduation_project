@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Post } from '../../shared/post.model';
+import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
 @Component({

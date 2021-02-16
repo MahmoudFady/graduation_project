@@ -1,8 +1,8 @@
 import { AuthService } from './../auth/auth.service';
-import { Comment } from './../shared/comment.model';
+import { Comment } from './post-single/create-comment/comment.model';
 import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Post } from '../shared/post.model';
+import { Post } from './post.model';
 import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class PostService {

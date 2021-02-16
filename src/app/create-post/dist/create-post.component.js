@@ -66,13 +66,22 @@ var CreatePostComponent = /** @class */ (function () {
         if (this.postForm.valid) {
             this.loading = true;
             this.errorMessage = null;
-            var _a = this.postForm.value, creatorPhone = _a.creatorPhone, creatorBigCity = _a.creatorBigCity, creatorCity = _a.creatorCity, job = _a.job, postText = _a.postText, createByWorker = _a.createByWorker, postImages = _a.postImages;
+            var _a = this.postForm.value, creatorPhone_1 = _a.creatorPhone, creatorBigCity_1 = _a.creatorBigCity, creatorCity_1 = _a.creatorCity, job = _a.job, postText = _a.postText, createByWorker = _a.createByWorker, postImages = _a.postImages;
             this.postService
-                .addPost(job, creatorPhone, creatorBigCity, creatorCity, postText, postImages, createByWorker)
+                .addPost(job, creatorPhone_1, creatorBigCity_1, creatorCity_1, postText, postImages, createByWorker)
                 .subscribe(function () {
                 _this.postCreated = true;
                 _this.loading = false;
                 _this.postForm.reset();
+                _this.postForm.patchValue({
+                    creatorBigCity: creatorBigCity_1,
+                    creatorCity: creatorCity_1,
+                    creatorPhone: creatorPhone_1,
+                    createByWorker: false
+                });
+                _this.postForm.get('createByWorker').updateValueAndValidity();
+                _this.postForm.get('creatorBigCity').updateValueAndValidity();
+                _this.postImages = [];
                 setTimeout(function () {
                     _this.postCreated = false;
                 }, 1000);

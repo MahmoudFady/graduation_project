@@ -3,28 +3,32 @@
   class="porfileEdited-alert"
   [successMessage]="'تم التعديل'"
 ></app-alert-success>
-<div class="container">
-  <h2 class="text-center">تعديل الحساب</h2>
-
+<div class="container" style="margin-top: 25px">
+  <h2 class="text-center" style="margin-bottom: 25px">تعديل الحساب</h2>
   <div class="row justify-content-center">
     <div class="col-xs-8 col-sm-8 col-md-4">
       <form [formGroup]="editForm" (ngSubmit)="onEdit()">
         <div
           style="
-            margin-bottom: 50px !important;
+            margin-bottom: 25px !important;
             text-align: center;
-            height: auto;
+            height: 70px;
+            padding: 0px;
           "
         >
           <img
             [src]="profileImage"
-            style="margin-bottom: 20px; border-radius: 50%"
+            style="border-radius: 50%"
             height="70px"
             width="70px"
           />
           <br />
-          <a type="button" class="btn btn-link" (click)="file.click()">
-            <i class="fa fa-image"></i>تغير الصورره الشخصيه
+          <a
+            type="button"
+            class="btn btn-link upload-img"
+            (click)="file.click()"
+          >
+            <i class="fa fa-image"></i>
           </a>
           <input
             type="file"

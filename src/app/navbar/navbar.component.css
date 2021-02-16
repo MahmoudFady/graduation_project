@@ -1,5 +1,5 @@
 .active {
-  color: #1c7ed6 !important;
+  color: var(--mainColor) !important;
 }
 nav.navbar {
   position: sticky !important;

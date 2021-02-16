@@ -10,7 +10,5 @@ export class TestimonialListComponent implements OnInit {
   @Input() testimonials: Testimonial[] = [];
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.testimonials);
-  }
+  ngOnInit(): void {}
 }

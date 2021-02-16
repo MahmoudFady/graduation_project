@@ -9,11 +9,9 @@ exports.__esModule = true;
 exports.CommentsListComponent = void 0;
 var core_1 = require("@angular/core");
 var CommentsListComponent = /** @class */ (function () {
-    function CommentsListComponent(authService, router, route, postService) {
+    function CommentsListComponent(authService, router) {
         this.authService = authService;
         this.router = router;
-        this.route = route;
-        this.postService = postService;
         this.postComments = [];
     }
     // GET THE CREATOR OF POST

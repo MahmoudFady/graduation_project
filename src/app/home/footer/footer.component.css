@@ -1,0 +1,18 @@
+.footer {
+  background-color: rgb(46, 46, 46);
+  color: #fff;
+  text-align: center;
+  margin: 0px !important;
+  padding: 10px;
+}
+h4 {
+  padding: 10px;
+}
+.footer ul {
+  list-style: none;
+}
+.footer ul li {
+  display: inline-block;
+  margin: 5px;
+  cursor: pointer;
+}
