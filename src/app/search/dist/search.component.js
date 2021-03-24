@@ -14,6 +14,7 @@ var SearchComponent = /** @class */ (function () {
         this.searchService = searchService;
         this.searched = false;
         this.selectedPosts = [];
+        this.savedSelectedPost = [];
         this.userData = {
             job: '',
             userBigCity: '',
@@ -29,6 +30,10 @@ var SearchComponent = /** @class */ (function () {
                 userCity: userCity
             };
         }
+        this.selectedPosts = this.savedSelectedPost;
+    };
+    SearchComponent.prototype.ngOnDestroy = function () {
+        this.savedSelectedPost = this.selectedPosts;
     };
     SearchComponent.prototype.onSubmit = function (f) {
         var _this = this;
@@ -36,7 +41,6 @@ var SearchComponent = /** @class */ (function () {
         this.searchService
             .search(job, bigCity, city, isWorker)
             .subscribe(function (resualt) {
-            console.log(resualt);
             _this.searched = true;
             _this.selectedPosts = resualt.posts;
             _this.selectedUsers = resualt.users;

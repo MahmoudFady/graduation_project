@@ -13,6 +13,7 @@ export class PostsListComponent implements OnInit {
   @Input() posts: Post[];
   userId: string = null;
   deleltePost = false;
+  displayedImageUrl: string = null;
   constructor(
     private postService: PostService,
     private authService: AuthService,
@@ -43,5 +44,15 @@ export class PostsListComponent implements OnInit {
   // ADD NEW COMMENT TO POST'S COMMENTS
   onAddComment(postId: string) {
     this.router.navigate(['/post/' + postId]);
+  }
+  // get image url
+  displayImage(url: string): void {
+    this.displayedImageUrl = url;
+    console.log(this.displayedImageUrl);
+  }
+  // close displayedImage
+  closeImage() {
+    this.displayedImageUrl = null;
+    console.log(this.displayedImageUrl);
   }
 }

@@ -16,7 +16,7 @@ var BlogsComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-blogs',
             templateUrl: './blogs.component.html',
-            styleUrls: ['./blogs.component.css']
+            styleUrls: ['../shared-style.css', './blogs.component.css']
         })
     ], BlogsComponent);
     return BlogsComponent;

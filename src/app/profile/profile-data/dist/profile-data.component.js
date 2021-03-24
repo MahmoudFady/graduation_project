@@ -26,7 +26,7 @@ var ProfileDataComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-profile-data',
             templateUrl: './profile-data.component.html',
-            styleUrls: ['../profile.component.css', './profile-data.component.css']
+            styleUrls: ['./profile-data.component.css']
         })
     ], ProfileDataComponent);
     return ProfileDataComponent;

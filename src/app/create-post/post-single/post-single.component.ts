@@ -1,7 +1,7 @@
+import { Post } from './../post.model';
 import { Comment } from './create-comment/comment.model';
 import { PostService } from 'src/app/create-post/post.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Post } from '../post.model';
 
 import { Component, OnInit } from '@angular/core';
 @Component({
@@ -62,6 +62,8 @@ export class SinglePostComponent implements OnInit {
        * POSTCOMMENTS
        */
       this.post = resualt.post;
+      console.log(this.post);
+
       this.postComments = resualt.post.comments;
       // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
       this.postService.comments.next(this.postComments);
@@ -70,5 +72,10 @@ export class SinglePostComponent implements OnInit {
     this.postService.getUpdatedComments().subscribe((resualt) => {
       this.postComments = resualt;
     });
+    setInterval(() => {
+      this.postService.getPostById(postId).subscribe((resualt) => {
+        this.postComments = resualt.post.comments;
+      });
+    }, 1000);
   }
 }

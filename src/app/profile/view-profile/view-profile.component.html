@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 userData">
+      <app-profile-data [userData]="userData"></app-profile-data>
+    </div>
+    <div class="col-md-6 userPosts">
+      <app-posts-list [posts]="userPosts"></app-posts-list>
+    </div>
+  </div>
+</div>
+<section class="user-testimonials">
+  <h5 class="text-center">
+    ماذا قالو عن
+    <strong style="color: var(--mainColor)">{{ userData.userName }}</strong>
+  </h5>
+  <app-testimonial [testimonials]="userReviews"></app-testimonial>
+</section>

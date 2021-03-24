@@ -72,6 +72,7 @@ var CreatePostComponent = /** @class */ (function () {
                 .subscribe(function () {
                 _this.postCreated = true;
                 _this.loading = false;
+                _this.errorMessage = null;
                 _this.postForm.reset();
                 _this.postForm.patchValue({
                     creatorBigCity: creatorBigCity_1,
@@ -94,6 +95,9 @@ var CreatePostComponent = /** @class */ (function () {
                 }
                 _this.loading = false;
                 _this.postCreated = false;
+                setTimeout(function () {
+                    _this.errorMessage = null;
+                }, 2000);
             });
         }
     };

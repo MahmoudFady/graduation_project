@@ -1,0 +1,6 @@
+<ul>
+  <li class="active" #ele (click)="getPosts('*', ele)">الكل</li>
+  <li *ngFor="let job of postedJobs" #ele (click)="getPosts(job, ele)">
+    {{ job }}
+  </li>
+</ul>

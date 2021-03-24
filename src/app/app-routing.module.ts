@@ -1,13 +1,14 @@
+import { AuthUser } from './auth/user.guard';
 import { SinglePostComponent } from './create-post/post-single/post-single.component';
 import { JobsComponent } from './jobs/jobs.component';
-import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { ViewProfileComponent } from './profile/view-profile/view-profile.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CreatePostComponent } from './create-post/create-post.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -21,8 +22,8 @@ const routes: Routes = [
     component: JobsComponent,
   },
   { path: 'search', component: SearchComponent },
-  { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent },
+  { path: 'signin', component: SigninComponent, canActivate: [AuthUser] },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthUser] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   {
     path: 'view-profile/:id',

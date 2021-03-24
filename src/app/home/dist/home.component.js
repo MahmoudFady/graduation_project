@@ -16,7 +16,6 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.testimonialService.getReview('site');
-        this.testimonials = this.testimonialService._testtimonials;
         this.testimonialService.getUpdatedTestimonials().subscribe(function (res) {
             _this.testimonials = res;
         });

@@ -94,7 +94,7 @@ var SignupComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-signup',
             templateUrl: './signup.component.html',
-            styleUrls: ['../signin/signin.component.css', './signup.component.css']
+            styleUrls: ['../shared-style.css', './signup.component.css']
         })
     ], SignupComponent);
     return SignupComponent;

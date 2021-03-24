@@ -26,7 +26,7 @@ exports.search = async (req, res, next) => {
     job: { $regex: ".*" + job.slice(0, 4) + ".*" },
     userBigCity: { $regex: ".*" + bigCity.slice(0, 4) + ".*" },
     userCity: { $regex: ".*" + city.slice(0, 4) + ".*" },
-  }).select("userName profileImage userPhone");
+  }).select("userName profileImage userPhone userCity userBigCity");
   res.status(200).json({
     message: "get posts",
     posts,

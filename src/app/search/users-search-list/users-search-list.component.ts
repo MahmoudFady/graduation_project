@@ -12,6 +12,8 @@ export class UsersSearchList implements OnInit {
     profileImage: string;
     userName: string;
     userPhone: string;
+    userBigCity: string;
+    userCity: string;
   }[] = [];
   constructor(private authService: AuthService, private router: Router) {}
   ngOnInit() {}

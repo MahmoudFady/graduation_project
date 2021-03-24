@@ -16,7 +16,7 @@ var ServicesComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-services',
             templateUrl: './services.component.html',
-            styleUrls: ['./services.component.css']
+            styleUrls: ['../shared-style.css', './services.component.css']
         })
     ], ServicesComponent);
     return ServicesComponent;

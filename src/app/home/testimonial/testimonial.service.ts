@@ -12,7 +12,7 @@ export interface Testimonial {
 @Injectable()
 export class TestimonialService {
   private url = 'http://localhost:3000/api/review/';
-  _testtimonials: Testimonial[] = [];
+  private _testtimonials: Testimonial[] = [];
   testimonials = new Subject<Testimonial[]>();
   constructor(private http: HttpClient) {}
   getReview(belongTo: string) {

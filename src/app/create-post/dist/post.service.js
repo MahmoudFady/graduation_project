@@ -101,6 +101,19 @@ var PostService = /** @class */ (function () {
             _this.comments.next(_this._comments);
         });
     };
+    // FILTER POSTS BY POST JOB
+    PostService.prototype.getPostByJob = function (job) {
+        var selectedPosts = [];
+        selectedPosts =
+            job == '*'
+                ? this.userPosts
+                : this.userPosts.filter(function (post) { return post.job === job; });
+        this.updatedUserPosts.next(selectedPosts);
+    };
+    // GET COMMENT OF SPECIFIC POST
+    PostService.prototype.getPostComment = function (postId) {
+        return this.http.get('http://localhost:3000/api/comment/' + postId);
+    };
     //LISTEN TO COMMENTS OF ANY USER ADD NEW COMMENT
     PostService.prototype.getUpdatedComments = function () {
         return this.comments.asObservable();

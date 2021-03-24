@@ -1,3 +1,4 @@
+import { SocketIoService } from './shared/socket-io.service';
 import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-root',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'grad-project';
-  constructo() {}
-  ngOnInit() {}
+  constructor(private socketIoService: SocketIoService) {}
+  ngOnInit() {
+    this.socketIoService.init();
+  }
 }

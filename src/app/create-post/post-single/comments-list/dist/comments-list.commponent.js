@@ -9,9 +9,11 @@ exports.__esModule = true;
 exports.CommentsListComponent = void 0;
 var core_1 = require("@angular/core");
 var CommentsListComponent = /** @class */ (function () {
-    function CommentsListComponent(authService, router) {
+    function CommentsListComponent(authService, router, route, postService) {
         this.authService = authService;
         this.router = router;
+        this.route = route;
+        this.postService = postService;
         this.postComments = [];
     }
     // GET THE CREATOR OF POST
@@ -24,6 +26,7 @@ var CommentsListComponent = /** @class */ (function () {
             this.router.navigate(["/view-profile/" + id]);
         }
     };
+    CommentsListComponent.prototype.ngOnInit = function () { };
     __decorate([
         core_1.Input()
     ], CommentsListComponent.prototype, "postComments");

@@ -12,10 +12,8 @@ import {
 export class HomeComponent implements OnInit {
   testimonials: Testimonial[] = [];
   constructor(private testimonialService: TestimonialService) {}
-
   ngOnInit(): void {
     this.testimonialService.getReview('site');
-    this.testimonials = this.testimonialService._testtimonials;
     this.testimonialService.getUpdatedTestimonials().subscribe((res) => {
       this.testimonials = res;
     });

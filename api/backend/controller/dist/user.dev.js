@@ -12,7 +12,9 @@ var Post = require("../model/post");
 
 var jwt = require("jsonwebtoken");
 
-var bcrypt = require("bcrypt"); // SIGN UP FUNCTION
+var bcrypt = require("bcrypt");
+
+var sendMailTo = require("../middleware/send-mail-to"); // SIGN UP FUNCTION
 
 
 exports.signup = function _callee(req, res, next) {
@@ -381,12 +383,13 @@ exports.acceptWorker = function _callee6(req, res, next) {
 
         case 3:
           newUser = _context6.sent;
+          sendMailTo(newUser.userEmail, "تم الموافقه ع حسابك");
           res.status(200).json({
             message: "successfully add  worker",
             newUser: newUser
           });
 
-        case 5:
+        case 6:
         case "end":
           return _context6.stop();
       }

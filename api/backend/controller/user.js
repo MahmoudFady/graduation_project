@@ -2,6 +2,7 @@ const User = require("../model/user");
 const Post = require("../model/post");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const sendMailTo = require("../middleware/send-mail-to");
 // SIGN UP FUNCTION
 exports.signup = async (req, res, next) => {
   console.log(" sign up router");
@@ -248,6 +249,7 @@ exports.acceptWorker = async (req, res, next) => {
     },
     { returnNewDocument: true, new: true, strict: false }
   ).select("-userPassword -__v");
+  sendMailTo(newUser.userEmail, "تم الموافقه ع حسابك");
   res.status(200).json({
     message: "successfully add  worker",
     newUser: newUser,

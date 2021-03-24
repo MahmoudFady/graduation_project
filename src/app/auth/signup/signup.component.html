@@ -1,23 +1,26 @@
 <section>
   <div class="container">
-    <div class="section-header text-center">
+    <div class="form-header text-center">
       <img
         src="../../../assets/img/newuser.png"
         alt=""
         style="height: 70px; width: 70px"
       />
-      <h2>انشاء حساب</h2>
+      <h3>انشاء حساب</h3>
     </div>
-    <app-loading class="text-center" *ngIf="loading"></app-loading>
-    <app-alert-danger
-      [errorMessage]="errorMsg"
-      *ngIf="!loading || errorMsg"
-    ></app-alert-danger>
-    <app-alert-success
-      [successMessage]="alertMsg"
-      *ngIf="alertMsg"
-    ></app-alert-success>
-    <div class="row justify-content-center">
+
+    <div class="row justify-content-center align-items-center flex-column">
+      <div class="col-xs-8 col-sm-8 col-md-4">
+        <app-loading class="text-center" *ngIf="loading"></app-loading>
+        <app-alert-danger
+          [errorMessage]="errorMsg"
+          *ngIf="!loading && errorMsg"
+        ></app-alert-danger>
+        <app-alert-success
+          [successMessage]="alertMsg"
+          *ngIf="alertMsg"
+        ></app-alert-success>
+      </div>
       <div class="col-xs-8 col-sm-8 col-md-4">
         <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
           <div class="form-group">
@@ -92,7 +95,7 @@
               <span *ngIf="signupForm.get('userEmail').errors['required']"
                 >الايميل مطلوب
               </span>
-              <span *ngIf="signupForm.get('userEmail').errors['userEmail']"
+              <span *ngIf="signupForm.get('userEmail').errors['email']"
                 >الايميل غير صحيح
               </span>
             </p>
@@ -310,7 +313,7 @@
         </form>
       </div>
     </div>
-    <div *ngIf="!loading" class="row justify-content-center section-footer">
+    <div *ngIf="!loading" class="row justify-content-center form-footer">
       <div class="col-xs-12 col-md-6" class="text-right">
         <p>
           بالفعل لديك حساب<a

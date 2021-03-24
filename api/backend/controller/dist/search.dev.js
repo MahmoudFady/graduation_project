@@ -51,7 +51,7 @@ exports.search = function _callee(req, res, next) {
             userCity: {
               $regex: ".*" + city.slice(0, 4) + ".*"
             }
-          }).select("userName profileImage userPhone"));
+          }).select("userName profileImage userPhone userCity userBigCity"));
 
         case 9:
           users = _context.sent;

@@ -1,6 +1,5 @@
 <div class="container">
   <h2>نشر وظيفه</h2>
-
   <form class="row" [formGroup]="postForm" (ngSubmit)="onAddPost()">
     <div class="col-sm-6 col-md-3">
       <div class="input-container" class="form-group">
@@ -71,7 +70,7 @@
     <div class="col-sm-6 col-md-3">
       <div class="input-container" class="form-group">
         <label for=""
-          ><img src="../../assets/img/locjpg.jpg" alt="" />المدينه</label
+          ><img src="../../assets/img/125296.png" alt="" />المدينه</label
         >
         <input
           type="text"
@@ -109,7 +108,9 @@
     </div>
     <div class="col-sm-6 col-md-3">
       <div class="input-container" class="form-group">
-        <label for=""><i class="fa fa-phone"></i> رقم الهاتف </label>
+        <label for=""
+          ><img src="../../assets/img/telephone.png" alt="" /> رقم الهاتف
+        </label>
         <input
           type="number"
           placeholder="رقم الهاتف"
@@ -203,14 +204,24 @@
     </div>
   </form>
 </div>
-<section class="create-post-navigations">
-  <app-loading *ngIf="loading" class="text-center"></app-loading>
-  <app-alert-danger
-    [errorMessage]="errorMessage"
-    *ngIf="!loading && !postCreated"
-  ></app-alert-danger>
-  <app-alert-success
-    [successMessage]="'تم النشر'"
-    *ngIf="postCreated"
-  ></app-alert-success>
+<section
+  *ngIf="postCreated || errorMessage || loading"
+  class="create-post-navigations"
+>
+  <div class="conatiner">
+    <div
+      style="margin: 50px auto"
+      class="row justify-content-center align-items-center flex-column"
+    >
+      <div class="col-md-6" *ngIf="loading">
+        <app-loading class="text-center"></app-loading>
+      </div>
+      <div class="col-md-6" *ngIf="!loading && errorMessage">
+        <app-alert-danger [errorMessage]="errorMessage"></app-alert-danger>
+      </div>
+      <div class="col-md-6" *ngIf="!loading && postCreated">
+        <app-alert-success [successMessage]="'تم النشر'"></app-alert-success>
+      </div>
+    </div>
+  </div>
 </section>

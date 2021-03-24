@@ -1,5 +1,4 @@
 const Comment = require("../model/comment");
-const User = require("../model/user");
 const Post = require("../model/post");
 exports.addComment = async (decode, req, res, next) => {
   // GET POST ID TO ADD THIS COMMENT
@@ -51,5 +50,12 @@ exports.addComment = async (decode, req, res, next) => {
   res.status(200).json({
     message: "comment add",
     newComment,
+  });
+};
+exports.getPostComment = async (req, res) => {
+  const postId = req.params.postId;
+  const postComment = await Comment.findById(postId);
+  res.json({
+    postComment,
   });
 };

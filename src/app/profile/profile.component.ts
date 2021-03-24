@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
     userCity: '',
     job: '',
   };
-  userReviews: Testimonial[];
+  userReviews: Testimonial[] = [];
 
   constructor(
     private authService: AuthService,
@@ -34,10 +34,10 @@ export class ProfileComponent implements OnInit {
     private testimonialService: TestimonialService
   ) {}
   ngOnInit(): void {
+    this.loading = true;
     this.postService.updatedUserPosts.subscribe((posts) => {
       this.userPosts = posts;
     });
-    this.loading = true;
     const userId = this.authService.getLocalStorageData()._id;
     this.authService.getUserById(userId).subscribe(
       (getUserResponse: {
@@ -54,11 +54,10 @@ export class ProfileComponent implements OnInit {
       },
       (err: any) => {
         this.loading = false;
-        this.err = 'يرجي المحاوله وقت اخر';
+        this.err = 'لا يوجد اتصال بالانترنت';
       }
     );
     this.testimonialService.getReview(userId);
-    this.userReviews = this.testimonialService._testtimonials;
     this.testimonialService.getUpdatedTestimonials().subscribe((testis) => {
       this.userReviews = testis;
     });

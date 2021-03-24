@@ -26,13 +26,14 @@ var ProfileComponent = /** @class */ (function () {
             userCity: '',
             job: ''
         };
+        this.userReviews = [];
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.loading = true;
         this.postService.updatedUserPosts.subscribe(function (posts) {
             _this.userPosts = posts;
         });
-        this.loading = true;
         var userId = this.authService.getLocalStorageData()._id;
         this.authService.getUserById(userId).subscribe(function (getUserResponse) {
             if (getUserResponse) {
@@ -43,10 +44,9 @@ var ProfileComponent = /** @class */ (function () {
             }
         }, function (err) {
             _this.loading = false;
-            _this.err = 'يرجي المحاوله وقت اخر';
+            _this.err = 'لا يوجد اتصال بالانترنت';
         });
         this.testimonialService.getReview(userId);
-        this.userReviews = this.testimonialService._testtimonials;
         this.testimonialService.getUpdatedTestimonials().subscribe(function (testis) {
             _this.userReviews = testis;
         });

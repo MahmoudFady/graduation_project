@@ -9,6 +9,7 @@ import { Post } from 'src/app/create-post/post.model';
 })
 export class JobsComponent implements OnInit {
   posts: Post[];
+  postedJobs: string[] = [];
   errMsg: string = null;
   loading = false;
 
@@ -20,6 +21,11 @@ export class JobsComponent implements OnInit {
     this.postService.updatedUserPosts.subscribe((posts) => {
       if (posts) {
         this.posts = posts;
+        this.posts.forEach((post) => {
+          if (!this.postedJobs.includes(post.job)) {
+            this.postedJobs.push(post.job);
+          }
+        });
         setTimeout(() => {
           this.loading = false;
           this.errMsg = null;

@@ -38,7 +38,7 @@ var AddTestimonialComponent = /** @class */ (function () {
                 this.errMsg = 'برجاء تسجيل الدخول اولا';
                 setTimeout(function () {
                     _this.errMsg = null;
-                }, 1000);
+                }, 3000);
                 this.successMsg = null;
             }
         }

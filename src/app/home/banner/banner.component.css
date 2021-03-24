@@ -37,11 +37,12 @@
 .banner .banner-content .banner-text > h1 {
   color: var(--mainColor);
   font-weight: bold;
-  font-size: 45px;
+  font-size: 35px;
+  width: auto;
 }
 
 .banner .banner-content .banner-text > p {
-  width: 450px;
+  width: 350px;
   margin: 10px auto;
   color: #ffffff;
   padding: 5px;
@@ -50,11 +51,11 @@
 
 .banner .banner-content .banner-text > button {
   display: inline-block;
-  border: none;
+  border: 4px solid var(--mainColor);
   height: 40px;
   width: 80px;
-  background-color: var(--mainColor);
-  color: #ffffff;
+  background-color: transparent;
+  color: var(--mainColor);
   border-radius: 30px;
   margin: 0px auto;
 }
@@ -66,62 +67,19 @@
   display: flex;
   align-items: center;
 }
-.banner .banner-content .banner-search form {
-  display: block;
-  width: 100%;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-@media only screen and (max-width: 600px) {
-  .banner .banner-content .banner-search {
-    width: 100% !important;
-  }
-}
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  .banner .banner-content .banner-search {
-    width: 60% !important;
-  }
-}
-.banner .banner-content .banner-search form > div {
+
+.banner .banner-content .banner-search button {
+  width: 250px;
   height: 50px;
-  width: 30%;
-  border-radius: 30px;
-  float: right;
-  margin: 0px 2.5%;
-  overflow: hidden;
-  position: relative;
-}
-.banner .banner-content .banner-search form > div i {
-  position: absolute;
-  right: 15px;
-  top: 20px;
-  color: var(--mainColor) !important;
-  font-size: 14px;
-}
-.banner .banner-content .banner-search form input {
-  height: 100%;
-  width: 100%;
-  font-size: 16px;
-  border: none;
-  text-indent: 40px;
-}
-.banner .banner-content .banner-search form input {
-  outline: none;
-}
-.banner .banner-content .banner-search form button {
-  width: 15%;
-  height: 40px;
-  float: right;
   border: none;
   border-radius: 30px;
   font-size: 16px;
   color: #ffffff;
   background-color: var(--mainColor);
+  margin: 20px auto;
+  font-weight: bold;
 }
-.banner .banner-content .banner-search form button i {
+.banner .banner-content .banner-search button i {
   font-size: 14px;
 }
 /*BANNER STYLE CSS ########################################################*/

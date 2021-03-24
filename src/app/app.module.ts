@@ -1,7 +1,8 @@
+import { SocketIoService } from './shared/socket-io.service';
 import { FooterComponent } from './home/footer/footer.component';
 import { SponsorComponent } from './home/sponsor/sponsor.component';
 import { UsersSearchList } from './search/users-search-list/users-search-list.component';
-import { CommentsListComponent } from './create-post/post-single/comments-list/comments-list.commponent';
+import { CommentsListComponent } from './create-post/post-single/comments-list/comments-list.component';
 import { SinglePostComponent } from './create-post/post-single/post-single.component';
 
 import { AuthInterceptor } from './auth/auth-interceptor.service';
@@ -26,13 +27,13 @@ import { PostService } from './create-post/post.service';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { AlertDangerComponent } from './shared/alert-danger/alert-danger.component';
 import { AlertSuccessComponent } from './shared/./alert-success/alert-success.component';
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
-import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { ViewProfileComponent } from './profile/view-profile/view-profile.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { TestimonialService } from './home/testimonial/testimonial.service';
 import { BannerComponent } from './home/banner/banner.component';
@@ -46,6 +47,8 @@ import { TestimonialListComponent } from './home/testimonial/testimonial-list/te
 import { CreateCommentComponent } from './create-post/post-single/create-comment/create-comment.component';
 
 import { SearchService } from './search/search.service';
+import { AuthUser } from './auth/user.guard';
+import { JobLinks } from './jobs/job-links/job-links.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +83,7 @@ import { SearchService } from './search/search.service';
     SponsorComponent,
     FooterComponent,
     UsersSearchList,
+    JobLinks,
   ],
 
   imports: [
@@ -101,6 +105,8 @@ import { SearchService } from './search/search.service';
       multi: true,
     },
     SearchService,
+    AuthUser,
+    SocketIoService,
   ],
   bootstrap: [AppComponent],
 })

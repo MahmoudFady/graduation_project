@@ -5,7 +5,7 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css'],
+  styleUrls: ['../shared-style.css', './signin.component.css'],
 })
 export class SigninComponent implements OnInit {
   errorMsg: string = null;

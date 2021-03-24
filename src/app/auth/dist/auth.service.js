@@ -35,7 +35,7 @@ var AuthService = /** @class */ (function () {
     // retun token which is stored at local storage
     AuthService.prototype.getToken = function () {
         this.token = this.getLocalStorageData().token;
-        return this.token;
+        return this.token ? this.token : null;
     };
     // return all information at local storage
     AuthService.prototype.getLocalStorageData = function () {
@@ -67,6 +67,7 @@ var AuthService = /** @class */ (function () {
             _this.errMsg.next('يرجي المحاوله وقت اخر');
         });
     };
+    // get specific user by it's id
     AuthService.prototype.getUserById = function (id) {
         return this.http.get(this.url + 'user/' + id);
     };
@@ -108,46 +109,6 @@ var AuthService = /** @class */ (function () {
             _this.errMsg.next('يرجي المحاوله وقت اخر');
         });
     };
-    // user signup function
-    /*
-    userSignup(
-      fullName: string,
-      email: string,
-      password: string,
-      phone: string,
-      bigCity: string,
-      city: string,
-      info: string
-    ): void {
-      this.http
-        .post(this.url + 'user/signup', {
-          fullName,
-          email,
-          password,
-          phone,
-          bigCity,
-          city,
-          info,
-        })
-        .subscribe(
-          (data) => {
-            if (data.token) {
-              console.log(data);
-              this.token = data.token;
-              this.isAuthenticated.next(true);
-              this.saveInfo(data);
-              this.router.navigate(['/profile']);
-            } else {
-              console.log('falid');
-              this.errMsg.next('فشل انشاء الحساب ');
-            }
-          },
-          (err) => {
-            this.errMsg.next('يرجي المحاوله وقت اخر');
-          }
-        );
-    }
-    */
     // edit profile data basic inforamtion
     AuthService.prototype.edit = function (profileImage, userName, userEmail, userPhone, userBigCity, userCity, job) {
         var formData = new FormData();
@@ -183,6 +144,10 @@ var AuthService = /** @class */ (function () {
         localStorage.clear();
         this.isAuthenticated.next(false);
         this.router.navigate(['/']);
+    };
+    // return authentication state true or false
+    AuthService.prototype.isAuthenticatedUser = function () {
+        return this.isAuthenticated.asObservable();
     };
     AuthService = __decorate([
         core_1.Injectable({

@@ -62,6 +62,7 @@ var SinglePostComponent = /** @class */ (function () {
              * POSTCOMMENTS
              */
             _this.post = resualt.post;
+            console.log(_this.post);
             _this.postComments = resualt.post.comments;
             // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
             _this.postService.comments.next(_this.postComments);
@@ -70,6 +71,11 @@ var SinglePostComponent = /** @class */ (function () {
         this.postService.getUpdatedComments().subscribe(function (resualt) {
             _this.postComments = resualt;
         });
+        setInterval(function () {
+            _this.postService.getPostById(postId).subscribe(function (resualt) {
+                _this.postComments = resualt.post.comments;
+            });
+        }, 1000);
     };
     SinglePostComponent = __decorate([
         core_1.Component({

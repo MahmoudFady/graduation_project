@@ -70,7 +70,7 @@ var CreateCommentComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-create-comment',
             templateUrl: './create-comment.component.html',
-            styleUrls: ['../post-single.component.css', './create-comment.component.css']
+            styleUrls: ['./create-comment.component.css']
         })
     ], CreateCommentComponent);
     return CreateCommentComponent;

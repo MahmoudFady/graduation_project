@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-create-comment',
   templateUrl: './create-comment.component.html',
-  styleUrls: ['../post-single.component.css', './create-comment.component.css'],
+  styleUrls: ['./create-comment.component.css'],
 })
 export class CreateCommentComponent implements OnInit {
   isAuthenticated: boolean;

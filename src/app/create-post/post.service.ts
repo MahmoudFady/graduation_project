@@ -103,8 +103,22 @@ export class PostService {
         };
         oldComments.push(newComment);
         this._comments = oldComments;
+
         this.comments.next(this._comments);
       });
+  }
+  // FILTER POSTS BY POST JOB
+  getPostByJob(job: string) {
+    let selectedPosts: Post[] = [];
+    selectedPosts =
+      job == '*'
+        ? this.userPosts
+        : this.userPosts.filter((post) => post.job === job);
+    this.updatedUserPosts.next(selectedPosts);
+  }
+  // GET COMMENT OF SPECIFIC POST
+  getPostComment(postId: string) {
+    return this.http.get('http://localhost:3000/api/comment/' + postId);
   }
   //LISTEN TO COMMENTS OF ANY USER ADD NEW COMMENT
   getUpdatedComments(): Observable<Comment[]> {

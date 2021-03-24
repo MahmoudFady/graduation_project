@@ -2,8 +2,6 @@
 
 var Comment = require("../model/comment");
 
-var User = require("../model/user");
-
 var Post = require("../model/post");
 
 exports.addComment = function _callee(decode, req, res, next) {
@@ -78,6 +76,30 @@ exports.addComment = function _callee(decode, req, res, next) {
         case 20:
         case "end":
           return _context.stop();
+      }
+    }
+  });
+};
+
+exports.getPostComment = function _callee2(req, res) {
+  var postId, postComment;
+  return regeneratorRuntime.async(function _callee2$(_context2) {
+    while (1) {
+      switch (_context2.prev = _context2.next) {
+        case 0:
+          postId = req.params.postId;
+          _context2.next = 3;
+          return regeneratorRuntime.awrap(Comment.findById(postId));
+
+        case 3:
+          postComment = _context2.sent;
+          res.json({
+            postComment: postComment
+          });
+
+        case 5:
+        case "end":
+          return _context2.stop();
       }
     }
   });

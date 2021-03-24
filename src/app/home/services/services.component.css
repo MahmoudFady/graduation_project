@@ -1,33 +1,10 @@
 /*SERVICES STYLE CSS ########################################################*/
 
-section {
-  margin: auto;
-  margin-bottom: 50px;
-}
-.services .row p {
-  color: #787878;
-}
-.container > h1 {
-  color: var(--mainColor);
-  margin-bottom: 50px;
-}
-.container > p {
-  width: 500px;
-  margin: 50px auto;
-}
-.container .row > div {
-  margin-bottom: 25px;
-}
-.container .row > div > div {
-  box-shadow: 1px 1px 5px #ccc;
-  padding: 25px;
-}
-
 .services .service-icon {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  margin: 10px auto;
+  margin: 0px auto;
   line-height: 50px;
 }
 .services .service-icon > img {

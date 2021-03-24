@@ -47,7 +47,7 @@ export class AddTestimonialComponent implements OnInit {
         this.errMsg = 'برجاء تسجيل الدخول اولا';
         setTimeout(() => {
           this.errMsg = null;
-        }, 1000);
+        }, 3000);
         this.successMsg = null;
       }
     }

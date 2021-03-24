@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   --mainColor: #328bda;
+  /* --mainColor: #328bda;*/
   /*  --mainColor: #f00;*/
+  /* --mainColor: #0077b5;*/
 }
 * {
   padding: 0px;
@@ -11,6 +13,8 @@ body {
   direction: rtl !important;
   text-align: right;
   overflow-x: hidden;
+  padding: 0px;
+  margin: 0px;
 }
 input.ng-touched.ng-invalid {
   border: 1px solid #f00 !important;

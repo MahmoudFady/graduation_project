@@ -15,6 +15,7 @@ var PostsListComponent = /** @class */ (function () {
         this.router = router;
         this.userId = null;
         this.deleltePost = false;
+        this.displayedImageUrl = null;
     }
     PostsListComponent.prototype.ngOnInit = function () {
         this.deleltePost = false;
@@ -43,6 +44,16 @@ var PostsListComponent = /** @class */ (function () {
     // ADD NEW COMMENT TO POST'S COMMENTS
     PostsListComponent.prototype.onAddComment = function (postId) {
         this.router.navigate(['/post/' + postId]);
+    };
+    // get image url
+    PostsListComponent.prototype.displayImage = function (url) {
+        this.displayedImageUrl = url;
+        console.log(this.displayedImageUrl);
+    };
+    // close displayedImage
+    PostsListComponent.prototype.closeImage = function () {
+        this.displayedImageUrl = null;
+        console.log(this.displayedImageUrl);
     };
     __decorate([
         core_1.Input()

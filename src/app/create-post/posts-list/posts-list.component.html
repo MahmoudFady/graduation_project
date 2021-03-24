@@ -1,6 +1,6 @@
 <div class="container">
-  <div class="row align-items-center justify-content-center">
-    <div *ngFor="let post of posts" class="col-xs-8 col-sm-8 col-md-6">
+  <div class="row">
+    <div *ngFor="let post of posts">
       <div class="single-post">
         <div
           class="post-job"
@@ -18,13 +18,13 @@
                 [alt]="post.creator.userName"
               />
               <h5>{{ post.creator.userName }}</h5>
-            </header></a
-          >
+              <div class="post-date">
+                <p>{{ post.postDate }}</p>
+              </div>
+            </header>
+          </a>
         </div>
-        <div class="post-date">
-          <i class="fa fa-calendar-week"></i>
-          <p>{{ post.postDate }}</p>
-        </div>
+
         <div class="post-address-phone">
           <div>
             <i class="fa fa-phone"></i>
@@ -47,8 +47,9 @@
             [ngStyle]="{
               width: post.postImages.length === 1 ? '100%' : '50%'
             }"
-            *ngFor="let img of post.postImages"
-            [src]="img"
+            *ngFor="let imgUrl of post.postImages"
+            (click)="displayImage(imgUrl)"
+            [src]="imgUrl"
             alt=""
           />
         </div>
@@ -70,6 +71,10 @@
     </div>
   </div>
 </div>
-<section class="alert-post" *ngIf="deleltePost">
+<div class="alert-post-delete" *ngIf="deleltePost">
   <app-alert-danger [errorMessage]="'تم الحذف'"></app-alert-danger>
+</div>
+<section *ngIf="displayedImageUrl" class="displayIamge">
+  <i class="fa fa-times" (click)="closeImage()"></i>
+  <img [src]="displayedImageUrl" alt="" />
 </section>

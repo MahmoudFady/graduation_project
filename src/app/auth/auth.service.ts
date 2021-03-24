@@ -2,7 +2,7 @@ import { Post } from 'src/app/create-post/post.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 export interface UserData {
   _id: string;
   profileImage: string;
@@ -23,7 +23,7 @@ export class AuthService {
   alertMsg = new Subject<string>();
   isAuthenticated = new Subject<boolean>();
   private token: string;
-  constructor(public http: HttpClient, public router: Router) {}
+  constructor(public http: HttpClient, public router: Router) { }
   // save some user information at local stroage of the browser
   private save2LocalStorage(
     token: string,
@@ -49,9 +49,9 @@ export class AuthService {
     }
   }
   // retun token which is stored at local storage
-  public getToken(): string {
+  public getToken(): string | false {
     this.token = this.getLocalStorageData().token;
-    return this.token;
+    return this.token ? this.token : null;
   }
   // return all information at local storage
   public getLocalStorageData(): {
@@ -77,7 +77,7 @@ export class AuthService {
         userCity: string;
         job?: string;
       }
-    >(<unknown>localStorage);
+      >(<unknown>localStorage);
     return data;
   }
   // signin function
@@ -129,7 +129,14 @@ export class AuthService {
         }
       );
   }
-  getUserById(id: string): any {
+  // get specific user by it's id
+  getUserById(
+    id: string
+  ): Observable<{
+    message: string;
+    user: UserData;
+    userPosts: Post[];
+  }> {
     return this.http.get<{
       message: string;
       user: UserData;
@@ -212,46 +219,7 @@ export class AuthService {
         }
       );
   }
-  // user signup function
-  /*
-  userSignup(
-    fullName: string,
-    email: string,
-    password: string,
-    phone: string,
-    bigCity: string,
-    city: string,
-    info: string
-  ): void {
-    this.http
-      .post(this.url + 'user/signup', {
-        fullName,
-        email,
-        password,
-        phone,
-        bigCity,
-        city,
-        info,
-      })
-      .subscribe(
-        (data) => {
-          if (data.token) {
-            console.log(data);
-            this.token = data.token;
-            this.isAuthenticated.next(true);
-            this.saveInfo(data);
-            this.router.navigate(['/profile']);
-          } else {
-            console.log('falid');
-            this.errMsg.next('فشل انشاء الحساب ');
-          }
-        },
-        (err) => {
-          this.errMsg.next('يرجي المحاوله وقت اخر');
-        }
-      );
-  }
-  */
+
   // edit profile data basic inforamtion
   edit(
     profileImage: File,
@@ -295,5 +263,9 @@ export class AuthService {
     localStorage.clear();
     this.isAuthenticated.next(false);
     this.router.navigate(['/']);
+  }
+  // return authentication state true or false
+  isAuthenticatedUser(): Observable<boolean> {
+    return this.isAuthenticated.asObservable();
   }
 }

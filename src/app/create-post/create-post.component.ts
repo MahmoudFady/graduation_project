@@ -98,6 +98,7 @@ export class CreatePostComponent implements OnInit {
           () => {
             this.postCreated = true;
             this.loading = false;
+            this.errorMessage = null;
             this.postForm.reset();
             this.postForm.patchValue({
               creatorBigCity,
@@ -120,6 +121,9 @@ export class CreatePostComponent implements OnInit {
             }
             this.loading = false;
             this.postCreated = false;
+            setTimeout(() => {
+              this.errorMessage = null;
+            }, 2000);
           }
         );
     }

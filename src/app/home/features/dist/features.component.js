@@ -16,7 +16,7 @@ var FeaturesComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-features',
             templateUrl: './features.component.html',
-            styleUrls: ['./features.component.css']
+            styleUrls: ['../shared-style.css', './features.component.css']
         })
     ], FeaturesComponent);
     return FeaturesComponent;

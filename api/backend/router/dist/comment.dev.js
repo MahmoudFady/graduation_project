@@ -10,5 +10,6 @@ var upload = require("../middleware/upload");
 
 var checkAuth = require("../middleware/check-auth");
 
+router.get("/:postId", comment.getPostComment);
 router.post("/addComment/:postId", upload.uploadFiles().array("commentImages", 10), checkAuth, comment.addComment);
 module.exports = router;

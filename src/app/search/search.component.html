@@ -41,7 +41,7 @@
     <br />
     <div class="col-md">
       <label for=""
-        ><img src="../../assets/img/locjpg.jpg" alt="" />المدينه</label
+        ><img src="../../assets/img/125296.png" alt="" />المدينه</label
       >
       <input
         type="text"
@@ -66,17 +66,35 @@
     </div>
   </form>
 </div>
-<div class="container" *ngIf="searched && selectedPosts.length > 0">
-  <h4 class="text-center">
-    تم العثور علي <strong>{{ selectedPosts.length }}</strong>
-    {{ selectedPosts[0].job }}
-  </h4>
-  <app-posts-list [posts]="selectedPosts"></app-posts-list>
+<!--## RESUALT OF SEARCH-->
+<div class="container" *ngIf="searched">
+  <div class="row justify-content-center align-items-center flex-column">
+    <div class="col-md-6"></div>
+    <div *ngIf="selectedPosts.length > 0" class="col-md-6">
+      <h6 class="text-center">
+        تم العثور علي
+        <strong style="color: var(--mainColor)"
+          >{{ selectedPosts.length }} {{ selectedPosts[0].job }}
+        </strong>
+      </h6>
+      <app-posts-list [posts]="selectedPosts"></app-posts-list>
+    </div>
+    <div *ngIf="selectedUsers.length > 0" class="col-md-6">
+      <app-users-search-list [users]="selectedUsers"></app-users-search-list>
+    </div>
+    <div
+      *ngIf="selectedPosts.length === 0 && selectedPosts.length === 0"
+      class="col-md-6"
+    >
+      <app-alert-danger
+        [errorMessage]="'تعذر الحصول علي نتائج'"
+      ></app-alert-danger>
+    </div>
+  </div>
 </div>
-<div class="container" *ngIf="searched && selectedUsers.length > 0">
-  <app-users-search-list [users]="selectedUsers"></app-users-search-list>
-</div>
+<!--## RESUALT OF SEARCH-->
+<!--## NOT SEARCHED YET-->
 <div class="text-center" *ngIf="!searched">
-  <img src="../../assets/img/search_def.jpg" alt="" />
+  <img src="../../assets/img/search_def.jpg" width="350px" alt="" />
   <h6>ابحث عن وظيفتك</h6>
 </div>

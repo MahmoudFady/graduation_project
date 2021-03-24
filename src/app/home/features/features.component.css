@@ -1,24 +1,4 @@
 /*FEATURES STYLE CSS ########################################################*/
-
-section {
-  margin: auto;
-  margin: 50px auto;
-}
-.container > h1 {
-  color: var(--mainColor);
-  margin-bottom: 50px;
-}
-.container > p {
-  width: 500px;
-  margin: 50px auto;
-}
-.container .row > div {
-  margin-bottom: 25px;
-}
-.container .row > div > div {
-  box-shadow: 1px 1px 5px #ccc;
-  padding: 25px;
-}
 .features .container .row > div > div > div.feature-icon {
   height: 50px;
   width: 50px;
@@ -28,13 +8,7 @@ section {
   margin: 10px auto;
   line-height: 50px;
 }
-.features .container .row > div > div > div.feature-text,
-.features .container .row > div > div div.feature-text > * {
-  margin: 10px auto;
-}
-.container .row > div > div div > p {
-  color: #787878;
-}
+
 .features .container .row > div > div div.feature-button {
   height: 50px;
   width: 50px;

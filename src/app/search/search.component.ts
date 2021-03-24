@@ -1,8 +1,8 @@
+import { Post } from './../create-post/post.model';
 import { SearchService } from './search.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
-import { Post } from '../create-post/post.model';
 
 @Component({
   selector: 'app-search',
@@ -12,6 +12,7 @@ import { Post } from '../create-post/post.model';
 export class SearchComponent implements OnInit {
   searched: boolean = false;
   selectedPosts: Post[] = [];
+  savedSelectedPost: Post[] = [];
   selectedUsers: {
     _id: string;
     userName: string;
@@ -43,13 +44,16 @@ export class SearchComponent implements OnInit {
         userCity,
       };
     }
+    this.selectedPosts = this.savedSelectedPost;
+  }
+  ngOnDestroy(): void {
+    this.savedSelectedPost = this.selectedPosts;
   }
   onSubmit(f: NgForm): void {
     const { job, bigCity, city, isWorker } = f.value;
     this.searchService
       .search(job, bigCity, city, isWorker)
       .subscribe((resualt) => {
-        console.log(resualt);
         this.searched = true;
         this.selectedPosts = resualt.posts;
         this.selectedUsers = resualt.users;

@@ -35,7 +35,7 @@ var SigninComponent = /** @class */ (function () {
         core_1.Component({
             selector: 'app-signin',
             templateUrl: './signin.component.html',
-            styleUrls: ['./signin.component.css']
+            styleUrls: ['../shared-style.css', './signin.component.css']
         })
     ], SigninComponent);
     return SigninComponent;

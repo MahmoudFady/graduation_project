@@ -11,6 +11,7 @@ var core_1 = require("@angular/core");
 var JobsComponent = /** @class */ (function () {
     function JobsComponent(postService) {
         this.postService = postService;
+        this.postedJobs = [];
         this.errMsg = null;
         this.loading = false;
     }
@@ -21,6 +22,11 @@ var JobsComponent = /** @class */ (function () {
         this.postService.updatedUserPosts.subscribe(function (posts) {
             if (posts) {
                 _this.posts = posts;
+                _this.posts.forEach(function (post) {
+                    if (!_this.postedJobs.includes(post.job)) {
+                        _this.postedJobs.push(post.job);
+                    }
+                });
                 setTimeout(function () {
                     _this.loading = false;
                     _this.errMsg = null;

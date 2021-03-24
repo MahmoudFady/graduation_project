@@ -1,20 +1,31 @@
-<section class="lodder">
-  <app-loading *ngIf="loading" class="text-center"></app-loading>
-</section>
-<section class="alert-danger-message">
-  <app-alert-danger
-    *ngIf="!loading && err"
-    [errorMessage]="err"
-  ></app-alert-danger>
-</section>
-<section class="userData">
-  <app-profile-data
-    *ngIf="!loading && !err"
-    [userData]="userData"
-  ></app-profile-data>
-</section>
-<section class="userPosts" *ngIf="userPosts.length > 0">
-  <app-posts-list [posts]="userPosts"></app-posts-list>
+<div *ngIf="loading" style="margin-top: 50px" class="container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <app-loading class="text-center"></app-loading>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 50px" class="container" *ngIf="!loading && err">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <app-alert-danger
+        class="alert-danger-message"
+        [errorMessage]="err"
+      ></app-alert-danger>
+    </div>
+  </div>
+</div>
+<section *ngIf="!loading && !err">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 userData">
+        <app-profile-data [userData]="userData"></app-profile-data>
+      </div>
+      <div class="col-sm-6 userPosts">
+        <app-posts-list class="userPosts" [posts]="userPosts"></app-posts-list>
+      </div>
+    </div>
+  </div>
 </section>
 <section class="userReviews" *ngIf="userReviews.length > 0">
   <div class="container">

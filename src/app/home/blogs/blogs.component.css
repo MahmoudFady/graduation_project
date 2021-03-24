@@ -1,25 +1,5 @@
 /*BLOGS STYLE CSS ########################################################*/
 
-section {
-  margin: auto;
-  margin-bottom: 50px;
-}
-.container > h1 {
-  color: var(--mainColor);
-  margin-bottom: 50px;
-}
-.container > p {
-  width: 500px;
-  margin: 50px auto;
-}
-.container .row > div {
-  margin-bottom: 25px;
-}
-.container .row > div > div {
-  box-shadow: 1px 1px 5px #ccc;
-  padding: 25px;
-}
-
 .blogs .single-blog {
   text-align: center;
 }
