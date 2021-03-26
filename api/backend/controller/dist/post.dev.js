@@ -57,7 +57,6 @@ exports.addPost = function _callee2(decode, req, res, next) {
         case 0:
           userId = decode.userId;
           _req$body = req.body, creatorBigCity = _req$body.creatorBigCity, creatorCity = _req$body.creatorCity, creatorPhone = _req$body.creatorPhone, postDate = _req$body.postDate, postText = _req$body.postText, createByWorker = _req$body.createByWorker, job = _req$body.job;
-          console.log(req.body);
           postImages = [];
 
           if (req.files) {
@@ -67,7 +66,7 @@ exports.addPost = function _callee2(decode, req, res, next) {
             });
           }
 
-          _context2.next = 7;
+          _context2.next = 6;
           return regeneratorRuntime.awrap(new Post({
             creator: userId,
             creatorBigCity: creatorBigCity,
@@ -80,15 +79,22 @@ exports.addPost = function _callee2(decode, req, res, next) {
             job: job
           }).save());
 
-        case 7:
+        case 6:
           newPost = _context2.sent;
-          newPost.populate("users");
+          _context2.next = 9;
+          return regeneratorRuntime.awrap(Post.findById(newPost.id).populate({
+            path: "creator",
+            select: "_id profileImage userName"
+          }));
+
+        case 9:
+          newPost = _context2.sent;
           res.status(200).json({
             message: "post add",
             newPost: newPost
           });
 
-        case 10:
+        case 11:
         case "end":
           return _context2.stop();
       }

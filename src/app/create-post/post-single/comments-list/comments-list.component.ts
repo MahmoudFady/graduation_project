@@ -1,7 +1,7 @@
-import { PostService } from '../../post.service';
+import { CommentService } from './../comment.service';
 import { Comment } from '../create-comment/comment.model';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-comments-list',
@@ -10,8 +10,19 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class CommentsListComponent implements OnInit {
   @Input() postComments: Comment[] = [];
-  constructor(private authService: AuthService, private router: Router) {}
-  // GET THE CREATOR OF POST
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private commentService: CommentService
+  ) {}
+
+  ngOnInit() {
+    console.log(this.postComments.length);
+
+    this.commentService.getUpdatedComments().subscribe((newComments) => {
+      this.postComments = newComments;
+    });
+  } // GET THE CREATOR OF POST
   onGetUser(id: string) {
     const activeUserId = this.authService.getLocalStorageData()._id;
     if (id === activeUserId) {
@@ -20,5 +31,4 @@ export class CommentsListComponent implements OnInit {
       this.router.navigate([`/view-profile/${id}`]);
     }
   }
-  ngOnInit() {}
 }

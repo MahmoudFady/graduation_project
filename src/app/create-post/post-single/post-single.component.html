@@ -1,38 +1,23 @@
 <section>
-  <div class="container flex-lg-row">
+  <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <div class="post-single">
-          <header>
-            <img
-              [src]="post.creator.profileImage"
-              [alt]="post.creator.userName"
-            />
-            <h6>{{ post.creator.userName }}</h6>
-            <span>{{ post.postDate }}</span>
-          </header>
-          <div class="postText">
-            <p><i class="fa fa-pen"></i> {{ post.postText }}</p>
-          </div>
-          <div class="postImages" *ngIf="post.postImages.length > 0">
-            <img *ngFor="let img of post.postImages" [src]="img" alt="" />
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="post">
+          <app-posts-list
+            [posts]="[post]"
+            [showPostControls]="false"
+          ></app-posts-list>
+          <div class="create-comment">
+            <app-create-comment
+              [postId]="post._id"
+              [postComments]="postComments"
+            ></app-create-comment>
           </div>
         </div>
-        <app-create-comment
-          [postId]="post._id"
-          [postComments]="postComments"
-        ></app-create-comment>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6">
-        <app-comments-list
-          *ngIf="postComments.length > 0"
-          [postComments]="postComments"
-        ></app-comments-list>
-        <div *ngIf="postComments.length === 0">
-          <h6>
-            كن اول من يعلق علي ما نشره
-            <strong>{{ post.creator.userName }}</strong>
-          </h6>
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="comments-list">
+          <app-comments-list [postComments]="postComments"></app-comments-list>
         </div>
       </div>
     </div>

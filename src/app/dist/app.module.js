@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
+var comment_service_1 = require("./create-post/post-single/comment.service");
 var socket_io_service_1 = require("./shared/socket-io.service");
 var footer_component_1 = require("./home/footer/footer.component");
 var sponsor_component_1 = require("./home/sponsor/sponsor.component");
@@ -53,6 +54,7 @@ var create_comment_component_1 = require("./create-post/post-single/create-comme
 var search_service_1 = require("./search/search.service");
 var user_guard_1 = require("./auth/user.guard");
 var job_links_component_1 = require("./jobs/job-links/job-links.component");
+var view_single_post_component_1 = require("./create-post/post-single/view-single-post/view-single-post.component");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -85,6 +87,7 @@ var AppModule = /** @class */ (function () {
                 add_testimonial_component_1.AddTestimonialComponent,
                 testimonial_list_component_1.TestimonialListComponent,
                 post_single_component_1.SinglePostComponent,
+                view_single_post_component_1.ViewSinglePost,
                 create_comment_component_1.CreateCommentComponent,
                 comments_list_component_1.CommentsListComponent,
                 sponsor_component_1.SponsorComponent,
@@ -112,6 +115,7 @@ var AppModule = /** @class */ (function () {
                 search_service_1.SearchService,
                 user_guard_1.AuthUser,
                 socket_io_service_1.SocketIoService,
+                comment_service_1.CommentService,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

@@ -1,3 +1,5 @@
+import { CommentService } from './comment.service';
+import { SocketIoService } from './../../shared/socket-io.service';
 import { Post } from './../post.model';
 import { Comment } from './create-comment/comment.model';
 import { PostService } from 'src/app/create-post/post.service';
@@ -10,52 +12,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-single.component.css'],
 })
 export class SinglePostComponent implements OnInit {
+  postId: string;
   // DEFINE POST
-  post: Post = {
-    _id: '',
-    creator: {
-      _id: '',
-      userName: '',
-      profileImage: '',
-    },
-    creatorBigCity: '',
-    creatorCity: '',
-    creatorPhone: '',
-    job: '',
-    postText: '',
-    postDate: '',
-    postImages: [],
-    comments: [],
-    createByWorker: null,
-  };
+  post: Post;
   // DEFINE COMMENTS OF POST THEN PASS IT TO COMMENTS LIST COMPONENT
-  postComments: Comment[] = [
-    {
-      _id: '',
-      commentDate: '',
-      commentImages: [],
-      commentText: '',
-      creator: {
-        _id: '',
-        userName: '',
-        profileImage: '',
-      },
-    },
-  ];
+  postComments: Comment[] = [];
   // DEFINE IMAGES IF USER WANT TO ATTACH SOME IAMGES INTO HIS COMMENT
-  commentImages: string[] = null;
+  commentImages: string[] = [];
   constructor(
     private route: ActivatedRoute,
-    private postService: PostService
+    private postService: PostService,
+    private socketIoService: SocketIoService,
+    private commentService: CommentService
   ) {}
   ngOnInit(): void {
-    let postId: string = null;
     this.route.params.subscribe((params: Params) => {
       // GET POST ID FORM URL : HTTP://LOCALHOST:4200/POST/:POSTID
-      postId = params['postId'];
+      this.postId = params['postId'];
+      this.socketIoService.joinRoom('postid=' + this.postId);
+      //=> LISTIN IF NEW COMMENT PUSHED
+      this.socketIoService.socket.on(
+        'onGetComment',
+        (resualt: { newComment: Comment; joinPath: string }) => {
+          this.postComments.push(resualt.newComment);
+        }
+      );
     });
     // THEN GET THAT POST BY ID
-    this.postService.getPostById(postId).subscribe((resualt) => {
+    this.postService.getPostById(this.postId).subscribe((resualt) => {
       /**
        * EXTRACT CLASS PROPERTYIES FORM THE RESUALT
        * POST
@@ -66,16 +50,10 @@ export class SinglePostComponent implements OnInit {
 
       this.postComments = resualt.post.comments;
       // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
-      this.postService.comments.next(this.postComments);
+      this.commentService.initComments(this.postComments);
     });
-    // LISTIEN TO COMMENTS IF ANY USER ADD COMMENT
-    this.postService.getUpdatedComments().subscribe((resualt) => {
-      this.postComments = resualt;
-    });
-    setInterval(() => {
-      this.postService.getPostById(postId).subscribe((resualt) => {
-        this.postComments = resualt.post.comments;
-      });
-    }, 1000);
+  }
+  ngOnDestroy(): void {
+    this.socketIoService.disconnectUser('postid=' + this.postId);
   }
 }

@@ -10,9 +10,10 @@ exports.CreatePostComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreatePostComponent = /** @class */ (function () {
-    function CreatePostComponent(authService, postService) {
+    function CreatePostComponent(authService, postService, socketIOService) {
         this.authService = authService;
         this.postService = postService;
+        this.socketIOService = socketIOService;
         this.postCreated = false;
         this.loading = false;
         this.errorMessage = null;
@@ -69,7 +70,9 @@ var CreatePostComponent = /** @class */ (function () {
             var _a = this.postForm.value, creatorPhone_1 = _a.creatorPhone, creatorBigCity_1 = _a.creatorBigCity, creatorCity_1 = _a.creatorCity, job = _a.job, postText = _a.postText, createByWorker = _a.createByWorker, postImages = _a.postImages;
             this.postService
                 .addPost(job, creatorPhone_1, creatorBigCity_1, creatorCity_1, postText, postImages, createByWorker)
-                .subscribe(function () {
+                .subscribe(function (resualt) {
+                console.log(resualt);
+                _this.socketIOService.onAddPost(resualt.newPost);
                 _this.postCreated = true;
                 _this.loading = false;
                 _this.errorMessage = null;

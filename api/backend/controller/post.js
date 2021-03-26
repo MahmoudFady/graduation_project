@@ -41,7 +41,6 @@ exports.addPost = async (decode, req, res, next) => {
     createByWorker,
     job,
   } = req.body;
-  console.log(req.body);
   let postImages = [];
   if (req.files) {
     const url = `${req.protocol}://${req.get("host")}/uploads/`;
@@ -49,7 +48,7 @@ exports.addPost = async (decode, req, res, next) => {
       return url + file.filename;
     });
   }
-  const newPost = await new Post({
+  let newPost = await new Post({
     creator: userId,
     creatorBigCity,
     creatorCity,
@@ -60,7 +59,10 @@ exports.addPost = async (decode, req, res, next) => {
     postImages,
     job,
   }).save();
-  newPost.populate("users");
+  newPost = await Post.findById(newPost.id).populate({
+    path: "creator",
+    select: "_id profileImage userName",
+  });
   res.status(200).json({
     message: "post add",
     newPost,

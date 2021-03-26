@@ -1,6 +1,8 @@
+import { JobService } from './jobs.service';
+import { Post } from './../create-post/post.model';
+import { SocketIoService } from './../shared/socket-io.service';
 import { Component, OnInit } from '@angular/core';
 import { PostService } from 'src/app/create-post/post.service';
-import { Post } from 'src/app/create-post/post.model';
 
 @Component({
   selector: 'app-jobs',
@@ -13,19 +15,19 @@ export class JobsComponent implements OnInit {
   errMsg: string = null;
   loading = false;
 
-  constructor(private postService: PostService) {}
+  constructor(
+    private postService: PostService,
+    private socketIOService: SocketIoService,
+    private jobService: JobService
+  ) {}
 
   ngOnInit(): void {
+    this.socketIOService.joinRoom('allJobsRoom');
     this.loading = true;
-    this.postService.getAllPosts();
-    this.postService.updatedUserPosts.subscribe((posts) => {
+    this.jobService.getAllJobs();
+    this.jobService.getUpdatedJobs().subscribe((posts) => {
       if (posts) {
         this.posts = posts;
-        this.posts.forEach((post) => {
-          if (!this.postedJobs.includes(post.job)) {
-            this.postedJobs.push(post.job);
-          }
-        });
         setTimeout(() => {
           this.loading = false;
           this.errMsg = null;
@@ -37,5 +39,17 @@ export class JobsComponent implements OnInit {
         this.errMsg = 'لا يوجد اتصال بالانترنت';
       }
     });
+    this.jobService.getUpdatedJobLinks().subscribe((links) => {
+      this.postedJobs = links;
+    });
+    this.socketIOService.socket.on('onGetPost', (post: Post) => {
+      this.jobService.addJob(post);
+    });
+    this.socketIOService.socket.on('onGetDeletedPostId', (postId) => {
+      this.jobService.deleteJob(postId);
+    });
+  }
+  ngOnDestroy(): void {
+    this.socketIOService.disconnectUser('allJobsRoom');
   }
 }

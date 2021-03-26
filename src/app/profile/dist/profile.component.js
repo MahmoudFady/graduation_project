@@ -31,7 +31,7 @@ var ProfileComponent = /** @class */ (function () {
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.loading = true;
-        this.postService.updatedUserPosts.subscribe(function (posts) {
+        this.postService.getUpdatedPosts().subscribe(function (posts) {
             _this.userPosts = posts;
         });
         var userId = this.authService.getLocalStorageData()._id;
@@ -39,7 +39,6 @@ var ProfileComponent = /** @class */ (function () {
             if (getUserResponse) {
                 _this.userData = getUserResponse.user;
                 _this.userPosts = getUserResponse.userPosts;
-                _this.postService.reverUserPosts(_this.userPosts);
                 _this.loading = false;
             }
         }, function (err) {

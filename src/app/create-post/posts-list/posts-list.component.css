@@ -47,6 +47,9 @@ i {
   border-radius: 20px;
   height: 100%;
 }
+.row div.post-header {
+  cursor: pointer;
+}
 .row > div header {
   height: 50px;
   line-height: 50px;
@@ -94,12 +97,12 @@ i {
 
 .row > div > div > div.post-images img {
   width: 50%;
-  height: 150px;
+  height: 200px;
   float: right;
 }
 .row > div > div > div.post-images img:nth-of-type(3) {
   width: 100% !important;
-  height: 150px;
+  height: 200px;
   float: right;
 }
 

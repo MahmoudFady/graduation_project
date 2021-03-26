@@ -1,3 +1,4 @@
+import { CommentService } from './create-post/post-single/comment.service';
 import { SocketIoService } from './shared/socket-io.service';
 import { FooterComponent } from './home/footer/footer.component';
 import { SponsorComponent } from './home/sponsor/sponsor.component';
@@ -49,6 +50,7 @@ import { CreateCommentComponent } from './create-post/post-single/create-comment
 import { SearchService } from './search/search.service';
 import { AuthUser } from './auth/user.guard';
 import { JobLinks } from './jobs/job-links/job-links.component';
+import { ViewSinglePost } from './create-post/post-single/view-single-post/view-single-post.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { JobLinks } from './jobs/job-links/job-links.component';
     AddTestimonialComponent,
     TestimonialListComponent,
     SinglePostComponent,
+    ViewSinglePost,
     CreateCommentComponent,
     CommentsListComponent,
     SponsorComponent,
@@ -107,6 +110,7 @@ import { JobLinks } from './jobs/job-links/job-links.component';
     SearchService,
     AuthUser,
     SocketIoService,
+    CommentService,
   ],
   bootstrap: [AppComponent],
 })

@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loading = true;
-    this.postService.updatedUserPosts.subscribe((posts) => {
+    this.postService.getUpdatedPosts().subscribe((posts) => {
       this.userPosts = posts;
     });
     const userId = this.authService.getLocalStorageData()._id;
@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
         if (getUserResponse) {
           this.userData = getUserResponse.user;
           this.userPosts = getUserResponse.userPosts;
-          this.postService.reverUserPosts(this.userPosts);
           this.loading = false;
         }
       },

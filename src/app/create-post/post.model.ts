@@ -1,4 +1,3 @@
-import { from } from 'rxjs';
 import { Comment } from './post-single/create-comment/comment.model';
 export interface Post {
   _id: string;

@@ -1,20 +1,28 @@
 <div class="post-comments">
-  <div class="container">
-    <div *ngFor="let comment of postComments.reverse()" class="single-comment">
-      <header (click)="onGetUser(comment.creator._id)">
-        <img
-          [src]="comment.creator.profileImage"
-          [alt]="comment.creator.userName"
-        />
-        <h6>{{ comment.creator.userName }}</h6>
-        <span>{{ comment.commentDate }}</span>
-      </header>
-      <div class="commentText">
-        <p>{{ comment.commentText }}</p>
-      </div>
-      <div class="commentImages" *ngIf="comment.commentImages.length > 0">
-        <img *ngFor="let img of comment.commentImages" [src]="img" alt="" />
-      </div>
+  <div *ngFor="let comment of postComments.reverse()" class="single-comment">
+    <header
+      [title]="' عرض حساب' +' ' +comment.creator.userName "
+      (click)="onGetUser(comment.creator._id)"
+    >
+      <img
+        [src]="comment.creator.profileImage"
+        [alt]="comment.creator.userName"
+      />
+      <h6>{{ comment.creator.userName }}</h6>
+      <span>{{ comment.commentDate }}</span>
+    </header>
+    <div class="commentText">
+      <p>{{ comment.commentText }}</p>
     </div>
+    <div class="commentImages" *ngIf="comment.commentImages.length > 0">
+      <img *ngFor="let img of comment.commentImages" [src]="img" alt="" />
+    </div>
+  </div>
+
+  <div *ngIf="postComments.length === 0">
+    <h6>
+      كن اول من يعلق علي ما نشره
+      <strong>{{ post.creator.userName }}</strong>
+    </h6>
   </div>
 </div>

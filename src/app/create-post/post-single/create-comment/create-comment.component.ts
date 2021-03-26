@@ -1,3 +1,4 @@
+import { CommentService } from './../comment.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Comment } from './comment.model';
 import { PostService } from 'src/app/create-post/post.service';
@@ -16,12 +17,11 @@ export class CreateCommentComponent implements OnInit {
   @Input() postComments: Comment[] = [];
   constructor(
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private commentService: CommentService
   ) {}
   ngOnInit() {
     this.isAuthenticated = this.authService.getToken() ? true : false;
-    console.log(this.isAuthenticated);
-
     this.commentForm = new FormGroup({
       commentText: new FormControl(null, [Validators.required]),
       commentImages: new FormControl(null),
@@ -55,12 +55,7 @@ export class CreateCommentComponent implements OnInit {
     // FORM IS VALID
     if (this.commentForm.valid) {
       const { commentText, commentImages } = this.commentForm.value;
-      this.postService.addComment(
-        this.postComments,
-        this.postId,
-        commentText,
-        commentImages
-      );
+      this.commentService.addComment(this.postId, commentText, commentImages);
       this.commentImages = null;
     }
   }

@@ -1,23 +1,17 @@
-import { AuthService } from './../auth/auth.service';
-import { Comment } from './post-single/create-comment/comment.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Post } from './post.model';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class PostService {
   private userPosts: Post[] = [];
-  private _comments: Comment[] = [];
-  comments = new Subject<Comment[]>();
-  updatedUserPosts = new Subject<Post[]>();
+  private updatedUserPosts = new Subject<Post[]>();
   // BASIC URL TO POST ROUTES AT SERVER
   private url = 'http://localhost:3000/api/post/';
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient) {}
   // REVERS USER POSTS FUCTION ###########
-  reverUserPosts(userPosts: Post[]) {
-    this.userPosts = userPosts.reverse();
-    this.updatedUserPosts.next(this.userPosts);
-  }
+
   // ADDING POSTS FUCTION ################
   addPost(
     job: string,
@@ -47,23 +41,19 @@ export class PostService {
   // DELETE POST BY ID ################
 
   deletePost(postId: string) {
-    console.log('delete post');
-    const userPosts = this.userPosts.filter((post) => {
-      return post._id !== postId;
-    });
-    this.userPosts = userPosts;
+    const postIndex = this.userPosts.findIndex((post) => post._id === postId);
+    this.userPosts.splice(postIndex, 1);
     this.updatedUserPosts.next(this.userPosts);
     this.http
       .delete<{ message: string }>(this.url + 'deletePost/' + postId)
-      .subscribe((resualt) => {
-        console.log(resualt.message);
-      });
+      .subscribe((resualt) => {});
   }
+
   // GET ALL USERS POSTS #################3
   getAllPosts() {
     this.http.get<{ message: string; posts: Post[] }>(this.url).subscribe(
       (resualt: { message: string; posts: Post[] }) => {
-        this.userPosts = resualt.posts.reverse();
+        this.userPosts = resualt.posts;
         this.updatedUserPosts.next(this.userPosts);
       },
       (err) => {
@@ -75,37 +65,6 @@ export class PostService {
   // GET POST BY ID FUNCTION
   getPostById(postId: string) {
     return this.http.get<{ message: string; post: Post }>(this.url + postId);
-  }
-  addComment(
-    oldComments: Comment[],
-    postId: string,
-    commentText: string,
-    commentImages: FileList
-  ) {
-    const formData = new FormData();
-    formData.append('commentText', commentText);
-    if (commentImages) {
-      for (const index in commentImages) {
-        formData.append('commentImages', commentImages[index]);
-      }
-    }
-    this.http
-      .post('http://localhost:3000/api/comment/addComment/' + postId, formData)
-      .subscribe((resualt: { message: string; newComment: Comment }) => {
-        const {
-          _id,
-          userName,
-          profileImage,
-        } = this.authService.getLocalStorageData();
-        const newComment = {
-          ...resualt.newComment,
-          creator: { _id, userName, profileImage },
-        };
-        oldComments.push(newComment);
-        this._comments = oldComments;
-
-        this.comments.next(this._comments);
-      });
   }
   // FILTER POSTS BY POST JOB
   getPostByJob(job: string) {
@@ -120,8 +79,8 @@ export class PostService {
   getPostComment(postId: string) {
     return this.http.get('http://localhost:3000/api/comment/' + postId);
   }
-  //LISTEN TO COMMENTS OF ANY USER ADD NEW COMMENT
-  getUpdatedComments(): Observable<Comment[]> {
-    return this.comments.asObservable();
+  // GET UPDATE USER POSTS
+  getUpdatedPosts(): Observable<Post[]> {
+    return this.updatedUserPosts.asObservable();
   }
 }

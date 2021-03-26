@@ -9,24 +9,22 @@ exports.__esModule = true;
 exports.JobsComponent = void 0;
 var core_1 = require("@angular/core");
 var JobsComponent = /** @class */ (function () {
-    function JobsComponent(postService) {
+    function JobsComponent(postService, socketIOService, jobService) {
         this.postService = postService;
+        this.socketIOService = socketIOService;
+        this.jobService = jobService;
         this.postedJobs = [];
         this.errMsg = null;
         this.loading = false;
     }
     JobsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.socketIOService.joinRoom('allJobsRoom');
         this.loading = true;
-        this.postService.getAllPosts();
-        this.postService.updatedUserPosts.subscribe(function (posts) {
+        this.jobService.getAllJobs();
+        this.jobService.getUpdatedJobs().subscribe(function (posts) {
             if (posts) {
                 _this.posts = posts;
-                _this.posts.forEach(function (post) {
-                    if (!_this.postedJobs.includes(post.job)) {
-                        _this.postedJobs.push(post.job);
-                    }
-                });
                 setTimeout(function () {
                     _this.loading = false;
                     _this.errMsg = null;
@@ -39,6 +37,18 @@ var JobsComponent = /** @class */ (function () {
                 _this.errMsg = 'لا يوجد اتصال بالانترنت';
             }
         });
+        this.jobService.getUpdatedJobLinks().subscribe(function (links) {
+            _this.postedJobs = links;
+        });
+        this.socketIOService.socket.on('onGetPost', function (post) {
+            _this.jobService.addJob(post);
+        });
+        this.socketIOService.socket.on('onGetDeletedPostId', function (postId) {
+            _this.jobService.deleteJob(postId);
+        });
+    };
+    JobsComponent.prototype.ngOnDestroy = function () {
+        this.socketIOService.disconnectUser('allJobsRoom');
     };
     JobsComponent = __decorate([
         core_1.Component({

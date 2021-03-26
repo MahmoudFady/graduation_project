@@ -9,10 +9,13 @@ exports.__esModule = true;
 exports.PostsListComponent = void 0;
 var core_1 = require("@angular/core");
 var PostsListComponent = /** @class */ (function () {
-    function PostsListComponent(postService, authService, router) {
+    function PostsListComponent(postService, authService, router, socketIoService, jobService) {
         this.postService = postService;
         this.authService = authService;
         this.router = router;
+        this.socketIoService = socketIoService;
+        this.jobService = jobService;
+        this.showPostControls = true;
         this.userId = null;
         this.deleltePost = false;
         this.displayedImageUrl = null;
@@ -35,7 +38,7 @@ var PostsListComponent = /** @class */ (function () {
     PostsListComponent.prototype.onDeletePost = function (postId) {
         var _this = this;
         this.deleltePost = true;
-        console.log(postId);
+        this.socketIoService.onDeletePost(postId);
         this.postService.deletePost(postId);
         setTimeout(function () {
             _this.deleltePost = false;
@@ -43,6 +46,7 @@ var PostsListComponent = /** @class */ (function () {
     };
     // ADD NEW COMMENT TO POST'S COMMENTS
     PostsListComponent.prototype.onAddComment = function (postId) {
+        //=> JOINING SPECIFIC POST COMMENTS
         this.router.navigate(['/post/' + postId]);
     };
     // get image url
@@ -58,6 +62,9 @@ var PostsListComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], PostsListComponent.prototype, "posts");
+    __decorate([
+        core_1.Input()
+    ], PostsListComponent.prototype, "showPostControls");
     PostsListComponent = __decorate([
         core_1.Component({
             selector: 'app-posts-list',

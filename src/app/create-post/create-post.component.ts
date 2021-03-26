@@ -1,3 +1,5 @@
+import { SocketIoService } from './../shared/socket-io.service';
+import { Post } from './post.model';
 import { PostService } from './post.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -25,7 +27,8 @@ export class CreatePostComponent implements OnInit {
   };
   constructor(
     private authService: AuthService,
-    private postService: PostService
+    private postService: PostService,
+    private socketIOService: SocketIoService
   ) {}
   ngOnInit(): void {
     // get user info form loacal storage`
@@ -95,7 +98,10 @@ export class CreatePostComponent implements OnInit {
           createByWorker
         )
         .subscribe(
-          () => {
+          (resualt: { message: string; newPost: Post }) => {
+            console.log(resualt);
+
+            this.socketIOService.onAddPost(resualt.newPost);
             this.postCreated = true;
             this.loading = false;
             this.errorMessage = null;

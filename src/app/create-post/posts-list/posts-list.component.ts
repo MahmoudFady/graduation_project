@@ -1,3 +1,5 @@
+import { JobService } from './../../jobs/jobs.service';
+import { SocketIoService } from './../../shared/socket-io.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -11,13 +13,16 @@ import { PostService } from '../post.service';
 })
 export class PostsListComponent implements OnInit {
   @Input() posts: Post[];
+  @Input() showPostControls: boolean = true;
   userId: string = null;
   deleltePost = false;
   displayedImageUrl: string = null;
   constructor(
     private postService: PostService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private socketIoService: SocketIoService,
+    private jobService: JobService
   ) {}
   ngOnInit(): void {
     this.deleltePost = false;
@@ -35,7 +40,7 @@ export class PostsListComponent implements OnInit {
   // DELETE POST
   onDeletePost(postId: string) {
     this.deleltePost = true;
-    console.log(postId);
+    this.socketIoService.onDeletePost(postId);
     this.postService.deletePost(postId);
     setTimeout(() => {
       this.deleltePost = false;
@@ -43,6 +48,7 @@ export class PostsListComponent implements OnInit {
   }
   // ADD NEW COMMENT TO POST'S COMMENTS
   onAddComment(postId: string) {
+    //=> JOINING SPECIFIC POST COMMENTS
     this.router.navigate(['/post/' + postId]);
   }
   // get image url

@@ -9,12 +9,19 @@ exports.__esModule = true;
 exports.CommentsListComponent = void 0;
 var core_1 = require("@angular/core");
 var CommentsListComponent = /** @class */ (function () {
-    function CommentsListComponent(authService, router) {
+    function CommentsListComponent(authService, router, commentService) {
         this.authService = authService;
         this.router = router;
+        this.commentService = commentService;
         this.postComments = [];
     }
-    // GET THE CREATOR OF POST
+    CommentsListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        console.log(this.postComments.length);
+        this.commentService.getUpdatedComments().subscribe(function (newComments) {
+            _this.postComments = newComments;
+        });
+    }; // GET THE CREATOR OF POST
     CommentsListComponent.prototype.onGetUser = function (id) {
         var activeUserId = this.authService.getLocalStorageData()._id;
         if (id === activeUserId) {
@@ -24,7 +31,6 @@ var CommentsListComponent = /** @class */ (function () {
             this.router.navigate(["/view-profile/" + id]);
         }
     };
-    CommentsListComponent.prototype.ngOnInit = function () { };
     __decorate([
         core_1.Input()
     ], CommentsListComponent.prototype, "postComments");

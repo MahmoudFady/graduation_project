@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div *ngFor="let post of posts">
+    <div *ngFor="let post of posts.reverse()">
       <div class="single-post">
         <div
           class="post-job"
@@ -10,7 +10,10 @@
         >
           <span>{{ post.job }}</span>
         </div>
-        <div class="post-header">
+        <div
+          [title]="' عرض حساب' + ' ' + post.creator.userName"
+          class="post-header"
+        >
           <a (click)="onGetUser(post.creator._id)"
             ><header>
               <img
@@ -53,7 +56,7 @@
             alt=""
           />
         </div>
-        <div class="post-controls">
+        <div *ngIf="showPostControls" class="post-controls">
           <button
             *ngIf="post.creator._id === userId"
             (click)="onDeletePost(post._id)"

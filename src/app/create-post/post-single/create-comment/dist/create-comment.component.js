@@ -10,16 +10,16 @@ exports.CreateCommentComponent = void 0;
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var CreateCommentComponent = /** @class */ (function () {
-    function CreateCommentComponent(postService, authService) {
+    function CreateCommentComponent(postService, authService, commentService) {
         this.postService = postService;
         this.authService = authService;
+        this.commentService = commentService;
         this.commentImages = [];
         this.postId = null;
         this.postComments = [];
     }
     CreateCommentComponent.prototype.ngOnInit = function () {
         this.isAuthenticated = this.authService.getToken() ? true : false;
-        console.log(this.isAuthenticated);
         this.commentForm = new forms_1.FormGroup({
             commentText: new forms_1.FormControl(null, [forms_1.Validators.required]),
             commentImages: new forms_1.FormControl(null)
@@ -56,7 +56,7 @@ var CreateCommentComponent = /** @class */ (function () {
         // FORM IS VALID
         if (this.commentForm.valid) {
             var _a = this.commentForm.value, commentText = _a.commentText, commentImages = _a.commentImages;
-            this.postService.addComment(this.postComments, this.postId, commentText, commentImages);
+            this.commentService.addComment(this.postId, commentText, commentImages);
             this.commentImages = null;
         }
     };

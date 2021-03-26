@@ -9,53 +9,29 @@ exports.__esModule = true;
 exports.SinglePostComponent = void 0;
 var core_1 = require("@angular/core");
 var SinglePostComponent = /** @class */ (function () {
-    function SinglePostComponent(route, postService) {
+    function SinglePostComponent(route, postService, socketIoService, commentService) {
         this.route = route;
         this.postService = postService;
-        // DEFINE POST
-        this.post = {
-            _id: '',
-            creator: {
-                _id: '',
-                userName: '',
-                profileImage: ''
-            },
-            creatorBigCity: '',
-            creatorCity: '',
-            creatorPhone: '',
-            job: '',
-            postText: '',
-            postDate: '',
-            postImages: [],
-            comments: [],
-            createByWorker: null
-        };
+        this.socketIoService = socketIoService;
+        this.commentService = commentService;
         // DEFINE COMMENTS OF POST THEN PASS IT TO COMMENTS LIST COMPONENT
-        this.postComments = [
-            {
-                _id: '',
-                commentDate: '',
-                commentImages: [],
-                commentText: '',
-                creator: {
-                    _id: '',
-                    userName: '',
-                    profileImage: ''
-                }
-            },
-        ];
+        this.postComments = [];
         // DEFINE IMAGES IF USER WANT TO ATTACH SOME IAMGES INTO HIS COMMENT
-        this.commentImages = null;
+        this.commentImages = [];
     }
     SinglePostComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var postId = null;
         this.route.params.subscribe(function (params) {
             // GET POST ID FORM URL : HTTP://LOCALHOST:4200/POST/:POSTID
-            postId = params['postId'];
+            _this.postId = params['postId'];
+            _this.socketIoService.joinRoom('postid=' + _this.postId);
+            //=> LISTIN IF NEW COMMENT PUSHED
+            _this.socketIoService.socket.on('onGetComment', function (resualt) {
+                _this.postComments.push(resualt.newComment);
+            });
         });
         // THEN GET THAT POST BY ID
-        this.postService.getPostById(postId).subscribe(function (resualt) {
+        this.postService.getPostById(this.postId).subscribe(function (resualt) {
             /**
              * EXTRACT CLASS PROPERTYIES FORM THE RESUALT
              * POST
@@ -65,17 +41,11 @@ var SinglePostComponent = /** @class */ (function () {
             console.log(_this.post);
             _this.postComments = resualt.post.comments;
             // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
-            _this.postService.comments.next(_this.postComments);
+            _this.commentService.initComments(_this.postComments);
         });
-        // LISTIEN TO COMMENTS IF ANY USER ADD COMMENT
-        this.postService.getUpdatedComments().subscribe(function (resualt) {
-            _this.postComments = resualt;
-        });
-        setInterval(function () {
-            _this.postService.getPostById(postId).subscribe(function (resualt) {
-                _this.postComments = resualt.post.comments;
-            });
-        }, 1000);
+    };
+    SinglePostComponent.prototype.ngOnDestroy = function () {
+        this.socketIoService.disconnectUser('postid=' + this.postId);
     };
     SinglePostComponent = __decorate([
         core_1.Component({

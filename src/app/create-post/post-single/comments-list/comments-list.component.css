@@ -1,12 +1,14 @@
 .post-comments {
-  height: 640px;
-  scroll-behavior: smooth;
+  /* height: 640px;*/
+  /*scroll-behavior: smooth;*/
   scrollbar-color: #00f !important;
-  overflow-x: hidden;
+  /* overflow-x: hidden;*/
   margin-bottom: 50px;
+  padding: 25px;
 }
 .single-comment header {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
 }
 .single-comment {
   margin-bottom: 25px;
@@ -21,14 +23,19 @@
   border-radius: 50%;
   margin-left: 15px;
 }
+.single-comment header > h6 {
+  margin-bottom: 0px;
+  margin-bottom: 5px;
+}
 .single-comment header > span {
-  font-size: 14px;
+  font-size: 12px;
+  display: block;
 }
 .single-comment p {
   position: relative;
   background-color: rgb(239, 239, 239);
   width: fit-content;
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 20px;
 }
 .single-comment p:before {
@@ -44,6 +51,8 @@
   border-color: transparent transparent rgb(239, 239, 239) transparent;
 }
 .single-comment .commentImages > img {
-  height: 80px;
-  width: 120px;
+  height: 120px;
+  width: 110px;
+  border-radius: 20px;
+  margin-left: 5px;
 }
