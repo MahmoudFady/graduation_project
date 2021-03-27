@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { PostService } from './../create-post/post.service';
 import { Subject, Observable } from 'rxjs';
 import { Post } from './../create-post/post.model';
@@ -6,21 +7,19 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class JobService {
-  private jobs: Post[];
+  private readonly url = 'http://localhost:3000/api/post/';
+  private jobs: Post[] = [];
   private updatedJobs = new Subject<Post[]>();
   private jobLinks: string[] = [];
   private updateJobLinks = new Subject<string[]>();
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private http: HttpClient) {}
   getJobLinks(jobs: Post[]) {
     this.jobLinks = [];
-    console.log(jobs);
     jobs.forEach((job) => {
       if (!this.jobLinks.includes(job.job)) {
         this.jobLinks.push(job.job);
       }
     });
-    console.log(this.jobLinks);
-
     this.updateJobLinks.next(this.jobLinks);
   }
   addJob(job: Post) {
@@ -34,13 +33,26 @@ export class JobService {
     this.getJobLinks(this.jobs);
     this.updatedJobs.next(this.jobs);
   }
+  // GET ALL USERS POSTS #################3
   getAllJobs() {
-    this.postService.getAllPosts();
-    this.postService.getUpdatedPosts().subscribe((posts) => {
-      this.jobs = posts;
-      this.getJobLinks(this.jobs);
-      this.updatedJobs.next(this.jobs);
-    });
+    this.http.get<{ message: string; posts: Post[] }>(this.url).subscribe(
+      (resualt: { message: string; posts: Post[] }) => {
+        this.jobs = resualt.posts;
+        this.getJobLinks(this.jobs);
+        this.updatedJobs.next(this.jobs);
+      },
+      (err) => {
+        this.jobs = null;
+        this.updatedJobs.next(this.jobs);
+      }
+    );
+  }
+  // FILTER POSTS BY POST JOB
+  getPostByJob(job: string) {
+    let selectedPosts: Post[] = [];
+    selectedPosts =
+      job == '*' ? this.jobs : this.jobs.filter((post) => post.job === job);
+    this.updatedJobs.next(selectedPosts);
   }
   getUpdatedJobs(): Observable<Post[]> {
     return this.updatedJobs.asObservable();

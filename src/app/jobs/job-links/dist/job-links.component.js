@@ -10,8 +10,8 @@ exports.JobLinks = void 0;
 var core_1 = require("@angular/core");
 var core_2 = require("@angular/core");
 var JobLinks = /** @class */ (function () {
-    function JobLinks(postService) {
-        this.postService = postService;
+    function JobLinks(jobService) {
+        this.jobService = jobService;
         this.postedJobs = [];
     }
     JobLinks.prototype.getPosts = function (job, ele) {
@@ -19,7 +19,7 @@ var JobLinks = /** @class */ (function () {
             li.classList.remove('active');
         });
         ele.classList.add('active');
-        this.postService.getPostByJob(job);
+        this.jobService.getPostByJob(job);
     };
     __decorate([
         core_1.Input()

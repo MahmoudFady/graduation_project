@@ -18,12 +18,12 @@ export interface UserData {
   providedIn: 'root',
 })
 export class AuthService {
-  private url = 'http://localhost:3000/api/';
+  private readonly url = 'http://localhost:3000/api/';
   errMsg = new Subject<string>();
   alertMsg = new Subject<string>();
-  isAuthenticated = new Subject<boolean>();
+  private isAuthenticated = new Subject<boolean>();
   private token: string;
-  constructor(public http: HttpClient, public router: Router) { }
+  constructor(public http: HttpClient, public router: Router) {}
   // save some user information at local stroage of the browser
   private save2LocalStorage(
     token: string,
@@ -77,7 +77,7 @@ export class AuthService {
         userCity: string;
         job?: string;
       }
-      >(<unknown>localStorage);
+    >(<unknown>localStorage);
     return data;
   }
   // signin function

@@ -39,6 +39,7 @@ var PostsListComponent = /** @class */ (function () {
         var _this = this;
         this.deleltePost = true;
         this.socketIoService.onDeletePost(postId);
+        this.jobService.deleteJob(postId);
         this.postService.deletePost(postId);
         setTimeout(function () {
             _this.deleltePost = false;

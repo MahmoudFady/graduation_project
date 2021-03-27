@@ -41,6 +41,7 @@ export class PostsListComponent implements OnInit {
   onDeletePost(postId: string) {
     this.deleltePost = true;
     this.socketIoService.onDeletePost(postId);
+    this.jobService.deleteJob(postId);
     this.postService.deletePost(postId);
     setTimeout(() => {
       this.deleltePost = false;

@@ -9,8 +9,7 @@ exports.__esModule = true;
 exports.JobsComponent = void 0;
 var core_1 = require("@angular/core");
 var JobsComponent = /** @class */ (function () {
-    function JobsComponent(postService, socketIOService, jobService) {
-        this.postService = postService;
+    function JobsComponent(socketIOService, jobService) {
         this.socketIOService = socketIOService;
         this.jobService = jobService;
         this.postedJobs = [];
@@ -19,15 +18,14 @@ var JobsComponent = /** @class */ (function () {
     }
     JobsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.socketIOService.joinRoom('allJobsRoom');
         this.loading = true;
+        this.socketIOService.joinRoom('allJobsRoom');
         this.jobService.getAllJobs();
         this.jobService.getUpdatedJobs().subscribe(function (posts) {
             if (posts) {
                 _this.posts = posts;
                 setTimeout(function () {
                     _this.loading = false;
-                    _this.errMsg = null;
                     _this.errMsg = null;
                 }, 600);
             }

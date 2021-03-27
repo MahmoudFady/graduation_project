@@ -10,8 +10,11 @@ export class PostService {
   // BASIC URL TO POST ROUTES AT SERVER
   private url = 'http://localhost:3000/api/post/';
   constructor(private http: HttpClient) {}
-  // REVERS USER POSTS FUCTION ###########
-
+  // => INIT USER POSTS
+  init(posts: Post[]) {
+    this.userPosts = posts;
+    this.updatedUserPosts.next(this.userPosts);
+  }
   // ADDING POSTS FUCTION ################
   addPost(
     job: string,
@@ -41,40 +44,24 @@ export class PostService {
   // DELETE POST BY ID ################
 
   deletePost(postId: string) {
+    console.log(this.userPosts);
+
     const postIndex = this.userPosts.findIndex((post) => post._id === postId);
     this.userPosts.splice(postIndex, 1);
+    console.log(this.userPosts);
     this.updatedUserPosts.next(this.userPosts);
     this.http
       .delete<{ message: string }>(this.url + 'deletePost/' + postId)
-      .subscribe((resualt) => {});
+      .subscribe((resualt) => {
+        console.log(resualt);
+      });
   }
 
-  // GET ALL USERS POSTS #################3
-  getAllPosts() {
-    this.http.get<{ message: string; posts: Post[] }>(this.url).subscribe(
-      (resualt: { message: string; posts: Post[] }) => {
-        this.userPosts = resualt.posts;
-        this.updatedUserPosts.next(this.userPosts);
-      },
-      (err) => {
-        this.userPosts = null;
-        this.updatedUserPosts.next(this.userPosts);
-      }
-    );
-  }
   // GET POST BY ID FUNCTION
   getPostById(postId: string) {
     return this.http.get<{ message: string; post: Post }>(this.url + postId);
   }
-  // FILTER POSTS BY POST JOB
-  getPostByJob(job: string) {
-    let selectedPosts: Post[] = [];
-    selectedPosts =
-      job == '*'
-        ? this.userPosts
-        : this.userPosts.filter((post) => post.job === job);
-    this.updatedUserPosts.next(selectedPosts);
-  }
+
   // GET COMMENT OF SPECIFIC POST
   getPostComment(postId: string) {
     return this.http.get('http://localhost:3000/api/comment/' + postId);

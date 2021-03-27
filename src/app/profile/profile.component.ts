@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     this.postService.getUpdatedPosts().subscribe((posts) => {
       this.userPosts = posts;
+      console.log('1=> ' + this.userPosts);
     });
     const userId = this.authService.getLocalStorageData()._id;
     this.authService.getUserById(userId).subscribe(
@@ -48,6 +49,7 @@ export class ProfileComponent implements OnInit {
         if (getUserResponse) {
           this.userData = getUserResponse.user;
           this.userPosts = getUserResponse.userPosts;
+          this.postService.init(this.userPosts);
           this.loading = false;
         }
       },

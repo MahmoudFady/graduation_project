@@ -23,6 +23,11 @@
       </div>
       <div class="col-sm-6 userPosts">
         <app-posts-list class="userPosts" [posts]="userPosts"></app-posts-list>
+        <div class="noPosts" *ngIf="userPosts.length === 0">
+          <h6>
+            يمكنك النشر عن مهنتك يا <strong>{{ userData.userName }}</strong>
+          </h6>
+        </div>
       </div>
     </div>
   </div>

@@ -19,8 +19,8 @@ var NavbarComponent = /** @class */ (function () {
         // by checking if there is token in local stroage
         this.isAuthSaved = this.authService.getToken() ? true : false;
         // update user state at run time
-        this.authService.isAuthenticatedUser().subscribe(function (auth) {
-            _this.isAuthenticated = auth ? true : false;
+        this.authService.isAuthenticatedUser().subscribe(function (isAuth) {
+            _this.isAuthenticated = isAuth ? true : false;
         });
     };
     // logout form site

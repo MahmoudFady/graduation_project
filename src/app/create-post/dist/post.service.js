@@ -17,7 +17,11 @@ var PostService = /** @class */ (function () {
         // BASIC URL TO POST ROUTES AT SERVER
         this.url = 'http://localhost:3000/api/post/';
     }
-    // REVERS USER POSTS FUCTION ###########
+    // => INIT USER POSTS
+    PostService.prototype.init = function (posts) {
+        this.userPosts = posts;
+        this.updatedUserPosts.next(this.userPosts);
+    };
     // ADDING POSTS FUCTION ################
     PostService.prototype.addPost = function (job, creatorPhone, creatorBigCity, creatorCity, postText, postImages, createByWorker) {
         var formData = new FormData();
@@ -38,35 +42,19 @@ var PostService = /** @class */ (function () {
     };
     // DELETE POST BY ID ################
     PostService.prototype.deletePost = function (postId) {
+        console.log(this.userPosts);
         var postIndex = this.userPosts.findIndex(function (post) { return post._id === postId; });
         this.userPosts.splice(postIndex, 1);
+        console.log(this.userPosts);
         this.updatedUserPosts.next(this.userPosts);
         this.http["delete"](this.url + 'deletePost/' + postId)
-            .subscribe(function (resualt) { });
-    };
-    // GET ALL USERS POSTS #################3
-    PostService.prototype.getAllPosts = function () {
-        var _this = this;
-        this.http.get(this.url).subscribe(function (resualt) {
-            _this.userPosts = resualt.posts;
-            _this.updatedUserPosts.next(_this.userPosts);
-        }, function (err) {
-            _this.userPosts = null;
-            _this.updatedUserPosts.next(_this.userPosts);
+            .subscribe(function (resualt) {
+            console.log(resualt);
         });
     };
     // GET POST BY ID FUNCTION
     PostService.prototype.getPostById = function (postId) {
         return this.http.get(this.url + postId);
-    };
-    // FILTER POSTS BY POST JOB
-    PostService.prototype.getPostByJob = function (job) {
-        var selectedPosts = [];
-        selectedPosts =
-            job == '*'
-                ? this.userPosts
-                : this.userPosts.filter(function (post) { return post.job === job; });
-        this.updatedUserPosts.next(selectedPosts);
     };
     // GET COMMENT OF SPECIFIC POST
     PostService.prototype.getPostComment = function (postId) {

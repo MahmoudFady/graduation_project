@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit {
     // by checking if there is token in local stroage
     this.isAuthSaved = this.authService.getToken() ? true : false;
     // update user state at run time
-    this.authService.isAuthenticatedUser().subscribe((auth) => {
-      this.isAuthenticated = auth ? true : false;
+    this.authService.isAuthenticatedUser().subscribe((isAuth) => {
+      this.isAuthenticated = isAuth ? true : false;
     });
   }
   // logout form site

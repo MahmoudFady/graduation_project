@@ -33,12 +33,14 @@ var ProfileComponent = /** @class */ (function () {
         this.loading = true;
         this.postService.getUpdatedPosts().subscribe(function (posts) {
             _this.userPosts = posts;
+            console.log('1=> ' + _this.userPosts);
         });
         var userId = this.authService.getLocalStorageData()._id;
         this.authService.getUserById(userId).subscribe(function (getUserResponse) {
             if (getUserResponse) {
                 _this.userData = getUserResponse.user;
                 _this.userPosts = getUserResponse.userPosts;
+                _this.postService.init(_this.userPosts);
                 _this.loading = false;
             }
         }, function (err) {

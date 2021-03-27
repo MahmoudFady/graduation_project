@@ -10,8 +10,11 @@ exports.JobService = void 0;
 var rxjs_1 = require("rxjs");
 var core_1 = require("@angular/core");
 var JobService = /** @class */ (function () {
-    function JobService(postService) {
+    function JobService(postService, http) {
         this.postService = postService;
+        this.http = http;
+        this.url = 'http://localhost:3000/api/post/';
+        this.jobs = [];
         this.updatedJobs = new rxjs_1.Subject();
         this.jobLinks = [];
         this.updateJobLinks = new rxjs_1.Subject();
@@ -19,13 +22,11 @@ var JobService = /** @class */ (function () {
     JobService.prototype.getJobLinks = function (jobs) {
         var _this = this;
         this.jobLinks = [];
-        console.log(jobs);
         jobs.forEach(function (job) {
             if (!_this.jobLinks.includes(job.job)) {
                 _this.jobLinks.push(job.job);
             }
         });
-        console.log(this.jobLinks);
         this.updateJobLinks.next(this.jobLinks);
     };
     JobService.prototype.addJob = function (job) {
@@ -39,14 +40,24 @@ var JobService = /** @class */ (function () {
         this.getJobLinks(this.jobs);
         this.updatedJobs.next(this.jobs);
     };
+    // GET ALL USERS POSTS #################3
     JobService.prototype.getAllJobs = function () {
         var _this = this;
-        this.postService.getAllPosts();
-        this.postService.getUpdatedPosts().subscribe(function (posts) {
-            _this.jobs = posts;
+        this.http.get(this.url).subscribe(function (resualt) {
+            _this.jobs = resualt.posts;
             _this.getJobLinks(_this.jobs);
             _this.updatedJobs.next(_this.jobs);
+        }, function (err) {
+            _this.jobs = null;
+            _this.updatedJobs.next(_this.jobs);
         });
+    };
+    // FILTER POSTS BY POST JOB
+    JobService.prototype.getPostByJob = function (job) {
+        var selectedPosts = [];
+        selectedPosts =
+            job == '*' ? this.jobs : this.jobs.filter(function (post) { return post.job === job; });
+        this.updatedJobs.next(selectedPosts);
     };
     JobService.prototype.getUpdatedJobs = function () {
         return this.updatedJobs.asObservable();

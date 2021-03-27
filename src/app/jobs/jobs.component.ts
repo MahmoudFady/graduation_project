@@ -2,7 +2,6 @@ import { JobService } from './jobs.service';
 import { Post } from './../create-post/post.model';
 import { SocketIoService } from './../shared/socket-io.service';
 import { Component, OnInit } from '@angular/core';
-import { PostService } from 'src/app/create-post/post.service';
 
 @Component({
   selector: 'app-jobs',
@@ -16,21 +15,19 @@ export class JobsComponent implements OnInit {
   loading = false;
 
   constructor(
-    private postService: PostService,
     private socketIOService: SocketIoService,
     private jobService: JobService
   ) {}
 
   ngOnInit(): void {
-    this.socketIOService.joinRoom('allJobsRoom');
     this.loading = true;
+    this.socketIOService.joinRoom('allJobsRoom');
     this.jobService.getAllJobs();
     this.jobService.getUpdatedJobs().subscribe((posts) => {
       if (posts) {
         this.posts = posts;
         setTimeout(() => {
           this.loading = false;
-          this.errMsg = null;
           this.errMsg = null;
         }, 600);
       } else {
@@ -45,7 +42,7 @@ export class JobsComponent implements OnInit {
     this.socketIOService.socket.on('onGetPost', (post: Post) => {
       this.jobService.addJob(post);
     });
-    this.socketIOService.socket.on('onGetDeletedPostId', (postId) => {
+    this.socketIOService.socket.on('onGetDeletedPostId', (postId: string) => {
       this.jobService.deleteJob(postId);
     });
   }
