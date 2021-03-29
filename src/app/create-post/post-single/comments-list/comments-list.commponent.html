@@ -18,11 +18,4 @@
       <img *ngFor="let img of comment.commentImages" [src]="img" alt="" />
     </div>
   </div>
-
-  <div *ngIf="postComments.length === 0">
-    <h6>
-      كن اول من يعلق علي ما نشره
-      <strong>{{ post.creator.userName }}</strong>
-    </h6>
-  </div>
 </div>

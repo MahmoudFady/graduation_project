@@ -6,7 +6,7 @@
     <div *ngIf="loading">
       <app-loading></app-loading>
     </div>
-    <div *ngIf="!loading && errMsg" class="col-md-6">
+    <div *ngIf="!loading && errMsg">
       <app-alert-danger
         [errorMessage]="errMsg"
         *ngIf="errMsg"

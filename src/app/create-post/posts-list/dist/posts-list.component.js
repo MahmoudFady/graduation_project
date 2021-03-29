@@ -15,6 +15,7 @@ var PostsListComponent = /** @class */ (function () {
         this.router = router;
         this.socketIoService = socketIoService;
         this.jobService = jobService;
+        this.posts = [];
         this.showPostControls = true;
         this.userId = null;
         this.deleltePost = false;

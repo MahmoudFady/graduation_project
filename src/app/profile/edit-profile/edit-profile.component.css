@@ -28,6 +28,9 @@ a i {
   font-size: 14px;
   font-weight: bold;
 }
+.btn-controls button i {
+  margin-left: 5px;
+}
 .btn-controls button:nth-of-type(2) {
   background-color: #f00;
   color: #fff;

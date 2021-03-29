@@ -183,7 +183,9 @@ exports.signin = function _callee2(req, res, next) {
           token = jwt.sign({
             userId: _user._id,
             userEmail: _user.userEmail
-          }, process.env.JWT_SECRET_KEY);
+          }, process.env.JWT_SECRET_KEY, {
+            expiresIn: "3d"
+          });
           res.status(200).json({
             message: "successfully sign in",
             token: token,

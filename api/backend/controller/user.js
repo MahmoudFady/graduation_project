@@ -124,7 +124,10 @@ exports.signin = async (req, res, next) => {
 
       const token = jwt.sign(
         { userId: user._id, userEmail: user.userEmail },
-        process.env.JWT_SECRET_KEY
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: "3d",
+        }
       );
 
       res.status(200).json({

@@ -19,6 +19,12 @@
         <div class="comments-list">
           <app-comments-list [postComments]="postComments"></app-comments-list>
         </div>
+        <div *ngIf="postComments.length === 0">
+          <h6>
+            كن اول من يعلق علي ما نشره
+            <strong>{{ post.creator.userName }}</strong>
+          </h6>
+        </div>
       </div>
     </div>
   </div>

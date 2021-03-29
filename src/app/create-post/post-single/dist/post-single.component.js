@@ -14,6 +14,25 @@ var SinglePostComponent = /** @class */ (function () {
         this.postService = postService;
         this.socketIoService = socketIoService;
         this.commentService = commentService;
+        this.postId = '';
+        // DEFINE POST
+        this.post = {
+            _id: '',
+            creator: {
+                _id: '',
+                profileImage: '',
+                userName: ''
+            },
+            job: '',
+            creatorPhone: '',
+            creatorBigCity: '',
+            creatorCity: '',
+            postText: '',
+            createByWorker: false,
+            postDate: '',
+            postImages: [''],
+            comments: []
+        };
         // DEFINE COMMENTS OF POST THEN PASS IT TO COMMENTS LIST COMPONENT
         this.postComments = [];
         // DEFINE IMAGES IF USER WANT TO ATTACH SOME IAMGES INTO HIS COMMENT

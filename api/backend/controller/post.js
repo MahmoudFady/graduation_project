@@ -131,9 +131,8 @@ exports.getPostById = async (req, res, next) => {
       post,
     });
   } else {
-    res.status(200).json({
+    res.status(204).json({
       message: "faild to get  post with id : " + postId,
-      alert: "we suggest that id is not exist",
     });
   }
 };

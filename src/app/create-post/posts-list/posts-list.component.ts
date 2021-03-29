@@ -12,7 +12,7 @@ import { PostService } from '../post.service';
   styleUrls: ['./posts-list.component.css'],
 })
 export class PostsListComponent implements OnInit {
-  @Input() posts: Post[];
+  @Input() posts: Post[] = [];
   @Input() showPostControls: boolean = true;
   userId: string = null;
   deleltePost = false;

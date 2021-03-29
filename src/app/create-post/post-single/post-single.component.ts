@@ -12,9 +12,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-single.component.css'],
 })
 export class SinglePostComponent implements OnInit {
-  postId: string;
+  postId: string = '';
   // DEFINE POST
-  post: Post;
+  post: Post = {
+    _id: '',
+    creator: {
+      _id: '',
+      profileImage: '',
+      userName: '',
+    },
+    job: '',
+    creatorPhone: '',
+    creatorBigCity: '',
+    creatorCity: '',
+    postText: '',
+    createByWorker: false,
+    postDate: '',
+    postImages: [''],
+    comments: [],
+  };
   // DEFINE COMMENTS OF POST THEN PASS IT TO COMMENTS LIST COMPONENT
   postComments: Comment[] = [];
   // DEFINE IMAGES IF USER WANT TO ATTACH SOME IAMGES INTO HIS COMMENT

@@ -209,9 +209,8 @@ exports.getPostById = function _callee5(req, res, next) {
               post: post
             });
           } else {
-            res.status(200).json({
-              message: "faild to get  post with id : " + postId,
-              alert: "we suggest that id is not exist"
+            res.status(204).json({
+              message: "faild to get  post with id : " + postId
             });
           }
 

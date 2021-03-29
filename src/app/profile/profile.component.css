@@ -5,6 +5,7 @@
   position: sticky;
   top: 60px;
   z-index: 2;
+  margin-bottom: 20px;
 }
 .userPosts {
   margin-top: 15px;

@@ -15,10 +15,8 @@ export class CommentsListComponent implements OnInit {
     private router: Router,
     private commentService: CommentService
   ) {}
-
   ngOnInit() {
     console.log(this.postComments.length);
-
     this.commentService.getUpdatedComments().subscribe((newComments) => {
       this.postComments = newComments;
     });
