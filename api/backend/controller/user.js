@@ -3,6 +3,21 @@ const Post = require("../model/post");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const sendMailTo = require("../middleware/send-mail-to");
+// GET ALL USER FUNCTION
+exports.getAllUsers = async (req, res, next) => {
+  const users = await User.find().select("-userPassword -__v");
+  if (users.length > 0) {
+    res.status(200).json({
+      message: "successfully get all users ",
+      usersCount: users.length,
+      users,
+    });
+  } else {
+    res.status(200).json({
+      message: "no existed user yet",
+    });
+  }
+};
 // SIGN UP FUNCTION
 exports.signup = async (req, res, next) => {
   console.log(" sign up router");
@@ -186,23 +201,10 @@ exports.getUser = async (req, res, next) => {
     });
   }
 };
-// GET ALL USER FUNCTION
-exports.getAllUsers = async (req, res, next) => {
-  const users = await User.find().select("-userPassword -__v");
-  if (users.length > 0) {
-    res.status(200).json({
-      message: "successfully get all users ",
-      usersCount: users.length,
-      users,
-    });
-  } else {
-    res.status(200).json({
-      message: "no existed user yet",
-    });
-  }
-};
+
 // EDIT USER FUNCTION
 exports.edit = async (decode, req, res, next) => {
+  console.log("use id " + req.params["id"]);
   const {
     userName,
     userEmail,
@@ -240,38 +242,21 @@ exports.edit = async (decode, req, res, next) => {
     newUser,
   });
 };
-//ACCEPT WOKER FUNCTION
-exports.acceptWorker = async (req, res, next) => {
-  const userId = req.params.id;
-  const newUser = await User.findByIdAndUpdate(
-    userId,
-    {
-      $set: {
-        accepted: true,
-      },
-    },
-    { returnNewDocument: true, new: true, strict: false }
-  ).select("-userPassword -__v");
-  sendMailTo(newUser.userEmail, "تم الموافقه ع حسابك");
+
+// => DELETE USER
+exports.deleteUser = async (req, res) => {
+  const userId = req.params["userId"];
+  const deletedUser = await User.findByIdAndDelete(userId);
   res.status(200).json({
-    message: "successfully add  worker",
-    newUser: newUser,
+    deletedUser,
   });
 };
-//BLOCK WORKER WOKER FUNCTION
-exports.blockWorker = async (decode, req, res, next) => {
-  const userId = req.params.id;
-  const newUser = await User.findByIdAndUpdate(
-    userId,
-    {
-      $set: {
-        accepted: false,
-      },
-    },
-    { returnNewDocument: true, new: true, strict: false }
-  ).select("-userPassword -__v");
+// => GET ONLY USERS
+exports.getUsers = async (req, res) => {
+  const users = await User.find({
+    job: { $exists: false },
+  });
   res.status(200).json({
-    message: "successfully add  worker",
-    newUser: newUser,
+    users,
   });
 };

@@ -6,10 +6,11 @@ var router = express.Router();
 
 var comment = require("../controller/comment");
 
-var upload = require("../middleware/upload");
+var _require = require("../middleware/upload"),
+    uploadFiles = _require.uploadFiles;
 
 var checkAuth = require("../middleware/check-auth");
 
 router.get("/:postId", comment.getPostComment);
-router.post("/addComment/:postId", upload.uploadFiles().array("commentImages", 10), checkAuth, comment.addComment);
+router.post("/addComment/:postId", uploadFiles().array("commentImages", 10), checkAuth, comment.addComment);
 module.exports = router;

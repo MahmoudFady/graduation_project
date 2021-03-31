@@ -51,7 +51,7 @@ export class PostService {
     console.log(this.userPosts);
     this.updatedUserPosts.next(this.userPosts);
     this.http
-      .delete<{ message: string }>(this.url + 'deletePost/' + postId)
+      .delete<{ message: string }>(this.url + postId)
       .subscribe((resualt) => {
         console.log(resualt);
       });

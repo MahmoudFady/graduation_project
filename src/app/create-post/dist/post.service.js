@@ -47,7 +47,7 @@ var PostService = /** @class */ (function () {
         this.userPosts.splice(postIndex, 1);
         console.log(this.userPosts);
         this.updatedUserPosts.next(this.userPosts);
-        this.http["delete"](this.url + 'deletePost/' + postId)
+        this.http["delete"](this.url + postId)
             .subscribe(function (resualt) {
             console.log(resualt);
         });

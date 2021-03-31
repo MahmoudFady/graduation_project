@@ -1,23 +1,30 @@
 const express = require("express");
 const user = require("../controller/user");
 const checkAuth = require("../middleware/check-auth");
-const upload = require("../middleware/upload");
+const { uploadFiles } = require("../middleware/upload");
 const router = express.Router();
+// => GET ALL USERS
+router.get("/", user.getAllUsers);
+// => GET ALL ONLY USER WITHOUT WORKERS
+router.get("/users", user.getUsers);
+// => USER SIGNUP REQUEST
 router.post(
   "/signup",
-  upload.uploadFiles().array("workerIdentityImages"),
+  uploadFiles().array("workerIdentityImages"),
   user.signup
 );
+// => USER SINGIN REQUEST
 router.post("/signin", user.signin);
+// => GET SPECIFIC USER BY ID
 router.get("/:id", user.getUser);
-router.get("/", user.getAllUsers);
+// => UPDATE SPECIFIC USER BY ID
 router.patch(
-  "/edit",
-  upload.uploadFiles().single("profileImage"),
+  "/:id",
+  uploadFiles().single("profileImage"),
   checkAuth,
   user.edit
 );
-router.patch("/acceptWorker/:id", user.acceptWorker);
-router.patch("/blockWorker/:id", checkAuth, user.blockWorker);
+// DELETE SPECIFIC USER BY ID
+router.delete("/:id", user.deleteUser);
 
 module.exports = router;

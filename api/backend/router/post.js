@@ -1,19 +1,22 @@
 const express = require("express");
 const checkAuth = require("../middleware/check-auth");
 const post = require("../controller/post");
-const upload = require("../middleware/upload");
+const { uploadFiles } = require("../middleware/upload");
 const router = express.Router();
-
+// GET ALL POSTS
 router.get("/", post.getAllPosts);
+// GET SPECIFIC POST BY ID
 router.get("/:postId", post.getPostById);
-
+// ADD NEW POST
 router.post(
   "/addPost",
-  upload.uploadFiles().array("postImages", 5),
+  uploadFiles().array("postImages", 5),
   checkAuth,
   post.addPost
 );
-router.delete("/deletePost/:postId", checkAuth, post.deletePost);
+// => DELETE SPECIFIC POST BY ID
+router.delete("/:postId", checkAuth, post.deletePost);
+// => GET POST FOR SPECIFIC USER
 router.get("/userPosts", checkAuth, post.userPosts);
 
 module.exports = router;
