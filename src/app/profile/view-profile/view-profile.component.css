@@ -16,3 +16,24 @@
 h5 {
   margin: 25px auto;
 }
+.modalBtn {
+  height: 50px;
+  padding: 0px 20px;
+  margin-top: 25px;
+  border-radius: 30px;
+}
+.modal {
+  z-index: 99999999999;
+}
+.modal form textarea {
+  height: 120px;
+  border-radius: 30px;
+  width: 100%;
+  padding: 20px;
+}
+.modal form button {
+  background-color: var(--mainColor);
+  border-radius: 50px;
+  padding: 10px 20px;
+  border: none;
+}

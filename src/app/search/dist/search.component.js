@@ -8,6 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.SearchComponent = void 0;
 var core_1 = require("@angular/core");
+// DECARATOR
+/**
+ * <DIV>KEKKEKKE</DIV>
+ */
 var SearchComponent = /** @class */ (function () {
     function SearchComponent(autService, searchService) {
         this.autService = autService;

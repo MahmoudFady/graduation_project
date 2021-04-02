@@ -28,7 +28,7 @@ mongoose
 
   // => ON FAILUER
   .catch(() => {
-    console.log("Connection failed!");
+    console.log("Connection to db failed!");
   });
 // => TO READ AND RECIVE DATA FROM REQUEST BODY
 app.use(express.json());
@@ -58,3 +58,9 @@ app.use("/api/search", searchRoutes);
 app.use("/api/report", reportRoutes);
 
 module.exports = app;
+////////////////////////////////////////////////////
+/**
+ * MRC
+ * MODEL ROUTES CONTROL
+ */
+///////////////////////////////////////////////////

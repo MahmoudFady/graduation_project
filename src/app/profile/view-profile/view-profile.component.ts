@@ -1,3 +1,5 @@
+import { ReportService } from './report.service';
+import { NgForm } from '@angular/forms';
 import {
   Testimonial,
   TestimonialService,
@@ -14,8 +16,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ViewProfileComponent implements OnInit {
   userId: string = '';
-  userPosts: Post[];
-  userReviews: Testimonial[];
+  userPosts: Post[] = [];
+  userReviews: Testimonial[] = [];
+  isAuth: boolean = false;
   userData: UserData = {
     profileImage: '',
     _id: '',
@@ -29,10 +32,12 @@ export class ViewProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
-    private testimonialService: TestimonialService
+    private testimonialService: TestimonialService,
+    private reportService: ReportService
   ) {}
 
   ngOnInit(): void {
+    this.isAuth = this.authService.getToken() ? true : false;
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
     });
@@ -52,6 +57,10 @@ export class ViewProfileComponent implements OnInit {
     this.testimonialService.getUpdatedTestimonials().subscribe((testis) => {
       this.userReviews = testis;
     });
-    console.log(this.userReviews);
+  }
+  onAddReport(f: NgForm) {
+    const reportMessage = f.value['reportMessage'];
+    this.reportService.addReport(reportMessage, this.userId);
+    f.reset();
   }
 }

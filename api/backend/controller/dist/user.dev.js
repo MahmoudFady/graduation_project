@@ -196,7 +196,9 @@ exports.signin = function _callee3(req, res, next) {
           }
 
           _context3.next = 7;
-          return regeneratorRuntime.awrap(bcrypt.compare(userPassword, user.userPassword));
+          return regeneratorRuntime.awrap(bcrypt.compare(userPassword, // 123
+          user.userPassword // DHJKLNSMJDKSLNDMS,JEWKL
+          ));
 
         case 7:
           isPasswordSame = _context3.sent;

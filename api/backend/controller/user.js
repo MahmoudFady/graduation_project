@@ -119,8 +119,8 @@ exports.signin = async (req, res, next) => {
   if (user) {
     // COMPARE PASSWORD
     const isPasswordSame = await bcrypt.compare(
-      userPassword,
-      user.userPassword
+      userPassword, // 123
+      user.userPassword // DHJKLNSMJDKSLNDMS,JEWKL
     );
     /**
      * IF PASSWORD IS OK

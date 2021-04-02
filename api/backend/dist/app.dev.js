@@ -37,7 +37,7 @@ mongoose.connect(process.env.MONGO_DB_URL, {
   console.log("connected to database at url  " + process.env.MONGO_DB_URL);
 }) // => ON FAILUER
 ["catch"](function () {
-  console.log("Connection failed!");
+  console.log("Connection to db failed!");
 }); // => TO READ AND RECIVE DATA FROM REQUEST BODY
 
 app.use(express.json());
@@ -61,4 +61,10 @@ app.use("/api/review", reviewRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/report", reportRoutes);
-module.exports = app;
+module.exports = app; ////////////////////////////////////////////////////
+
+/**
+ * MRC
+ * MODEL ROUTES CONTROL
+ */
+///////////////////////////////////////////////////

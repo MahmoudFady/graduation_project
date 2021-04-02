@@ -9,11 +9,15 @@ exports.__esModule = true;
 exports.ViewProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var ViewProfileComponent = /** @class */ (function () {
-    function ViewProfileComponent(route, authService, testimonialService) {
+    function ViewProfileComponent(route, authService, testimonialService, reportService) {
         this.route = route;
         this.authService = authService;
         this.testimonialService = testimonialService;
+        this.reportService = reportService;
         this.userId = '';
+        this.userPosts = [];
+        this.userReviews = [];
+        this.isAuth = false;
         this.userData = {
             profileImage: '',
             _id: '',
@@ -27,6 +31,7 @@ var ViewProfileComponent = /** @class */ (function () {
     }
     ViewProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.isAuth = this.authService.getToken() ? true : false;
         this.route.params.subscribe(function (params) {
             _this.userId = params['id'];
         });
@@ -40,7 +45,11 @@ var ViewProfileComponent = /** @class */ (function () {
         this.testimonialService.getUpdatedTestimonials().subscribe(function (testis) {
             _this.userReviews = testis;
         });
-        console.log(this.userReviews);
+    };
+    ViewProfileComponent.prototype.onAddReport = function (f) {
+        var reportMessage = f.value['reportMessage'];
+        this.reportService.addReport(reportMessage, this.userId);
+        f.reset();
     };
     ViewProfileComponent = __decorate([
         core_1.Component({

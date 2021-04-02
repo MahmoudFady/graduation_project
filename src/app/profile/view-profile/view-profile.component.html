@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col-md-6 userData">
       <app-profile-data [userData]="userData"></app-profile-data>
+      <button
+        *ngIf="isAuth"
+        type="button"
+        class="btn btn-danger modalBtn"
+        data-toggle="modal"
+        data-target="#reportModal"
+      >
+        شكوي ضد {{ userData.userName }}
+      </button>
     </div>
     <div class="col-md-6 userPosts">
       <app-posts-list [posts]="userPosts"></app-posts-list>
@@ -15,3 +24,34 @@
   </h5>
   <app-testimonial [testimonials]="userReviews"></app-testimonial>
 </section>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="reportModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="onAddReport(f)" #f="ngForm">
+        <div class="modal-body">
+          <textarea
+            required
+            placeholder="كتابه الشكوي"
+            name="reportMessage"
+            ngModel
+            #reportMessage="ngModel"
+          ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="f.valid" type="submit" class="btn btn-secondary">
+            ارسال
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--=> end modal-->

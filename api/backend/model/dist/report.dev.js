@@ -3,8 +3,11 @@
 var mongoose = require("mongoose");
 
 var reportSchema = new mongoose.Schema({
-  creatorId: String,
-  creatorName: String,
-  message: String
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  reportMessage: String,
+  reportTo: String
 });
 module.exports = mongoose.model("Report", reportSchema);
