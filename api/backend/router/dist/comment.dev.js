@@ -13,4 +13,5 @@ var checkAuth = require("../middleware/check-auth");
 
 router.get("/:postId", comment.getPostComment);
 router.post("/addComment/:postId", uploadFiles().array("commentImages", 10), checkAuth, comment.addComment);
+router["delete"]("/:commentId", checkAuth, comment.deleteComment);
 module.exports = router;

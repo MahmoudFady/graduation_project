@@ -16,8 +16,6 @@ export class ReportService {
         reportMessage,
         reportTo,
       })
-      .subscribe((resualt) => {
-        console.log(resualt);
-      });
+      .subscribe((resualt) => {});
   }
 }

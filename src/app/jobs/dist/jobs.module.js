@@ -6,18 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.SearchService = void 0;
+exports.JobsModule = void 0;
+var post_list_module_1 = require("../create-post/posts-list/post-list.module");
+var job_links_component_1 = require("./job-links/job-links.component");
+var jobs_component_1 = require("./jobs.component");
 var core_1 = require("@angular/core");
-var SearchService = /** @class */ (function () {
-    function SearchService(http) {
-        this.http = http;
+var JobsModule = /** @class */ (function () {
+    function JobsModule() {
     }
-    SearchService.prototype.search = function (job, bigCity, city, isWorker) {
-        return this.http.get("http://localhost:3000/api/search/" + job + "/" + bigCity + "/" + city + "/" + isWorker);
-    };
-    SearchService = __decorate([
-        core_1.Injectable({ providedIn: 'root' })
-    ], SearchService);
-    return SearchService;
+    JobsModule = __decorate([
+        core_1.NgModule({
+            declarations: [jobs_component_1.JobsComponent, job_links_component_1.JobLinksComponent],
+            imports: [post_list_module_1.PostListModule]
+        })
+    ], JobsModule);
+    return JobsModule;
 }());
-exports.SearchService = SearchService;
+exports.JobsModule = JobsModule;

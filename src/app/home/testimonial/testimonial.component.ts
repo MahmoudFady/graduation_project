@@ -9,6 +9,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TestimonialComponent implements OnInit {
   @Input() testimonials: Testimonial[] = [];
   ngOnInit(): void {
-    console.log(this.testimonials);
   }
 }

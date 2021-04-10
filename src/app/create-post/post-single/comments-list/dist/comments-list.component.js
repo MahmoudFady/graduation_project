@@ -9,19 +9,38 @@ exports.__esModule = true;
 exports.CommentsListComponent = void 0;
 var core_1 = require("@angular/core");
 var CommentsListComponent = /** @class */ (function () {
-    function CommentsListComponent(authService, router, commentService) {
+    function CommentsListComponent(authService, router, route, commentService, socketIoService) {
         this.authService = authService;
         this.router = router;
+        this.route = route;
         this.commentService = commentService;
+        this.socketIoService = socketIoService;
         this.postComments = [];
+        this.userId = '';
     }
+    CommentsListComponent.prototype.ngOnChanges = function (changes) {
+        this.commentService.initComments(this.postComments);
+    };
     CommentsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log(this.postComments.length);
+        this.userId = this.authService.getLocalStorageData()['_id'];
         this.commentService.getUpdatedComments().subscribe(function (newComments) {
             _this.postComments = newComments;
         });
+        // => listin if comment deleted
+        this.socketIoService.socket.on('onGetDeletedComment', function (commentId) {
+            _this.commentService.deleteCommentIo(commentId);
+        });
+        this.socketIoService.socket.on('onGetComment', function (resualt) {
+            _this.postComments.push(resualt.newComment);
+        });
     }; // GET THE CREATOR OF POST
+    CommentsListComponent.prototype.onDeleteComment = function (commentId) {
+        var _this = this;
+        this.route.params.subscribe(function (param) {
+            _this.commentService.deleteComment(commentId, param['postId']);
+        });
+    };
     CommentsListComponent.prototype.onGetUser = function (id) {
         var activeUserId = this.authService.getLocalStorageData()._id;
         if (id === activeUserId) {

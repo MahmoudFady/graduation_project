@@ -38,22 +38,15 @@ export class SinglePostComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
-    private socketIoService: SocketIoService,
-    private commentService: CommentService
-  ) {}
+    private socketIoService: SocketIoService  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       // GET POST ID FORM URL : HTTP://LOCALHOST:4200/POST/:POSTID
       this.postId = params['postId'];
       this.socketIoService.joinRoom('postid=' + this.postId);
       //=> LISTIN IF NEW COMMENT PUSHED
-      this.socketIoService.socket.on(
-        'onGetComment',
-        (resualt: { newComment: Comment; joinPath: string }) => {
-          this.postComments.push(resualt.newComment);
-        }
-      );
     });
+
     // THEN GET THAT POST BY ID
     this.postService.getPostById(this.postId).subscribe((resualt) => {
       /**
@@ -62,11 +55,9 @@ export class SinglePostComponent implements OnInit {
        * POSTCOMMENTS
        */
       this.post = resualt.post;
-      console.log(this.post);
-
       this.postComments = resualt.post.comments;
       // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
-      this.commentService.initComments(this.postComments);
+      // this.commentService.initComments(this.postComments);
     });
   }
   ngOnDestroy(): void {

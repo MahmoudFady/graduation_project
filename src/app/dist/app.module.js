@@ -7,115 +7,47 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
-var comment_service_1 = require("./create-post/post-single/comment.service");
-var socket_io_service_1 = require("./shared/socket-io.service");
-var footer_component_1 = require("./home/footer/footer.component");
-var sponsor_component_1 = require("./home/sponsor/sponsor.component");
-var users_search_list_component_1 = require("./search/users-search-list/users-search-list.component");
-var comments_list_component_1 = require("./create-post/post-single/comments-list/comments-list.component");
-var post_single_component_1 = require("./create-post/post-single/post-single.component");
+var search_module_1 = require("./search/search.module");
+var jobs_module_1 = require("./jobs/jobs.module");
+var post_single_module_1 = require("./create-post/post-single/post-single.module");
+var profile_module_1 = require("./profile/profile.module");
+var home_module_1 = require("./home/home.module");
 var auth_interceptor_service_1 = require("./auth/auth-interceptor.service");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
-// SOCKET IO SET UP
 var app_routing_module_1 = require("./app-routing.module");
 var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
-var search_component_1 = require("./search/search.component");
-var signin_component_1 = require("./auth/signin/signin.component");
-var profile_component_1 = require("./profile/profile.component");
-var signup_component_1 = require("./auth/signup/signup.component");
-var home_component_1 = require("./home/home.component");
-var create_post_component_1 = require("./create-post/create-post.component");
-var posts_list_component_1 = require("./create-post/posts-list/posts-list.component");
-var forms_1 = require("@angular/forms");
-var post_service_1 = require("./create-post/post.service");
-var auth_service_1 = require("./auth/auth.service");
 var http_1 = require("@angular/common/http");
-var auth_guard_1 = require("./auth/auth.guard");
-var edit_profile_component_1 = require("./profile/edit-profile/edit-profile.component");
 var error_page_component_1 = require("./error-page/error-page.component");
-var loading_component_1 = require("./shared/loading/loading.component");
-var alert_danger_component_1 = require("./shared/alert-danger/alert-danger.component");
-var alert_success_component_1 = require("./shared/./alert-success/alert-success.component");
-var profile_data_component_1 = require("./profile/profile-data/profile-data.component");
-var view_profile_component_1 = require("./profile/view-profile/view-profile.component");
-var jobs_component_1 = require("./jobs/jobs.component");
-var testimonial_service_1 = require("./home/testimonial/testimonial.service");
-var banner_component_1 = require("./home/banner/banner.component");
-var blogs_component_1 = require("./home/blogs/blogs.component");
-var features_component_1 = require("./home/features/features.component");
-var services_component_1 = require("./home/services/services.component");
-var subscribe_component_1 = require("./home/subscribe/subscribe.component");
-var testimonial_component_1 = require("./home/testimonial/testimonial.component");
-var add_testimonial_component_1 = require("./home/testimonial/add-testimonial/add-testimonial.component");
-var testimonial_list_component_1 = require("./home/testimonial/testimonial-list/testimonial-list.component");
-var create_comment_component_1 = require("./create-post/post-single/create-comment/create-comment.component");
-var search_service_1 = require("./search/search.service");
-var user_guard_1 = require("./auth/user.guard");
-var job_links_component_1 = require("./jobs/job-links/job-links.component");
-var view_single_post_component_1 = require("./create-post/post-single/view-single-post/view-single-post.component");
+var create_post_module_1 = require("./create-post/create-post.module");
+var sigin_module_1 = require("./auth/signin/sigin.module");
+var signup_module_1 = require("./auth/signup/signup.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            declarations: [
-                app_component_1.AppComponent,
-                navbar_component_1.NavbarComponent,
-                search_component_1.SearchComponent,
-                signin_component_1.SigninComponent,
-                profile_component_1.ProfileComponent,
-                signup_component_1.SignupComponent,
-                home_component_1.HomeComponent,
-                create_post_component_1.CreatePostComponent,
-                posts_list_component_1.PostsListComponent,
-                edit_profile_component_1.EditProfileComponent,
-                error_page_component_1.ErrorPageComponent,
-                profile_data_component_1.ProfileDataComponent,
-                view_profile_component_1.ViewProfileComponent,
-                jobs_component_1.JobsComponent,
-                loading_component_1.LoadingComponent,
-                alert_danger_component_1.AlertDangerComponent,
-                alert_success_component_1.AlertSuccessComponent,
-                banner_component_1.BannerComponent,
-                services_component_1.ServicesComponent,
-                features_component_1.FeaturesComponent,
-                subscribe_component_1.SubscribeComponent,
-                blogs_component_1.BlogsComponent,
-                testimonial_component_1.TestimonialComponent,
-                add_testimonial_component_1.AddTestimonialComponent,
-                testimonial_list_component_1.TestimonialListComponent,
-                post_single_component_1.SinglePostComponent,
-                view_single_post_component_1.ViewSinglePost,
-                create_comment_component_1.CreateCommentComponent,
-                comments_list_component_1.CommentsListComponent,
-                sponsor_component_1.SponsorComponent,
-                footer_component_1.FooterComponent,
-                users_search_list_component_1.UsersSearchList,
-                job_links_component_1.JobLinks,
-            ],
+            declarations: [app_component_1.AppComponent, navbar_component_1.NavbarComponent, error_page_component_1.ErrorPageComponent],
             imports: [
                 platform_browser_1.BrowserModule,
-                app_routing_module_1.AppRoutingModule,
                 http_1.HttpClientModule,
-                forms_1.FormsModule,
-                forms_1.ReactiveFormsModule,
+                app_routing_module_1.AppRoutingModule,
+                home_module_1.HomeModule,
+                profile_module_1.ProfileModule,
+                post_single_module_1.PostSingleModule,
+                create_post_module_1.CreatePostModule,
+                jobs_module_1.JobsModule,
+                search_module_1.SearchModule,
+                sigin_module_1.SigninModule,
+                signup_module_1.SignupModule,
             ],
             providers: [
-                post_service_1.PostService,
-                auth_service_1.AuthService,
-                auth_guard_1.AuthGuard,
-                testimonial_service_1.TestimonialService,
                 {
                     provide: http_1.HTTP_INTERCEPTORS,
                     useClass: auth_interceptor_service_1.AuthInterceptor,
                     multi: true
                 },
-                search_service_1.SearchService,
-                user_guard_1.AuthUser,
-                socket_io_service_1.SocketIoService,
-                comment_service_1.CommentService,
             ],
             bootstrap: [app_component_1.AppComponent]
         })

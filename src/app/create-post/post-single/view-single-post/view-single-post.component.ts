@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './view-single-post.component.html',
   styleUrls: ['./view-single-post.component.css'],
 })
-export class ViewSinglePost implements OnInit {
+export class ViewSinglePostComponent implements OnInit {
   @Input() post: Post;
   ngOnInit(): void {
     console.log(this.post);

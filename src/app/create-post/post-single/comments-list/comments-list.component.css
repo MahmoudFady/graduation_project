@@ -56,3 +56,10 @@
   border-radius: 20px;
   margin-left: 5px;
 }
+.deleteIcon {
+  text-align: left;
+  padding-left: 10px;
+}
+.deleteIcon a {
+  cursor: pointer;
+}

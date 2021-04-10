@@ -6,15 +6,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.JobLinks = void 0;
+exports.JobLinksComponent = void 0;
 var core_1 = require("@angular/core");
 var core_2 = require("@angular/core");
-var JobLinks = /** @class */ (function () {
-    function JobLinks(jobService) {
+var JobLinksComponent = /** @class */ (function () {
+    function JobLinksComponent(jobService) {
         this.jobService = jobService;
         this.postedJobs = [];
     }
-    JobLinks.prototype.getPosts = function (job, ele) {
+    JobLinksComponent.prototype.getPosts = function (job, ele) {
         document.querySelectorAll('ul li').forEach(function (li) {
             li.classList.remove('active');
         });
@@ -23,14 +23,14 @@ var JobLinks = /** @class */ (function () {
     };
     __decorate([
         core_1.Input()
-    ], JobLinks.prototype, "postedJobs");
-    JobLinks = __decorate([
+    ], JobLinksComponent.prototype, "postedJobs");
+    JobLinksComponent = __decorate([
         core_2.Component({
             selector: 'job-links',
             templateUrl: './job-links.component.html',
             styleUrls: ['./job-links.component.css']
         })
-    ], JobLinks);
-    return JobLinks;
+    ], JobLinksComponent);
+    return JobLinksComponent;
 }());
-exports.JobLinks = JobLinks;
+exports.JobLinksComponent = JobLinksComponent;

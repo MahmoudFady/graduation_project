@@ -6,18 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.SearchService = void 0;
+exports.PostListModule = void 0;
+var shared_module_1 = require("./../../shared/shared.module");
+var posts_list_component_1 = require("./posts-list.component");
 var core_1 = require("@angular/core");
-var SearchService = /** @class */ (function () {
-    function SearchService(http) {
-        this.http = http;
+var PostListModule = /** @class */ (function () {
+    function PostListModule() {
     }
-    SearchService.prototype.search = function (job, bigCity, city, isWorker) {
-        return this.http.get("http://localhost:3000/api/search/" + job + "/" + bigCity + "/" + city + "/" + isWorker);
-    };
-    SearchService = __decorate([
-        core_1.Injectable({ providedIn: 'root' })
-    ], SearchService);
-    return SearchService;
+    PostListModule = __decorate([
+        core_1.NgModule({
+            declarations: [posts_list_component_1.PostsListComponent],
+            imports: [shared_module_1.SharedModule],
+            exports: [posts_list_component_1.PostsListComponent, shared_module_1.SharedModule]
+        })
+    ], PostListModule);
+    return PostListModule;
 }());
-exports.SearchService = SearchService;
+exports.PostListModule = PostListModule;

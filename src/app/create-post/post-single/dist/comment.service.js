@@ -50,6 +50,21 @@ var CommentService = /** @class */ (function () {
             _this.updatedComments.next(_this.comments);
         });
     };
+    CommentService.prototype.deleteComment = function (commentId, postId) {
+        this.deleteCommentIo(commentId);
+        this.http["delete"]('http://localhost:3000/api/comment/' + commentId)
+            .subscribe(function (message) { });
+        this.socketIoService.onDeleteComment(commentId, 'postid=' + postId);
+    };
+    CommentService.prototype.deleteCommentIo = function (commentId) {
+        var commentIndex = this.comments.findIndex(function (comment) { return comment._id === commentId; });
+        this.comments.splice(commentIndex, 1);
+        this.updatedComments.next(this.comments);
+    };
+    CommentService.prototype.addCommentIo = function (comment) {
+        this.comments.push(comment);
+        this.updatedComments.next(this.comments);
+    };
     //LISTEN TO updatedComments OF ANY USER ADD NEW COMMENT
     CommentService.prototype.getUpdatedComments = function () {
         return this.updatedComments.asObservable();

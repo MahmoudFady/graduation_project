@@ -9,11 +9,10 @@ exports.__esModule = true;
 exports.SinglePostComponent = void 0;
 var core_1 = require("@angular/core");
 var SinglePostComponent = /** @class */ (function () {
-    function SinglePostComponent(route, postService, socketIoService, commentService) {
+    function SinglePostComponent(route, postService, socketIoService) {
         this.route = route;
         this.postService = postService;
         this.socketIoService = socketIoService;
-        this.commentService = commentService;
         this.postId = '';
         // DEFINE POST
         this.post = {
@@ -45,9 +44,6 @@ var SinglePostComponent = /** @class */ (function () {
             _this.postId = params['postId'];
             _this.socketIoService.joinRoom('postid=' + _this.postId);
             //=> LISTIN IF NEW COMMENT PUSHED
-            _this.socketIoService.socket.on('onGetComment', function (resualt) {
-                _this.postComments.push(resualt.newComment);
-            });
         });
         // THEN GET THAT POST BY ID
         this.postService.getPostById(this.postId).subscribe(function (resualt) {
@@ -57,10 +53,9 @@ var SinglePostComponent = /** @class */ (function () {
              * POSTCOMMENTS
              */
             _this.post = resualt.post;
-            console.log(_this.post);
             _this.postComments = resualt.post.comments;
             // ASSIGN COMMENTS TO OBSERVALBE < COMMENTS WHICH DECLARED IN POST SERVICE >
-            _this.commentService.initComments(_this.postComments);
+            // this.commentService.initComments(this.postComments);
         });
     };
     SinglePostComponent.prototype.ngOnDestroy = function () {

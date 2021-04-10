@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './job-links.component.html',
   styleUrls: ['./job-links.component.css'],
 })
-export class JobLinks {
+export class JobLinksComponent {
   @Input() postedJobs: string[] = [];
   constructor(private jobService: JobService) {}
   getPosts(job: string, ele: HTMLElement) {

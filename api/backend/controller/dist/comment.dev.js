@@ -104,3 +104,49 @@ exports.getPostComment = function _callee2(req, res) {
     }
   });
 };
+
+exports.deleteComment = function _callee3(decode, req, res, next) {
+  var commentId, comment;
+  return regeneratorRuntime.async(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          console.log("on delete comment");
+          commentId = req.params["commentId"];
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(Comment.findById(commentId));
+
+        case 4:
+          comment = _context3.sent;
+
+          if (comment) {
+            _context3.next = 7;
+            break;
+          }
+
+          return _context3.abrupt("return");
+
+        case 7:
+          if (decode.userId != comment["creator"]) {
+            res.status(404).json({
+              message: "your not allowed to delete that comment"
+            });
+          }
+
+          _context3.next = 10;
+          return regeneratorRuntime.awrap(Comment.deleteOne({
+            _id: commentId
+          }));
+
+        case 10:
+          res.status(200).json({
+            message: "comment deleted."
+          });
+
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  });
+};

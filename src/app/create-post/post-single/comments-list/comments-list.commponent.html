@@ -1,4 +1,14 @@
 <div class="post-comments">
+  <h5
+    style="
+      padding: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 1) !important;
+    "
+  >
+    {{postComments.length}} تعليق
+  </h5>
   <div *ngFor="let comment of postComments.reverse()" class="single-comment">
     <header
       [title]="' عرض حساب' +' ' +comment.creator.userName "
@@ -16,6 +26,9 @@
     </div>
     <div class="commentImages" *ngIf="comment.commentImages.length > 0">
       <img *ngFor="let img of comment.commentImages" [src]="img" alt="" />
+    </div>
+    <div *ngIf="userId === comment.creator._id" class="deleteIcon">
+      <a (click)="onDeleteComment(comment._id)"><i class="fa fa-trash"></i></a>
     </div>
   </div>
 </div>

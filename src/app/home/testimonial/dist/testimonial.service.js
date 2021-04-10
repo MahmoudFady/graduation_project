@@ -52,7 +52,7 @@ var TestimonialService = /** @class */ (function () {
         return this.testimonials.asObservable();
     };
     TestimonialService = __decorate([
-        core_1.Injectable()
+        core_1.Injectable({ providedIn: 'root' })
     ], TestimonialService);
     return TestimonialService;
 }());

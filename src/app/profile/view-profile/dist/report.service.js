@@ -22,9 +22,7 @@ var ReportService = /** @class */ (function () {
             reportMessage: reportMessage,
             reportTo: reportTo
         })
-            .subscribe(function (resualt) {
-            console.log(resualt);
-        });
+            .subscribe(function (resualt) { });
     };
     ReportService = __decorate([
         core_1.Injectable({

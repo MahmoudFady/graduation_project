@@ -27,6 +27,13 @@ module.exports = function (httpServer) {
         newComment: newComment,
         joinPath: joinPath
       });
+    }); // => DELETE COMMENT
+
+    socket.on("onDeleteComment", function (_ref2) {
+      var commentId = _ref2.commentId,
+          joinPath = _ref2.joinPath;
+      console.log("fired");
+      socket.broadcast.to(joinPath).emit("onGetDeletedComment", commentId);
     }); // => WHEN ON_ADD_POST EVENT FIRED FROM THE CLIENT SERVER
 
     socket.on("onAddPost", function (post) {

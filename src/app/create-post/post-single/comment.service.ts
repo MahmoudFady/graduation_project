@@ -42,7 +42,24 @@ export class CommentService {
         this.updatedComments.next(this.comments);
       });
   }
-
+  deleteComment(commentId: string, postId?: string): void {
+    this.deleteCommentIo(commentId);
+    this.http
+      .delete('http://localhost:3000/api/comment/' + commentId)
+      .subscribe((message) => {});
+    this.socketIoService.onDeleteComment(commentId, 'postid=' + postId);
+  }
+  deleteCommentIo(commentId: string) {
+    const commentIndex = this.comments.findIndex(
+      (comment) => comment._id === commentId
+    );
+    this.comments.splice(commentIndex, 1);
+    this.updatedComments.next(this.comments);
+  }
+  addCommentIo(comment: Comment): void {
+    this.comments.push(comment);
+    this.updatedComments.next(this.comments);
+  }
   //LISTEN TO updatedComments OF ANY USER ADD NEW COMMENT
   getUpdatedComments(): Observable<Comment[]> {
     return this.updatedComments.asObservable();

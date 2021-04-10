@@ -59,3 +59,20 @@ exports.getPostComment = async (req, res) => {
     postComment,
   });
 };
+exports.deleteComment = async (decode, req, res, next) => {
+  console.log("on delete comment");
+  const commentId = req.params["commentId"];
+  const comment = await Comment.findById(commentId);
+  if (!comment) {
+    return;
+  }
+  if (decode.userId != comment["creator"]) {
+    res.status(404).json({
+      message: "your not allowed to delete that comment",
+    });
+  }
+  await Comment.deleteOne({ _id: commentId });
+  res.status(200).json({
+    message: "comment deleted.",
+  });
+};

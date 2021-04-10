@@ -22,6 +22,11 @@ module.exports = (httpServer) => {
         .to(joinPath)
         .emit("onGetComment", { newComment, joinPath });
     });
+    // => DELETE COMMENT
+    socket.on("onDeleteComment", ({ commentId, joinPath }) => {
+      console.log("fired");
+      socket.broadcast.to(joinPath).emit("onGetDeletedComment", commentId);
+    });
     // => WHEN ON_ADD_POST EVENT FIRED FROM THE CLIENT SERVER
     socket.on("onAddPost", (post) => {
       // => THEN PUBLISH NEW JOB TO ALL CONNECTED USER IN ROOM 'allJobsRoom'

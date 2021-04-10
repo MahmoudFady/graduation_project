@@ -6,24 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.TestimonialComponent = void 0;
+exports.PostListModule = void 0;
+var shared_module_1 = require("./../shared/shared.module");
+var common_1 = require("@angular/common");
+var posts_list_component_1 = require("./posts-list/posts-list.component");
 var core_1 = require("@angular/core");
-var TestimonialComponent = /** @class */ (function () {
-    function TestimonialComponent() {
-        this.testimonials = [];
+var PostListModule = /** @class */ (function () {
+    function PostListModule() {
     }
-    TestimonialComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        core_1.Input()
-    ], TestimonialComponent.prototype, "testimonials");
-    TestimonialComponent = __decorate([
-        core_1.Component({
-            selector: 'app-testimonial',
-            templateUrl: './testimonial.component.html',
-            styleUrls: ['./testimonial.component.css']
+    PostListModule = __decorate([
+        core_1.NgModule({
+            declarations: [posts_list_component_1.PostsListComponent],
+            imports: [common_1.CommonModule, shared_module_1.SharedModule],
+            exports: [posts_list_component_1.PostsListComponent]
         })
-    ], TestimonialComponent);
-    return TestimonialComponent;
+    ], PostListModule);
+    return PostListModule;
 }());
-exports.TestimonialComponent = TestimonialComponent;
+exports.PostListModule = PostListModule;

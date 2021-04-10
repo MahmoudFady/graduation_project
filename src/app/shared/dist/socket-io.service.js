@@ -16,19 +16,19 @@ var SocketIoService = /** @class */ (function () {
         this.socket = socket_io_client_1.io('http://localhost:3000');
     };
     SocketIoService.prototype.getMessage = function () {
-        this.socket.on('sendMessage', function (message) {
-            console.log(message);
-        });
+        this.socket.on('sendMessage', function (message) { });
     };
     // => JOINING SPECIFIC ROOM
     SocketIoService.prototype.joinRoom = function (joinPath) {
-        this.socket.emit('join', joinPath, function (msg) {
-            console.log(msg);
-        });
+        this.socket.emit('join', joinPath, function (msg) { });
     };
     // => ON ADD NEW COMMENT (CLIENT => SERVER)
     SocketIoService.prototype.onAddComment = function (newComment, joinPath) {
         this.socket.emit('onAddComment', { newComment: newComment, joinPath: joinPath });
+    };
+    // => ON ADD NEW COMMENT (CLIENT => SERVER)
+    SocketIoService.prototype.onDeleteComment = function (commentId, joinPath) {
+        this.socket.emit('onDeleteComment', { commentId: commentId, joinPath: joinPath });
     };
     // => ON ADD NEW POST
     SocketIoService.prototype.onAddPost = function (post) {
@@ -42,7 +42,7 @@ var SocketIoService = /** @class */ (function () {
         this.socket.emit('userOut', joinPath);
     };
     SocketIoService = __decorate([
-        core_1.Injectable()
+        core_1.Injectable({ providedIn: 'root' })
     ], SocketIoService);
     return SocketIoService;
 }());

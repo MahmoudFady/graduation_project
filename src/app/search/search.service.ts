@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../create-post/post.model';
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SearchService {
   constructor(private http: HttpClient) {}
   search(job: string, bigCity: string, city: string, isWorker: string) {

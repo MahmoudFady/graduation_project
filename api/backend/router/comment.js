@@ -10,4 +10,5 @@ router.post(
   checkAuth,
   comment.addComment
 );
+router.delete("/:commentId", checkAuth, comment.deleteComment);
 module.exports = router;

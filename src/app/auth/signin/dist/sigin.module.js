@@ -6,18 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.SearchService = void 0;
+exports.SigninModule = void 0;
+var forms_1 = require("@angular/forms");
+var shared_module_1 = require("./../../shared/shared.module");
+var signin_component_1 = require("./signin.component");
 var core_1 = require("@angular/core");
-var SearchService = /** @class */ (function () {
-    function SearchService(http) {
-        this.http = http;
+var SigninModule = /** @class */ (function () {
+    function SigninModule() {
     }
-    SearchService.prototype.search = function (job, bigCity, city, isWorker) {
-        return this.http.get("http://localhost:3000/api/search/" + job + "/" + bigCity + "/" + city + "/" + isWorker);
-    };
-    SearchService = __decorate([
-        core_1.Injectable({ providedIn: 'root' })
-    ], SearchService);
-    return SearchService;
+    SigninModule = __decorate([
+        core_1.NgModule({
+            declarations: [signin_component_1.SigninComponent],
+            imports: [forms_1.FormsModule, shared_module_1.SharedModule],
+            exports: [signin_component_1.SigninComponent]
+        })
+    ], SigninModule);
+    return SigninModule;
 }());
-exports.SearchService = SearchService;
+exports.SigninModule = SigninModule;

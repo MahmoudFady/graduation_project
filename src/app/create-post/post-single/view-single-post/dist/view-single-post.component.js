@@ -6,24 +6,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.ViewSinglePost = void 0;
+exports.ViewSinglePostComponent = void 0;
 var core_1 = require("@angular/core");
-var ViewSinglePost = /** @class */ (function () {
-    function ViewSinglePost() {
+var ViewSinglePostComponent = /** @class */ (function () {
+    function ViewSinglePostComponent() {
     }
-    ViewSinglePost.prototype.ngOnInit = function () {
+    ViewSinglePostComponent.prototype.ngOnInit = function () {
         console.log(this.post);
     };
     __decorate([
         core_1.Input()
-    ], ViewSinglePost.prototype, "post");
-    ViewSinglePost = __decorate([
+    ], ViewSinglePostComponent.prototype, "post");
+    ViewSinglePostComponent = __decorate([
         core_1.Component({
             selector: 'app-view-single-post',
             templateUrl: './view-single-post.component.html',
             styleUrls: ['./view-single-post.component.css']
         })
-    ], ViewSinglePost);
-    return ViewSinglePost;
+    ], ViewSinglePostComponent);
+    return ViewSinglePostComponent;
 }());
-exports.ViewSinglePost = ViewSinglePost;
+exports.ViewSinglePostComponent = ViewSinglePostComponent;

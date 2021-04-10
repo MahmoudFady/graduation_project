@@ -7,39 +7,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.HomeModule = void 0;
-var testimonial_service_1 = require("./testimonial/testimonial.service");
-var forms_1 = require("@angular/forms");
-var common_1 = require("@angular/common");
-var core_1 = require("@angular/core");
-var banner_component_1 = require("./banner/banner.component");
+var router_1 = require("@angular/router");
+var home_component_1 = require("./home.component");
+var footer_component_1 = require("./footer/footer.component");
+var sponsor_component_1 = require("./sponsor/sponsor.component");
 var blogs_component_1 = require("./blogs/blogs.component");
-var features_component_1 = require("./features/features.component");
 var services_component_1 = require("./services/services.component");
+var features_component_1 = require("./features/features.component");
+var banner_component_1 = require("./banner/banner.component");
+var testimonial_module_1 = require("./testimonial/testimonial.module");
+var core_1 = require("@angular/core");
 var subscribe_component_1 = require("./subscribe/subscribe.component");
-var testimonial_component_1 = require("./testimonial/testimonial.component");
 var HomeModule = /** @class */ (function () {
     function HomeModule() {
     }
     HomeModule = __decorate([
         core_1.NgModule({
             declarations: [
+                home_component_1.HomeComponent,
                 banner_component_1.BannerComponent,
-                services_component_1.ServicesComponent,
                 features_component_1.FeaturesComponent,
-                subscribe_component_1.SubscribeComponent,
-                blogs_component_1.BlogsComponent,
-                testimonial_component_1.TestimonialComponent,
-            ],
-            imports: [common_1.CommonModule, forms_1.FormsModule],
-            exports: [
-                banner_component_1.BannerComponent,
                 services_component_1.ServicesComponent,
-                features_component_1.FeaturesComponent,
-                subscribe_component_1.SubscribeComponent,
                 blogs_component_1.BlogsComponent,
-                testimonial_component_1.TestimonialComponent,
+                subscribe_component_1.SubscribeComponent,
+                sponsor_component_1.SponsorComponent,
+                footer_component_1.FooterComponent,
             ],
-            providers: [testimonial_service_1.TestimonialService]
+            imports: [router_1.RouterModule, testimonial_module_1.TestimonialModule]
         })
     ], HomeModule);
     return HomeModule;

@@ -9,7 +9,7 @@ export interface Testimonial {
   };
   reviewText: string;
 }
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class TestimonialService {
   private url = 'http://localhost:3000/api/review/';
   private _testtimonials: Testimonial[] = [];
