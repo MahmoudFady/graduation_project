@@ -7,19 +7,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.PostSingleModule = void 0;
+var router_1 = require("@angular/router");
 var post_single_component_1 = require("./post-single.component");
 var comment_module_1 = require("./comment.module");
 var post_list_module_1 = require("../posts-list/post-list.module");
 var core_1 = require("@angular/core");
-var view_single_post_component_1 = require("./view-single-post/view-single-post.component");
 var PostSingleModule = /** @class */ (function () {
     function PostSingleModule() {
     }
     PostSingleModule = __decorate([
         core_1.NgModule({
-            declarations: [post_single_component_1.SinglePostComponent, view_single_post_component_1.ViewSinglePostComponent],
-            imports: [comment_module_1.CommentModule, post_list_module_1.PostListModule, comment_module_1.CommentModule],
-            exports: [post_single_component_1.SinglePostComponent, view_single_post_component_1.ViewSinglePostComponent]
+            declarations: [post_single_component_1.SinglePostComponent],
+            imports: [comment_module_1.CommentModule, router_1.RouterModule, post_list_module_1.PostListModule, comment_module_1.CommentModule]
         })
     ], PostSingleModule);
     return PostSingleModule;

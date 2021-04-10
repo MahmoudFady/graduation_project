@@ -12,13 +12,14 @@ var forms_1 = require("@angular/forms");
 var create_comment_component_1 = require("./create-comment/create-comment.component");
 var comments_list_component_1 = require("./comments-list/comments-list.component");
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var CommentModule = /** @class */ (function () {
     function CommentModule() {
     }
     CommentModule = __decorate([
         core_1.NgModule({
             declarations: [comments_list_component_1.CommentsListComponent, create_comment_component_1.CreateCommentComponent],
-            imports: [forms_1.ReactiveFormsModule, common_1.CommonModule],
+            imports: [forms_1.ReactiveFormsModule, common_1.CommonModule, router_1.RouterModule],
             exports: [comments_list_component_1.CommentsListComponent, create_comment_component_1.CreateCommentComponent, common_1.CommonModule]
         })
     ], CommentModule);

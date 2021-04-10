@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.SharedModule = void 0;
+var router_1 = require("@angular/router");
 var common_1 = require("@angular/common");
 var alert_success_component_1 = require("./alert-success/alert-success.component");
 var alert_danger_component_1 = require("./alert-danger/alert-danger.component");
@@ -18,7 +19,7 @@ var SharedModule = /** @class */ (function () {
     SharedModule = __decorate([
         core_1.NgModule({
             declarations: [loading_component_1.LoadingComponent, alert_danger_component_1.AlertDangerComponent, alert_success_component_1.AlertSuccessComponent],
-            imports: [common_1.CommonModule],
+            imports: [common_1.CommonModule, router_1.RouterModule],
             exports: [
                 common_1.CommonModule,
                 loading_component_1.LoadingComponent,

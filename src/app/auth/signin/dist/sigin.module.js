@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.SigninModule = void 0;
+var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var shared_module_1 = require("./../../shared/shared.module");
 var signin_component_1 = require("./signin.component");
@@ -17,8 +18,7 @@ var SigninModule = /** @class */ (function () {
     SigninModule = __decorate([
         core_1.NgModule({
             declarations: [signin_component_1.SigninComponent],
-            imports: [forms_1.FormsModule, shared_module_1.SharedModule],
-            exports: [signin_component_1.SigninComponent]
+            imports: [forms_1.FormsModule, router_1.RouterModule, shared_module_1.SharedModule]
         })
     ], SigninModule);
     return SigninModule;
