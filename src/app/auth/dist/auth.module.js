@@ -6,33 +6,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.SearchModule = void 0;
-var router_1 = require("@angular/router");
-var post_list_module_1 = require("./../create-post/posts-list/post-list.module");
-var shared_module_1 = require("./../shared/shared.module");
-var users_search_list_component_1 = require("./users-search-list/users-search-list.component");
-var search_component_1 = require("./search.component");
-var core_1 = require("@angular/core");
+exports.AuthModule = void 0;
 var forms_1 = require("@angular/forms");
-var SearchModule = /** @class */ (function () {
-    function SearchModule() {
+var shared_module_1 = require("./../shared/shared.module");
+var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
+var signup_component_1 = require("./signup/signup.component");
+var signin_component_1 = require("./signin/signin.component");
+var core_1 = require("@angular/core");
+var AuthModule = /** @class */ (function () {
+    function AuthModule() {
     }
-    SearchModule = __decorate([
+    AuthModule = __decorate([
         core_1.NgModule({
-            declarations: [search_component_1.SearchComponent, users_search_list_component_1.UsersSearchList],
+            declarations: [signin_component_1.SigninComponent, signup_component_1.SignupComponent],
             imports: [
+                common_1.CommonModule,
                 forms_1.FormsModule,
-                router_1.RouterModule.forChild([
-                    {
-                        path: '',
-                        component: search_component_1.SearchComponent
-                    },
-                ]),
-                post_list_module_1.PostListModule,
+                forms_1.ReactiveFormsModule,
                 shared_module_1.SharedModule,
+                router_1.RouterModule.forChild([
+                    { path: 'signin', component: signin_component_1.SigninComponent },
+                    { path: 'signup', component: signup_component_1.SignupComponent },
+                ]),
             ]
         })
-    ], SearchModule);
-    return SearchModule;
+    ], AuthModule);
+    return AuthModule;
 }());
-exports.SearchModule = SearchModule;
+exports.AuthModule = AuthModule;

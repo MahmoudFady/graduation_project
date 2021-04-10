@@ -17,6 +17,7 @@ var view_profile_component_1 = require("./view-profile/view-profile.component");
 var profile_data_component_1 = require("./profile-data/profile-data.component");
 var profile_component_1 = require("./profile.component");
 var core_1 = require("@angular/core");
+var auth_guard_1 = require("../auth/auth.guard");
 var ProfileModule = /** @class */ (function () {
     function ProfileModule() {
     }
@@ -30,7 +31,22 @@ var ProfileModule = /** @class */ (function () {
             ],
             imports: [
                 forms_1.ReactiveFormsModule,
-                router_1.RouterModule,
+                router_1.RouterModule.forChild([
+                    {
+                        path: '',
+                        canActivate: [auth_guard_1.AuthGuard],
+                        component: profile_component_1.ProfileComponent
+                    },
+                    {
+                        path: 'edit',
+                        canActivate: [auth_guard_1.AuthGuard],
+                        component: edit_profile_component_1.EditProfileComponent
+                    },
+                    {
+                        path: ':id',
+                        component: view_profile_component_1.ViewProfileComponent
+                    },
+                ]),
                 testimonial_module_1.TestimonialModule,
                 post_list_module_1.PostListModule,
                 shared_module_1.SharedModule,

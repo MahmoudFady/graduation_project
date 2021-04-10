@@ -33,7 +33,13 @@ var HomeModule = /** @class */ (function () {
                 sponsor_component_1.SponsorComponent,
                 footer_component_1.FooterComponent,
             ],
-            imports: [router_1.RouterModule, testimonial_module_1.TestimonialModule]
+            imports: [
+                router_1.RouterModule.forChild([{
+                        path: '',
+                        component: home_component_1.HomeComponent
+                    }]),
+                testimonial_module_1.TestimonialModule,
+            ]
         })
     ], HomeModule);
     return HomeModule;

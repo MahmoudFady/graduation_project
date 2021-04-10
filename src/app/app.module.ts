@@ -1,6 +1,4 @@
-import { SearchModule } from './search/search.module';
-import { JobsModule } from './jobs/jobs.module';
-import { PostSingleModule } from './create-post/post-single/post-single.module';
+import { PostModule } from './create-post/post.module';
 import { ProfileModule } from './profile/profile.module';
 import { HomeModule } from './home/home.module';
 
@@ -12,12 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { CreatePostModule } from './create-post/create-post.module';
-import { SigninModule } from './auth/signin/sigin.module';
-import { SignupModule } from './auth/signup/signup.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, ErrorPageComponent],
@@ -28,12 +23,8 @@ import { SignupModule } from './auth/signup/signup.module';
     AppRoutingModule,
     HomeModule,
     ProfileModule,
-    CreatePostModule,
-    PostSingleModule,
-    JobsModule,
-    SearchModule,
-    SigninModule,
-    SignupModule,
+    PostModule,
+    AuthModule,
   ],
 
   providers: [

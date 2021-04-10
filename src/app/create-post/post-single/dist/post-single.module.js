@@ -18,7 +18,17 @@ var PostSingleModule = /** @class */ (function () {
     PostSingleModule = __decorate([
         core_1.NgModule({
             declarations: [post_single_component_1.SinglePostComponent],
-            imports: [comment_module_1.CommentModule, router_1.RouterModule, post_list_module_1.PostListModule, comment_module_1.CommentModule]
+            imports: [
+                comment_module_1.CommentModule,
+                router_1.RouterModule.forChild([
+                    {
+                        path: '',
+                        component: post_single_component_1.SinglePostComponent
+                    },
+                ]),
+                post_list_module_1.PostListModule,
+                comment_module_1.CommentModule,
+            ]
         })
     ], PostSingleModule);
     return PostSingleModule;

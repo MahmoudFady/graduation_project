@@ -34,7 +34,7 @@ export class PostsListComponent implements OnInit {
     if (id === activeUserId) {
       this.router.navigate(['/profile']);
     } else {
-      this.router.navigate([`/view-profile/${id}`]);
+      this.router.navigate([`/profile/${id}`]);
     }
   }
   // DELETE POST
@@ -55,11 +55,9 @@ export class PostsListComponent implements OnInit {
   // get image url
   displayImage(url: string): void {
     this.displayedImageUrl = url;
-    console.log(this.displayedImageUrl);
   }
   // close displayedImage
   closeImage() {
     this.displayedImageUrl = null;
-    console.log(this.displayedImageUrl);
   }
 }

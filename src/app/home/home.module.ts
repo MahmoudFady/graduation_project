@@ -1,7 +1,4 @@
 import { RouterModule } from '@angular/router';
-import { CreatePostModule } from './../create-post/create-post.module';
-import { SignupModule } from './../auth/signup/signup.module';
-import { SigninModule } from './../auth/signin/sigin.module';
 import { HomeComponent } from './home.component';
 import { FooterComponent } from './footer/footer.component';
 import { SponsorComponent } from './sponsor/sponsor.component';
@@ -23,6 +20,12 @@ import { SubscribeComponent } from './subscribe/subscribe.component';
     SponsorComponent,
     FooterComponent,
   ],
-  imports: [RouterModule, TestimonialModule],
+  imports: [
+    RouterModule.forChild([{
+      path: '',
+      component: HomeComponent,
+    }]),
+    TestimonialModule,
+  ],
 })
 export class HomeModule {}

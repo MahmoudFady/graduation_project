@@ -6,6 +6,15 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [CreatePostComponent],
-  imports: [ReactiveFormsModule, SharedModule],
+  imports: [
+    ReactiveFormsModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: CreatePostComponent,
+      },
+    ]),
+    SharedModule,
+  ],
 })
 export class CreatePostModule {}

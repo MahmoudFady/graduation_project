@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.JobsModule = void 0;
+var router_1 = require("@angular/router");
 var post_list_module_1 = require("../create-post/posts-list/post-list.module");
 var job_links_component_1 = require("./job-links/job-links.component");
 var jobs_component_1 = require("./jobs.component");
@@ -17,7 +18,10 @@ var JobsModule = /** @class */ (function () {
     JobsModule = __decorate([
         core_1.NgModule({
             declarations: [jobs_component_1.JobsComponent, job_links_component_1.JobLinksComponent],
-            imports: [post_list_module_1.PostListModule]
+            imports: [
+                post_list_module_1.PostListModule,
+                router_1.RouterModule.forChild([{ path: '', component: jobs_component_1.JobsComponent }]),
+            ]
         })
     ], JobsModule);
     return JobsModule;

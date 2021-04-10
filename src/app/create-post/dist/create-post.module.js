@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.CreatePostModule = void 0;
+var router_1 = require("@angular/router");
 var forms_1 = require("@angular/forms");
 var shared_module_1 = require("./../shared/shared.module");
 var create_post_component_1 = require("./create-post.component");
@@ -17,7 +18,16 @@ var CreatePostModule = /** @class */ (function () {
     CreatePostModule = __decorate([
         core_1.NgModule({
             declarations: [create_post_component_1.CreatePostComponent],
-            imports: [forms_1.ReactiveFormsModule, shared_module_1.SharedModule]
+            imports: [
+                forms_1.ReactiveFormsModule,
+                router_1.RouterModule.forChild([
+                    {
+                        path: '',
+                        component: create_post_component_1.CreatePostComponent
+                    },
+                ]),
+                shared_module_1.SharedModule,
+            ]
         })
     ], CreatePostModule);
     return CreatePostModule;

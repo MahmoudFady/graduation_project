@@ -7,9 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
-var search_module_1 = require("./search/search.module");
-var jobs_module_1 = require("./jobs/jobs.module");
-var post_single_module_1 = require("./create-post/post-single/post-single.module");
+var post_module_1 = require("./create-post/post.module");
 var profile_module_1 = require("./profile/profile.module");
 var home_module_1 = require("./home/home.module");
 var auth_interceptor_service_1 = require("./auth/auth-interceptor.service");
@@ -20,9 +18,7 @@ var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
 var http_1 = require("@angular/common/http");
 var error_page_component_1 = require("./error-page/error-page.component");
-var create_post_module_1 = require("./create-post/create-post.module");
-var sigin_module_1 = require("./auth/signin/sigin.module");
-var signup_module_1 = require("./auth/signup/signup.module");
+var auth_module_1 = require("./auth/auth.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -35,12 +31,8 @@ var AppModule = /** @class */ (function () {
                 app_routing_module_1.AppRoutingModule,
                 home_module_1.HomeModule,
                 profile_module_1.ProfileModule,
-                create_post_module_1.CreatePostModule,
-                post_single_module_1.PostSingleModule,
-                jobs_module_1.JobsModule,
-                search_module_1.SearchModule,
-                sigin_module_1.SigninModule,
-                signup_module_1.SignupModule,
+                post_module_1.PostModule,
+                auth_module_1.AuthModule,
             ],
             providers: [
                 {

@@ -8,6 +8,7 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
 import { ProfileDataComponent } from './profile-data/profile-data.component';
 import { ProfileComponent } from './profile.component';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from '../auth/auth.guard';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,22 @@ import { NgModule } from '@angular/core';
   ],
   imports: [
     ReactiveFormsModule,
-    RouterModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        component: ProfileComponent,
+      },
+      {
+        path: 'edit',
+        canActivate: [AuthGuard],
+        component: EditProfileComponent,
+      },
+      {
+        path: ':id',
+        component: ViewProfileComponent,
+      },
+    ]),
     TestimonialModule,
     PostListModule,
     SharedModule,

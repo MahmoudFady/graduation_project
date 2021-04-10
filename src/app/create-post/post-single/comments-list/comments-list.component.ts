@@ -52,7 +52,7 @@ export class CommentsListComponent implements OnInit {
     if (id === activeUserId) {
       this.router.navigate(['/profile']);
     } else {
-      this.router.navigate([`/view-profile/${id}`]);
+      this.router.navigate([`/profile/${id}`]);
     }
   }
 }

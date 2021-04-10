@@ -32,7 +32,7 @@ var PostsListComponent = /** @class */ (function () {
             this.router.navigate(['/profile']);
         }
         else {
-            this.router.navigate(["/view-profile/" + id]);
+            this.router.navigate(["/profile/" + id]);
         }
     };
     // DELETE POST
@@ -54,12 +54,10 @@ var PostsListComponent = /** @class */ (function () {
     // get image url
     PostsListComponent.prototype.displayImage = function (url) {
         this.displayedImageUrl = url;
-        console.log(this.displayedImageUrl);
     };
     // close displayedImage
     PostsListComponent.prototype.closeImage = function () {
         this.displayedImageUrl = null;
-        console.log(this.displayedImageUrl);
     };
     __decorate([
         core_1.Input()

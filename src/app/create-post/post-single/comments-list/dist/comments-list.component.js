@@ -47,7 +47,7 @@ var CommentsListComponent = /** @class */ (function () {
             this.router.navigate(['/profile']);
         }
         else {
-            this.router.navigate(["/view-profile/" + id]);
+            this.router.navigate(["/profile/" + id]);
         }
     };
     __decorate([

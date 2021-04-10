@@ -6,6 +6,16 @@ import { NgModule } from '@angular/core';
 
 @NgModule({
   declarations: [SinglePostComponent],
-  imports: [CommentModule, RouterModule, PostListModule, CommentModule],
+  imports: [
+    CommentModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: SinglePostComponent,
+      },
+    ]),
+    PostListModule,
+    CommentModule,
+  ],
 })
 export class PostSingleModule {}
