@@ -31,7 +31,6 @@ exports.signup = async (req, res, next) => {
     userPassword,
     isWorker,
   } = req.body;
-  console.log(isWorker);
   const user = await User.findOne({ userEmail: userEmail });
   // CHEACK IF EMAIL IS ALREADY TOKEN OR NOT
   if (!user) {
@@ -116,7 +115,10 @@ exports.signin = async (req, res, next) => {
   // GET USER FORM DB
   const user = await User.findOne({ userEmail: userEmail });
   // IF USER IS EXIST
-  if (user) {
+  if (
+    user &&
+    (user._doc.accepted === undefined || user._doc.accepted === true)
+  ) {
     // COMPARE PASSWORD
     const isPasswordSame = await bcrypt.compare(
       userPassword, // 123
@@ -129,10 +131,7 @@ exports.signin = async (req, res, next) => {
      * OR
      * HE IS WORKER ACCEPTED MUST = TRUE
      */
-    if (
-      isPasswordSame &&
-      (user.accepted === undefined || user.accepted === true)
-    ) {
+    if (isPasswordSame) {
       const user = await User.findOne({ userEmail: userEmail }).select(
         "-__v -userPassword"
       );

@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       if (this.authService.getToken()) {
         resolve(true);
       } else {
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/auth/signin']);
       }
     });
   }

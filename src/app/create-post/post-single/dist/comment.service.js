@@ -25,6 +25,7 @@ var CommentService = /** @class */ (function () {
         this.http = http;
         this.authService = authService;
         this.socketIoService = socketIoService;
+        this.comments = [];
         this.updatedComments = new rxjs_1.Subject();
     }
     CommentService.prototype.initComments = function (updatedComments) {

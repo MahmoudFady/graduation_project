@@ -60,17 +60,16 @@ exports.signup = function _callee2(req, res, next) {
           console.log(" sign up router"); //CATCH MUTUAL DATA BETWEEN WORKER AND USER
 
           _req$body = req.body, userName = _req$body.userName, userEmail = _req$body.userEmail, userBigCity = _req$body.userBigCity, userCity = _req$body.userCity, userPhone = _req$body.userPhone, userPassword = _req$body.userPassword, isWorker = _req$body.isWorker;
-          console.log(isWorker);
-          _context2.next = 5;
+          _context2.next = 4;
           return regeneratorRuntime.awrap(User.findOne({
             userEmail: userEmail
           }));
 
-        case 5:
+        case 4:
           user = _context2.sent;
 
           if (user) {
-            _context2.next = 31;
+            _context2.next = 30;
             break;
           }
 
@@ -78,10 +77,10 @@ exports.signup = function _callee2(req, res, next) {
           url = req.protocol + "://" + req.get("host") + "/uploads/"; // CHECK IF USE IS WORKER OR NOT
           // ENCRYBT USER PASSWORD
 
-          _context2.next = 10;
+          _context2.next = 9;
           return regeneratorRuntime.awrap(bcrypt.hash(userPassword, 10));
 
-        case 10:
+        case 9:
           hash = _context2.sent;
           // HANDEL MUTUAL DATA INTO OBJECT
           MUTUAL = {
@@ -95,14 +94,14 @@ exports.signup = function _callee2(req, res, next) {
           }; // IF USER
 
           if (!(isWorker == "false")) {
-            _context2.next = 20;
+            _context2.next = 19;
             break;
           }
 
-          _context2.next = 15;
+          _context2.next = 14;
           return regeneratorRuntime.awrap(new User(_objectSpread({}, MUTUAL)).save());
 
-        case 15:
+        case 14:
           newUser = _context2.sent;
           // SEND TOKEN IF USER
           token = jwt.sign({
@@ -114,10 +113,10 @@ exports.signup = function _callee2(req, res, next) {
             token: token,
             user: newUser
           });
-          _context2.next = 29;
+          _context2.next = 28;
           break;
 
-        case 20:
+        case 19:
           //  CATCH WORKER JOB
           console.log(req.body);
           job = req.body.job;
@@ -125,16 +124,16 @@ exports.signup = function _callee2(req, res, next) {
             return url + file.filename;
           }); // IF HE IS WORKER WE ADD NEW FILED (job, workerIdentityImages , accepted);
 
-          _context2.next = 25;
+          _context2.next = 24;
           return regeneratorRuntime.awrap(new User(_objectSpread({}, MUTUAL, {
             job: job,
             accepted: false,
             workerIdentityImages: workerIdentityImages
           })).save());
 
-        case 25:
+        case 24:
           _newUser = _context2.sent;
-          _context2.next = 28;
+          _context2.next = 27;
           return regeneratorRuntime.awrap(User.findByIdAndUpdate(_newUser._id, {
             $set: {
               job: job,
@@ -148,22 +147,22 @@ exports.signup = function _callee2(req, res, next) {
             strict: false
           }));
 
-        case 28:
+        case 27:
           res.status(200).json({
             message: "successfully worker sign up"
           });
 
-        case 29:
-          _context2.next = 32;
+        case 28:
+          _context2.next = 31;
           break;
 
-        case 31:
+        case 30:
           res.status(201).json({
             message: "this email already used",
             duplicatedEamil: true
           });
 
-        case 32:
+        case 31:
         case "end":
           return _context2.stop();
       }
@@ -190,7 +189,7 @@ exports.signin = function _callee3(req, res, next) {
         case 3:
           user = _context3.sent;
 
-          if (!user) {
+          if (!(user && (user._doc.accepted === undefined || user._doc.accepted === true))) {
             _context3.next = 19;
             break;
           }
@@ -203,7 +202,7 @@ exports.signin = function _callee3(req, res, next) {
         case 7:
           isPasswordSame = _context3.sent;
 
-          if (!(isPasswordSame && (user.accepted === undefined || user.accepted === true))) {
+          if (!isPasswordSame) {
             _context3.next = 16;
             break;
           }

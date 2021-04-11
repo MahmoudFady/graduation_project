@@ -1,7 +1,6 @@
 import { AuthUser } from './auth/user.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [

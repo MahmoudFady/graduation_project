@@ -20,7 +20,7 @@ var AuthGuard = /** @class */ (function () {
                 resolve(true);
             }
             else {
-                _this.router.navigate(['/signin']);
+                _this.router.navigate(['/auth/signin']);
             }
         });
     };

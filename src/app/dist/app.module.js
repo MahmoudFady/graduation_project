@@ -7,9 +7,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppModule = void 0;
-var post_module_1 = require("./create-post/post.module");
-var profile_module_1 = require("./profile/profile.module");
-var home_module_1 = require("./home/home.module");
 var auth_interceptor_service_1 = require("./auth/auth-interceptor.service");
 var platform_browser_1 = require("@angular/platform-browser");
 var core_1 = require("@angular/core");
@@ -18,22 +15,13 @@ var app_component_1 = require("./app.component");
 var navbar_component_1 = require("./navbar/navbar.component");
 var http_1 = require("@angular/common/http");
 var error_page_component_1 = require("./error-page/error-page.component");
-var auth_module_1 = require("./auth/auth.module");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [app_component_1.AppComponent, navbar_component_1.NavbarComponent, error_page_component_1.ErrorPageComponent],
-            imports: [
-                platform_browser_1.BrowserModule,
-                http_1.HttpClientModule,
-                app_routing_module_1.AppRoutingModule,
-                home_module_1.HomeModule,
-                profile_module_1.ProfileModule,
-                post_module_1.PostModule,
-                auth_module_1.AuthModule,
-            ],
+            imports: [platform_browser_1.BrowserModule, http_1.HttpClientModule, app_routing_module_1.AppRoutingModule],
             providers: [
                 {
                     provide: http_1.HTTP_INTERCEPTORS,

@@ -6,7 +6,7 @@ import { Comment } from './create-comment/comment.model';
 import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class CommentService {
-  private comments: Comment[];
+  private comments: Comment[] = [];
   private updatedComments = new Subject<Comment[]>();
   constructor(
     private http: HttpClient,
