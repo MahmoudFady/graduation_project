@@ -14,9 +14,7 @@ export class CreateCommentComponent implements OnInit {
   commentImages: string[] = [];
   commentForm: FormGroup;
   @Input() postId: string = null;
-  @Input() postComments: Comment[] = [];
   constructor(
-    private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService
   ) {}
@@ -51,12 +49,15 @@ export class CreateCommentComponent implements OnInit {
     }
   }
   // ON ADD COMMENT
-  onAddComent() {
+  onAddComment() {
     // FORM IS VALID
     if (this.commentForm.valid) {
+      console.log('new comment added');
+
       const { commentText, commentImages } = this.commentForm.value;
       this.commentService.addComment(this.postId, commentText, commentImages);
       this.commentImages = null;
+      this.commentForm.reset();
     }
   }
 }

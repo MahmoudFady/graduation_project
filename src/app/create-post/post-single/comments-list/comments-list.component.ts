@@ -11,7 +11,7 @@ import { SimpleChanges } from '@angular/core';
   styleUrls: ['./comments-list.component.css'],
 })
 export class CommentsListComponent implements OnInit {
-  @Input() postComments: Comment[] = [];
+  postComments: Comment[] = [];
   userId: string = '';
   constructor(
     private authService: AuthService,
@@ -20,11 +20,10 @@ export class CommentsListComponent implements OnInit {
     private commentService: CommentService,
     private socketIoService: SocketIoService
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-    this.commentService.initComments(this.postComments);
-  }
+
   ngOnInit() {
     this.userId = this.authService.getLocalStorageData()['_id'];
+    this.postComments = this.commentService.getComments();
     this.commentService.getUpdatedComments().subscribe((newComments) => {
       this.postComments = newComments;
     });
@@ -32,7 +31,12 @@ export class CommentsListComponent implements OnInit {
     this.socketIoService.socket.on(
       'onGetDeletedComment',
       (commentId: string) => {
-        this.commentService.deleteCommentIo(commentId);
+        // this.commentService.deleteCommentIo(commentId);
+        const commentIndex = this.postComments.findIndex(
+          (comment) => comment._id === commentId
+        );
+        this.postComments.splice(commentIndex, 1);
+        // this.updatedComments.next(this.comments);
       }
     );
     this.socketIoService.socket.on(

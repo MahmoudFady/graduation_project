@@ -37,7 +37,7 @@ var SocketIoService = /** @class */ (function () {
     SocketIoService.prototype.onDeletePost = function (postId) {
         this.socket.emit('onDeletePost', postId);
     };
-    //=> DISCONNECT USER
+    //=> DISCONNECT USERkdkk
     SocketIoService.prototype.disconnectUser = function (joinPath) {
         this.socket.emit('userOut', joinPath);
     };

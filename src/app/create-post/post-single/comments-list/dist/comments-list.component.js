@@ -18,18 +18,19 @@ var CommentsListComponent = /** @class */ (function () {
         this.postComments = [];
         this.userId = '';
     }
-    CommentsListComponent.prototype.ngOnChanges = function (changes) {
-        this.commentService.initComments(this.postComments);
-    };
     CommentsListComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userId = this.authService.getLocalStorageData()['_id'];
+        this.postComments = this.commentService.getComments();
         this.commentService.getUpdatedComments().subscribe(function (newComments) {
             _this.postComments = newComments;
         });
         // => listin if comment deleted
         this.socketIoService.socket.on('onGetDeletedComment', function (commentId) {
-            _this.commentService.deleteCommentIo(commentId);
+            // this.commentService.deleteCommentIo(commentId);
+            var commentIndex = _this.postComments.findIndex(function (comment) { return comment._id === commentId; });
+            _this.postComments.splice(commentIndex, 1);
+            // this.updatedComments.next(this.comments);
         });
         this.socketIoService.socket.on('onGetComment', function (resualt) {
             _this.postComments.push(resualt.newComment);
@@ -50,9 +51,6 @@ var CommentsListComponent = /** @class */ (function () {
             this.router.navigate(["/profile/" + id]);
         }
     };
-    __decorate([
-        core_1.Input()
-    ], CommentsListComponent.prototype, "postComments");
     CommentsListComponent = __decorate([
         core_1.Component({
             selector: 'app-comments-list',

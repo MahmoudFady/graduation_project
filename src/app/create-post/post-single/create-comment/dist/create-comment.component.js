@@ -10,13 +10,11 @@ exports.CreateCommentComponent = void 0;
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var CreateCommentComponent = /** @class */ (function () {
-    function CreateCommentComponent(postService, authService, commentService) {
-        this.postService = postService;
+    function CreateCommentComponent(authService, commentService) {
         this.authService = authService;
         this.commentService = commentService;
         this.commentImages = [];
         this.postId = null;
-        this.postComments = [];
     }
     CreateCommentComponent.prototype.ngOnInit = function () {
         this.isAuthenticated = this.authService.getToken() ? true : false;
@@ -52,20 +50,19 @@ var CreateCommentComponent = /** @class */ (function () {
         }
     };
     // ON ADD COMMENT
-    CreateCommentComponent.prototype.onAddComent = function () {
+    CreateCommentComponent.prototype.onAddComment = function () {
         // FORM IS VALID
         if (this.commentForm.valid) {
+            console.log('new comment added');
             var _a = this.commentForm.value, commentText = _a.commentText, commentImages = _a.commentImages;
             this.commentService.addComment(this.postId, commentText, commentImages);
             this.commentImages = null;
+            this.commentForm.reset();
         }
     };
     __decorate([
         core_1.Input()
     ], CreateCommentComponent.prototype, "postId");
-    __decorate([
-        core_1.Input()
-    ], CreateCommentComponent.prototype, "postComments");
     CreateCommentComponent = __decorate([
         core_1.Component({
             selector: 'app-create-comment',

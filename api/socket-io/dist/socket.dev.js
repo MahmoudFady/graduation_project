@@ -23,6 +23,9 @@ module.exports = function (httpServer) {
       var newComment = _ref.newComment,
           joinPath = _ref.joinPath;
       // => PUBLISH THE NEW COMMENT TO ALL CONNECTED USER IN SPECIFIC ROOM
+      console.log("++++++++++++++++");
+      console.log("server push new comment");
+      console.log("+++++++++++++++++");
       socket.broadcast.to(joinPath).emit("onGetComment", {
         newComment: newComment,
         joinPath: joinPath
@@ -32,7 +35,6 @@ module.exports = function (httpServer) {
     socket.on("onDeleteComment", function (_ref2) {
       var commentId = _ref2.commentId,
           joinPath = _ref2.joinPath;
-      console.log("fired");
       socket.broadcast.to(joinPath).emit("onGetDeletedComment", commentId);
     }); // => WHEN ON_ADD_POST EVENT FIRED FROM THE CLIENT SERVER
 

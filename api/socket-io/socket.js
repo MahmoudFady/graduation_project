@@ -18,13 +18,15 @@ module.exports = (httpServer) => {
     // => WHEN ON_ADD_COMMENT EVENT FIRED FROM THE CLIENT SERVER
     socket.on("onAddComment", ({ newComment, joinPath }) => {
       // => PUBLISH THE NEW COMMENT TO ALL CONNECTED USER IN SPECIFIC ROOM
+      console.log("++++++++++++++++");
+      console.log("server push new comment");
+      console.log("+++++++++++++++++");
       socket.broadcast
         .to(joinPath)
         .emit("onGetComment", { newComment, joinPath });
     });
     // => DELETE COMMENT
     socket.on("onDeleteComment", ({ commentId, joinPath }) => {
-      console.log("fired");
       socket.broadcast.to(joinPath).emit("onGetDeletedComment", commentId);
     });
     // => WHEN ON_ADD_POST EVENT FIRED FROM THE CLIENT SERVER

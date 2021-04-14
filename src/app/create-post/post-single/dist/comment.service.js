@@ -28,8 +28,8 @@ var CommentService = /** @class */ (function () {
         this.comments = [];
         this.updatedComments = new rxjs_1.Subject();
     }
-    CommentService.prototype.initComments = function (updatedComments) {
-        this.comments = updatedComments;
+    CommentService.prototype.initComments = function (initialComments) {
+        this.comments = initialComments;
         this.updatedComments.next(this.comments);
     };
     CommentService.prototype.addComment = function (postId, commentText, commentImages) {
@@ -46,9 +46,9 @@ var CommentService = /** @class */ (function () {
             .subscribe(function (resualt) {
             var _a = _this.authService.getLocalStorageData(), _id = _a._id, userName = _a.userName, profileImage = _a.profileImage;
             var newComment = __assign(__assign({}, resualt.newComment), { creator: { _id: _id, userName: userName, profileImage: profileImage } });
-            _this.socketIoService.onAddComment(newComment, 'postid=' + postId);
             _this.comments.push(newComment);
             _this.updatedComments.next(_this.comments);
+            _this.socketIoService.onAddComment(newComment, 'postid=' + postId);
         });
     };
     CommentService.prototype.deleteComment = function (commentId, postId) {
@@ -65,6 +65,10 @@ var CommentService = /** @class */ (function () {
     CommentService.prototype.addCommentIo = function (comment) {
         this.comments.push(comment);
         this.updatedComments.next(this.comments);
+    };
+    // get comments
+    CommentService.prototype.getComments = function () {
+        return this.comments;
     };
     //LISTEN TO updatedComments OF ANY USER ADD NEW COMMENT
     CommentService.prototype.getUpdatedComments = function () {

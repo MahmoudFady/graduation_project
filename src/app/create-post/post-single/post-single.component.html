@@ -8,16 +8,13 @@
             [showPostControls]="false"
           ></app-posts-list>
           <div class="create-comment">
-            <app-create-comment
-              [postId]="post._id"
-              [postComments]="postComments"
-            ></app-create-comment>
+            <app-create-comment [postId]="post._id"></app-create-comment>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6">
-        <div *ngIf="postComments.length" class="comments-list">
-          <app-comments-list [postComments]="postComments"></app-comments-list>
+        <div class="comments-list">
+          <app-comments-list></app-comments-list>
         </div>
         <div *ngIf="postComments.length === 0" style="padding: 25px">
           <h6>

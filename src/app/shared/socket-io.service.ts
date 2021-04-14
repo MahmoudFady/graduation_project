@@ -31,7 +31,7 @@ export class SocketIoService {
     this.socket.emit('onDeletePost', postId);
   }
 
-  //=> DISCONNECT USER
+  //=> DISCONNECT USERkdkk
   disconnectUser(joinPath: string) {
     this.socket.emit('userOut', joinPath);
   }

@@ -13,8 +13,8 @@ export class CommentService {
     private authService: AuthService,
     private socketIoService: SocketIoService
   ) {}
-  initComments(updatedComments: Comment[]) {
-    this.comments = updatedComments;
+  initComments(initialComments: Comment[]) {
+    this.comments = initialComments;
     this.updatedComments.next(this.comments);
   }
   addComment(postId: string, commentText: string, commentImages: FileList) {
@@ -37,9 +37,9 @@ export class CommentService {
           ...resualt.newComment,
           creator: { _id, userName, profileImage },
         };
-        this.socketIoService.onAddComment(newComment, 'postid=' + postId);
         this.comments.push(newComment);
         this.updatedComments.next(this.comments);
+        this.socketIoService.onAddComment(newComment, 'postid=' + postId);
       });
   }
   deleteComment(commentId: string, postId?: string): void {
@@ -59,6 +59,10 @@ export class CommentService {
   addCommentIo(comment: Comment): void {
     this.comments.push(comment);
     this.updatedComments.next(this.comments);
+  }
+  // get comments
+  getComments(): Comment[] {
+    return this.comments;
   }
   //LISTEN TO updatedComments OF ANY USER ADD NEW COMMENT
   getUpdatedComments(): Observable<Comment[]> {
