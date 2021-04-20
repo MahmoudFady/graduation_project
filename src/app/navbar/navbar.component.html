@@ -21,10 +21,35 @@
         routerLink="/home"
         ><i class="fa fa-home"></i> الرئيسه
       </a>
+      <a
+        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        class="nav-link"
+        routerLinkActive="active"
+        routerLink="/admin/statistic"
+        ><i class="fa fa-calculator"></i> الاحصأيات</a
+      >
+      <a
+        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        class="nav-link"
+        routerLink="/admin/users"
+        [routerLinkActive]="'active'"
+        ><i class="fa fa-users"></i> المستخدمين</a
+      >
+      <a
+        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        class="nav-link"
+        routerLink="/admin/reports"
+        routerLinkActive="active"
+        ><i class="fa fa-flag-checkered"></i> الشكاوي</a
+      >
       <a class="nav-link" routerLinkActive="active" routerLink="/post/timeline"
         ><i class="fa fa-briefcase"></i> الوظائف</a
       >
-      <a class="nav-link" routerLinkActive="active" routerLink="/post/create"
+      <a
+        class="nav-link"
+        *ngIf="!isAdmin && !isAdminSaved"
+        routerLinkActive="active"
+        routerLink="/post/create"
         ><i class="fa fa-paper-plane"></i> نشر وظيفه</a
       >
       <a class="nav-link" routerLinkActive="active" routerLink="/post/search"
@@ -34,16 +59,17 @@
         *ngIf="!isAuthenticated && !isAuthSaved"
         class="nav-link"
         routerLinkActive="active"
-        routerLink="auth/signin"
+        routerLink="/auth/signin"
         ><i class="fa fa-sign-in-alt"></i> تسجيل دخول</a
       >
       <a
         *ngIf="!isAuthenticated && !isAuthSaved"
         class="nav-link"
         routerLinkActive="active"
-        routerLink="auth/signup"
+        routerLink="/auth/signup"
         ><i class="fa fa-user-plus"></i> انشاء حساب</a
       >
+
       <a
         *ngIf="isAuthenticated || isAuthSaved"
         class="nav-link"

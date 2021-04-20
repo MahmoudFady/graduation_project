@@ -40,7 +40,13 @@ exports.search = function _callee(req, res, next) {
 
         case 6:
           posts = _context.sent;
-          _context.next = 9;
+
+          if (worker) {
+            _context.next = 13;
+            break;
+          }
+
+          _context.next = 10;
           return regeneratorRuntime.awrap(User.find({
             job: {
               $regex: ".*" + job.slice(0, 4) + ".*"
@@ -50,18 +56,28 @@ exports.search = function _callee(req, res, next) {
             },
             userCity: {
               $regex: ".*" + city.slice(0, 4) + ".*"
-            }
+            },
+            accepted: true
           }).select("userName profileImage userPhone userCity userBigCity"));
 
-        case 9:
-          users = _context.sent;
+        case 10:
+          _context.t0 = _context.sent;
+          _context.next = 14;
+          break;
+
+        case 13:
+          _context.t0 = [];
+
+        case 14:
+          users = _context.t0;
+          console.log(users);
           res.status(200).json({
             message: "get posts",
             posts: posts,
             users: users
           });
 
-        case 11:
+        case 17:
         case "end":
           return _context.stop();
       }

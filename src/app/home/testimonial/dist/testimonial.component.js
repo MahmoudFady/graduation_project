@@ -9,10 +9,13 @@ exports.__esModule = true;
 exports.TestimonialComponent = void 0;
 var core_1 = require("@angular/core");
 var TestimonialComponent = /** @class */ (function () {
-    function TestimonialComponent() {
+    function TestimonialComponent(authService) {
+        this.authService = authService;
+        this.isAdmin = false;
         this.testimonials = [];
     }
     TestimonialComponent.prototype.ngOnInit = function () {
+        this.isAdmin = this.authService.getIsAdmin() ? true : false;
     };
     __decorate([
         core_1.Input()

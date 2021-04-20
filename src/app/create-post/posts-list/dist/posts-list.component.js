@@ -17,12 +17,14 @@ var PostsListComponent = /** @class */ (function () {
         this.jobService = jobService;
         this.posts = [];
         this.showPostControls = true;
+        this.isAdmin = false;
         this.userId = null;
         this.deleltePost = false;
         this.displayedImageUrl = null;
     }
     PostsListComponent.prototype.ngOnInit = function () {
         this.deleltePost = false;
+        this.isAdmin = this.authService.getIsAdmin() ? true : false;
         this.userId = this.authService.getLocalStorageData()._id;
     };
     // GET THE CREATOR OF POST

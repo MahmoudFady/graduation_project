@@ -11,9 +11,11 @@ var core_1 = require("@angular/core");
 var ProfileDataComponent = /** @class */ (function () {
     function ProfileDataComponent(authService) {
         this.authService = authService;
+        this.isAdminSaved = false;
         this.activeUserId = '';
     }
     ProfileDataComponent.prototype.ngOnInit = function () {
+        this.isAdminSaved = this.authService.getIsAdmin() ? true : false;
         this.activeUserId = this.authService.getLocalStorageData()._id;
     };
     ProfileDataComponent.prototype.onLogout = function () {

@@ -17,11 +17,12 @@ router.get("/users", user.getUsers); // => USER SIGNUP REQUEST
 
 router.post("/signup", uploadFiles().array("workerIdentityImages"), user.signup); // => USER SINGIN REQUEST
 
-router.post("/signin", user.signin); // => GET SPECIFIC USER BY ID
+router.post("/signin", user.signin);
+router.patch("/admin/:id", user.addAdmin); // => GET SPECIFIC USER BY ID
 
 router.get("/:id", user.getUser); // => UPDATE SPECIFIC USER BY ID
 
 router.patch("/:id", uploadFiles().single("profileImage"), checkAuth, user.edit); // DELETE SPECIFIC USER BY ID
 
-router["delete"]("/:id", user.deleteUser);
+router["delete"]("/:id", checkAuth, user.deleteUser);
 module.exports = router;

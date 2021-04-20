@@ -15,6 +15,7 @@ var ProfileComponent = /** @class */ (function () {
         this.testimonialService = testimonialService;
         this.loading = false;
         this.err = null;
+        this.isAdminSaved = false;
         this.userPosts = [];
         this.userData = {
             profileImage: '',
@@ -31,6 +32,7 @@ var ProfileComponent = /** @class */ (function () {
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.loading = true;
+        this.isAdminSaved = this.authService.getIsAdmin();
         this.postService.getUpdatedPosts().subscribe(function (posts) {
             _this.userPosts = posts;
         });

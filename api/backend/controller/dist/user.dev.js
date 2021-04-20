@@ -28,18 +28,13 @@ exports.getAllUsers = function _callee(req, res, next) {
 
         case 2:
           users = _context.sent;
-
-          if (users.length > 0) {
-            res.status(200).json({
-              message: "successfully get all users ",
-              usersCount: users.length,
-              users: users
-            });
-          } else {
-            res.status(200).json({
-              message: "no existed user yet"
-            });
-          }
+          users.length > 0 ? res.status(200).json({
+            message: "successfully get all users ",
+            usersCount: users.length,
+            users: users
+          }) : res.status(200).json({
+            message: "no existed user yet"
+          });
 
         case 4:
         case "end":
@@ -57,19 +52,18 @@ exports.signup = function _callee2(req, res, next) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          console.log(" sign up router"); //CATCH MUTUAL DATA BETWEEN WORKER AND USER
-
+          //CATCH MUTUAL DATA BETWEEN WORKER AND USER
           _req$body = req.body, userName = _req$body.userName, userEmail = _req$body.userEmail, userBigCity = _req$body.userBigCity, userCity = _req$body.userCity, userPhone = _req$body.userPhone, userPassword = _req$body.userPassword, isWorker = _req$body.isWorker;
-          _context2.next = 4;
+          _context2.next = 3;
           return regeneratorRuntime.awrap(User.findOne({
             userEmail: userEmail
           }));
 
-        case 4:
+        case 3:
           user = _context2.sent;
 
           if (user) {
-            _context2.next = 30;
+            _context2.next = 28;
             break;
           }
 
@@ -77,10 +71,10 @@ exports.signup = function _callee2(req, res, next) {
           url = req.protocol + "://" + req.get("host") + "/uploads/"; // CHECK IF USE IS WORKER OR NOT
           // ENCRYBT USER PASSWORD
 
-          _context2.next = 9;
+          _context2.next = 8;
           return regeneratorRuntime.awrap(bcrypt.hash(userPassword, 10));
 
-        case 9:
+        case 8:
           hash = _context2.sent;
           // HANDEL MUTUAL DATA INTO OBJECT
           MUTUAL = {
@@ -94,14 +88,14 @@ exports.signup = function _callee2(req, res, next) {
           }; // IF USER
 
           if (!(isWorker == "false")) {
-            _context2.next = 19;
+            _context2.next = 18;
             break;
           }
 
-          _context2.next = 14;
+          _context2.next = 13;
           return regeneratorRuntime.awrap(new User(_objectSpread({}, MUTUAL)).save());
 
-        case 14:
+        case 13:
           newUser = _context2.sent;
           // SEND TOKEN IF USER
           token = jwt.sign({
@@ -113,27 +107,26 @@ exports.signup = function _callee2(req, res, next) {
             token: token,
             user: newUser
           });
-          _context2.next = 28;
+          _context2.next = 26;
           break;
 
-        case 19:
+        case 18:
           //  CATCH WORKER JOB
-          console.log(req.body);
           job = req.body.job;
           workerIdentityImages = req.files.map(function (file) {
             return url + file.filename;
           }); // IF HE IS WORKER WE ADD NEW FILED (job, workerIdentityImages , accepted);
 
-          _context2.next = 24;
+          _context2.next = 22;
           return regeneratorRuntime.awrap(new User(_objectSpread({}, MUTUAL, {
             job: job,
             accepted: false,
             workerIdentityImages: workerIdentityImages
           })).save());
 
-        case 24:
+        case 22:
           _newUser = _context2.sent;
-          _context2.next = 27;
+          _context2.next = 25;
           return regeneratorRuntime.awrap(User.findByIdAndUpdate(_newUser._id, {
             $set: {
               job: job,
@@ -147,22 +140,22 @@ exports.signup = function _callee2(req, res, next) {
             strict: false
           }));
 
-        case 27:
+        case 25:
           res.status(200).json({
             message: "successfully worker sign up"
           });
 
-        case 28:
-          _context2.next = 31;
+        case 26:
+          _context2.next = 29;
           break;
 
-        case 30:
+        case 28:
           res.status(201).json({
             message: "this email already used",
             duplicatedEamil: true
           });
 
-        case 31:
+        case 29:
         case "end":
           return _context2.stop();
       }
@@ -322,12 +315,11 @@ exports.edit = function _callee5(decode, req, res, next) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
-          console.log("use id " + req.params["id"]);
           _req$body3 = req.body, userName = _req$body3.userName, userEmail = _req$body3.userEmail, userPhone = _req$body3.userPhone, userBigCity = _req$body3.userBigCity, userCity = _req$body3.userCity, job = _req$body3.job;
-          _context5.next = 4;
+          _context5.next = 3;
           return regeneratorRuntime.awrap(User.findById(decode.userId));
 
-        case 4:
+        case 3:
           userOld = _context5.sent;
           profileImage = userOld.profileImage;
 
@@ -335,7 +327,7 @@ exports.edit = function _callee5(decode, req, res, next) {
             profileImage = req.protocol + "://" + req.get("host") + "/uploads/" + req.file.filename;
           }
 
-          _context5.next = 9;
+          _context5.next = 8;
           return regeneratorRuntime.awrap(User.findByIdAndUpdate(decode.userId, {
             $set: {
               profileImage: profileImage,
@@ -351,14 +343,14 @@ exports.edit = function _callee5(decode, req, res, next) {
             "new": true
           }).select("-userPassword -__v"));
 
-        case 9:
+        case 8:
           newUser = _context5.sent;
           res.status(200).json({
             message: "successfully user updated",
             newUser: newUser
           });
 
-        case 11:
+        case 10:
         case "end":
           return _context5.stop();
       }
@@ -367,19 +359,20 @@ exports.edit = function _callee5(decode, req, res, next) {
 }; // => DELETE USER
 
 
-exports.deleteUser = function _callee6(req, res) {
+exports.deleteUser = function _callee6(decode, req, res, next) {
   var userId, deletedUser;
   return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          userId = req.params["userId"];
+          userId = req.params["id"];
           _context6.next = 3;
           return regeneratorRuntime.awrap(User.findByIdAndDelete(userId));
 
         case 3:
           deletedUser = _context6.sent;
           res.status(200).json({
+            message: "user deleted",
             deletedUser: deletedUser
           });
 
@@ -414,6 +407,41 @@ exports.getUsers = function _callee7(req, res) {
         case 4:
         case "end":
           return _context7.stop();
+      }
+    }
+  });
+}; //=> ADD NEW ADmin
+
+
+exports.addAdmin = function _callee8(req, res, next) {
+  var id, newAdmin;
+  return regeneratorRuntime.async(function _callee8$(_context8) {
+    while (1) {
+      switch (_context8.prev = _context8.next) {
+        case 0:
+          id = req.params["id"];
+          _context8.next = 3;
+          return regeneratorRuntime.awrap(User.updateOne({
+            _id: id
+          }, {
+            $set: {
+              isAdmin: true
+            }
+          }, {
+            strict: false,
+            returnNewDocument: true
+          }));
+
+        case 3:
+          newAdmin = _context8.sent;
+          res.status(200).json({
+            message: "new admin added",
+            newAdmin: newAdmin
+          });
+
+        case 5:
+        case "end":
+          return _context8.stop();
       }
     }
   });

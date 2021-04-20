@@ -11,7 +11,10 @@ export interface UserData {
   userPhone: string;
   userBigCity: string;
   userCity: string;
+  accepted?: boolean;
+  workerIdentityImages?: string[];
   job?: string;
+  isAdmin?: string | boolean;
 }
 
 @Injectable({
@@ -22,6 +25,7 @@ export class AuthService {
   errMsg = new Subject<string>();
   alertMsg = new Subject<string>();
   private isAuthenticated = new Subject<boolean>();
+  private adminUpdated = new Subject<boolean>();
   private token: string;
   constructor(public http: HttpClient, public router: Router) {}
   // save some user information at local stroage of the browser
@@ -34,7 +38,8 @@ export class AuthService {
     userPhone: string,
     userBigCity: string,
     userCity: string,
-    job?: string
+    job?: string,
+    isAdmin?: string | boolean
   ): void {
     localStorage.setItem('token', token);
     localStorage.setItem('_id', _id);
@@ -47,6 +52,13 @@ export class AuthService {
     if (job != undefined || job != null) {
       localStorage.setItem('job', job);
     }
+    if (isAdmin != undefined || isAdmin != null) {
+      localStorage.setItem('isAdmin', isAdmin as string);
+    }
+  }
+  getIsAdmin() {
+    const isAdmin = this.getLocalStorageData().isAdmin ? true : false;
+    return isAdmin;
   }
   // retun token which is stored at local storage
   public getToken(): string | false {
@@ -64,6 +76,7 @@ export class AuthService {
     userBigCity: string;
     userCity: string;
     job?: string;
+    isAdmin?: boolean;
   } {
     const data = <
       {
@@ -106,8 +119,15 @@ export class AuthService {
               userBigCity,
               userCity,
               job,
+              isAdmin,
             } = signinResponse.user;
             this.isAuthenticated.next(true);
+
+            if (isAdmin === true) {
+              console.log('is admin' + isAdmin);
+
+              this.adminUpdated.next(true);
+            }
             this.save2LocalStorage(
               token,
               _id,
@@ -117,7 +137,8 @@ export class AuthService {
               userPhone,
               userBigCity,
               userCity,
-              job
+              job,
+              isAdmin
             );
             this.router.navigate(['/profile']);
           } else {
@@ -209,7 +230,7 @@ export class AuthService {
             this.router.navigate(['/profile']);
           } else if (signUpResponse.duplicatedEamil) {
             this.errMsg.next('الايميل مستخدم من قبل');
-            this.router.navigate(['/signup']);
+            this.router.navigate(['/auth', 'signup']);
           } else {
             this.alertMsg.next('يمكنك التسجيل بعد التاكد من الهويه');
           }
@@ -258,14 +279,27 @@ export class AuthService {
         }
       });
   }
+  //====================
+  onAcceptWorker(id: string) {
+    return this.http.patch(this.url + 'worker/acceptWorker/' + id, {});
+  }
+  //====================
+  onDeleteUserById(id: string) {
+    return this.http.delete(this.url + 'user/' + id);
+  }
   // logging out
   logout(): void {
     localStorage.clear();
     this.isAuthenticated.next(false);
+    this.adminUpdated.next(false);
     this.router.navigate(['/']);
   }
   // return authentication state true or false
   isAuthenticatedUser(): Observable<boolean> {
     return this.isAuthenticated.asObservable();
+  }
+  /**  */
+  isAdminUpdated(): Observable<boolean> {
+    return this.adminUpdated.asObservable();
   }
 }

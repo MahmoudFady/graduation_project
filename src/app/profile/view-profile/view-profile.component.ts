@@ -7,7 +7,7 @@ import {
 import { Post } from '../../create-post/post.model';
 import { AuthService, UserData } from '../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-profile',
@@ -19,6 +19,7 @@ export class ViewProfileComponent implements OnInit {
   userPosts: Post[] = [];
   userReviews: Testimonial[] = [];
   isAuth: boolean = false;
+  isAdminSaved = false;
   userData: UserData = {
     profileImage: '',
     _id: '',
@@ -28,9 +29,11 @@ export class ViewProfileComponent implements OnInit {
     userBigCity: '',
     userCity: '',
     job: '',
+    workerIdentityImages: [''],
   };
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private testimonialService: TestimonialService,
     private reportService: ReportService
@@ -38,6 +41,7 @@ export class ViewProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuth = this.authService.getToken() ? true : false;
+    this.isAdminSaved = this.authService.getIsAdmin();
     this.route.params.subscribe((params: Params) => {
       this.userId = params['id'];
     });
@@ -51,12 +55,28 @@ export class ViewProfileComponent implements OnInit {
         }) => {
           this.userData = getUserResualt.user;
           this.userPosts = getUserResualt.userPosts;
+          console.log(this.userData.accepted);
         }
       );
     this.testimonialService.getReview(this.userId);
     this.testimonialService.getUpdatedTestimonials().subscribe((testis) => {
       this.userReviews = testis;
     });
+  }
+  acceptWorker() {
+    this.authService.onAcceptWorker(this.userId).subscribe((resualt) => {
+      this.userData.accepted = true;
+      console.log(resualt);
+    });
+  }
+  deleteUser() {
+    const confirm = window.confirm('سوف يتم حذف الحساب ');
+    confirm
+      ? this.authService.onDeleteUserById(this.userId).subscribe((resualt) => {
+          console.log(resualt);
+          this.router.navigate(['/admin/statistic']);
+        })
+      : '';
   }
   onAddReport(f: NgForm) {
     const reportMessage = f.value['reportMessage'];

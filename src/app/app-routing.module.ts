@@ -1,3 +1,4 @@
+import { AdminAuthGuard } from './admin/admin-auth.guard';
 import { AuthUser } from './auth/user.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
@@ -23,6 +24,12 @@ const routes: Routes = [
     path: 'post',
     loadChildren: () =>
       import('./create-post/post.module').then((m) => m.PostModule),
+  },
+  {
+    path: 'admin',
+    canActivate: [AdminAuthGuard],
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AddminModule),
   },
   { path: 'error-page', component: ErrorPageComponent },
   { path: '**', redirectTo: 'error-page' },

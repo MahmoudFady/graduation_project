@@ -17,11 +17,11 @@
 </div>
 <section *ngIf="!loading && !err">
   <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-sm-6 userData">
         <app-profile-data [userData]="userData"></app-profile-data>
       </div>
-      <div class="col-sm-6 userPosts">
+      <div class="col-sm-6 userPosts" *ngIf="!isAdminSaved">
         <app-posts-list class="userPosts" [posts]="userPosts"></app-posts-list>
         <div class="noPosts" *ngIf="userPosts.length === 0">
           <h6>
@@ -32,7 +32,7 @@
     </div>
   </div>
 </section>
-<section class="userReviews" *ngIf="userReviews.length > 0">
+<section class="userReviews" *ngIf="userReviews.length > 0 && !isAdminSaved">
   <div class="container">
     <h6 class="text-center" style="margin-top: 20px">
       ماذا قالو عنك يا<strong style="color: #328bda">

@@ -15,6 +15,7 @@ import { AuthService, UserData } from '../auth/auth.service';
 export class ProfileComponent implements OnInit {
   loading: boolean = false;
   err: string = null;
+  isAdminSaved: boolean = false;
   userPosts: Post[] = [];
   userData: UserData = {
     profileImage: '',
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loading = true;
+    this.isAdminSaved = this.authService.getIsAdmin();
     this.postService.getUpdatedPosts().subscribe((posts) => {
       this.userPosts = posts;
     });

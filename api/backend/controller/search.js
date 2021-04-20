@@ -22,11 +22,15 @@ exports.search = async (req, res, next) => {
         select: "_id profileImage userName",
       },
     });
-  const users = await User.find({
-    job: { $regex: ".*" + job.slice(0, 4) + ".*" },
-    userBigCity: { $regex: ".*" + bigCity.slice(0, 4) + ".*" },
-    userCity: { $regex: ".*" + city.slice(0, 4) + ".*" },
-  }).select("userName profileImage userPhone userCity userBigCity");
+  const users = !worker
+    ? await User.find({
+        job: { $regex: ".*" + job.slice(0, 4) + ".*" },
+        userBigCity: { $regex: ".*" + bigCity.slice(0, 4) + ".*" },
+        userCity: { $regex: ".*" + city.slice(0, 4) + ".*" },
+        accepted: true,
+      }).select("userName profileImage userPhone userCity userBigCity")
+    : [];
+  console.log(users);
   res.status(200).json({
     message: "get posts",
     posts,

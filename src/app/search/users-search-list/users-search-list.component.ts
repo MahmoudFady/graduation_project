@@ -20,10 +20,7 @@ export class UsersSearchList implements OnInit {
   // GET THE CREATOR OF POST
   onGetUser(id: string) {
     const activeUserId = this.authService.getLocalStorageData()._id;
-    if (id === activeUserId) {
-      this.router.navigate(['/profile']);
-    } else {
-      this.router.navigate([`/view-profile/${id}`]);
-    }
+    const path = id === activeUserId ? '/profile' : `/profile/${id}`;
+    this.router.navigate([path]);
   }
 }

@@ -8,6 +8,7 @@ var reportSchema = new mongoose.Schema({
     ref: "User"
   },
   reportMessage: String,
-  reportTo: String
+  reportTo: String,
+  reportDate: String
 });
 module.exports = mongoose.model("Report", reportSchema);

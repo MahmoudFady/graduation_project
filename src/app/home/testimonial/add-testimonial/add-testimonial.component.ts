@@ -13,12 +13,15 @@ export class AddTestimonialComponent implements OnInit {
   errMsg: string = null;
   successMsg: string = null;
   private belongTo: string = null;
+  isAdmin = false;
   constructor(
     private authService: AuthService,
     private testimonialService: TestimonialService,
     private route: ActivatedRoute
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isAdmin = this.authService.getIsAdmin() ? true : false;
+  }
   onAddTestimonial(f: NgForm) {
     if (f.valid) {
       const {

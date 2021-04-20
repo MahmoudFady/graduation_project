@@ -71,16 +71,24 @@ exports.addPost = async (decode, req, res, next) => {
 
 //DELETE POST BY ID
 exports.deletePost = async (decode, req, res, next) => {
-  //GET USER BY FROM RECIVED TOKEN
-  const creator = decode.userId;
   //GET POST ID FROM PARAMS OBJECT
   const postId = req.params["postId"];
-  // GET POST BY ID THEN DELETE IT
-  const deletedPost = await Post.findOneAndDelete({ _id: postId, creator });
-  res.status(200).json({
-    message: "post deleted",
-    deletedPost,
-  });
+  const post = await Post.findById(postId);
+  //GET USER BY FROM RECIVED TOKEN
+  const allowedToDeletePost =
+    decode.userId == post.creator || decode.userEmail ? true : false;
+
+  if (allowedToDeletePost) {
+    const deletedPost = await Post.findByIdAndDelete(postId);
+    delete res.status(200).json({
+      message: "post deleted",
+      deletedPost,
+    });
+  } else {
+    delete res.status(201).json({
+      message: "faild to delete post",
+    });
+  }
 };
 // GET POSTS FOR SPECIAL USER < CREATOR VALUE>
 exports.userPosts = async (decode, req, res, next) => {

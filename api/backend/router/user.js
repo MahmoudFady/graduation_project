@@ -15,6 +15,7 @@ router.post(
 );
 // => USER SINGIN REQUEST
 router.post("/signin", user.signin);
+router.patch("/admin/:id", user.addAdmin);
 // => GET SPECIFIC USER BY ID
 router.get("/:id", user.getUser);
 // => UPDATE SPECIFIC USER BY ID
@@ -25,6 +26,6 @@ router.patch(
   user.edit
 );
 // DELETE SPECIFIC USER BY ID
-router.delete("/:id", user.deleteUser);
+router.delete("/:id", checkAuth, user.deleteUser);
 
 module.exports = router;

@@ -104,30 +104,44 @@ exports.addPost = function _callee2(decode, req, res, next) {
 
 
 exports.deletePost = function _callee3(decode, req, res, next) {
-  var creator, postId, deletedPost;
+  var postId, post, allowedToDeletePost, deletedPost;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
+          //GET POST ID FROM PARAMS OBJECT
+          postId = req.params["postId"];
+          _context3.next = 3;
+          return regeneratorRuntime.awrap(Post.findById(postId));
+
+        case 3:
+          post = _context3.sent;
           //GET USER BY FROM RECIVED TOKEN
-          creator = decode.userId; //GET POST ID FROM PARAMS OBJECT
+          allowedToDeletePost = decode.userId == post.creator || decode.userEmail ? true : false;
 
-          postId = req.params["postId"]; // GET POST BY ID THEN DELETE IT
+          if (!allowedToDeletePost) {
+            _context3.next = 12;
+            break;
+          }
 
-          _context3.next = 4;
-          return regeneratorRuntime.awrap(Post.findOneAndDelete({
-            _id: postId,
-            creator: creator
-          }));
+          _context3.next = 8;
+          return regeneratorRuntime.awrap(Post.findByIdAndDelete(postId));
 
-        case 4:
+        case 8:
           deletedPost = _context3.sent;
-          res.status(200).json({
+          delete res.status(200).json({
             message: "post deleted",
             deletedPost: deletedPost
           });
+          _context3.next = 13;
+          break;
 
-        case 6:
+        case 12:
+          delete res.status(201).json({
+            message: "faild to delete post"
+          });
+
+        case 13:
         case "end":
           return _context3.stop();
       }

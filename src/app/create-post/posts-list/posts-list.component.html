@@ -58,7 +58,7 @@
         </div>
         <div *ngIf="showPostControls" class="post-controls">
           <button
-            *ngIf="post.creator._id === userId"
+            *ngIf="post.creator._id === userId || isAdmin"
             (click)="onDeletePost(post._id)"
             class="btn btn-danger"
           >

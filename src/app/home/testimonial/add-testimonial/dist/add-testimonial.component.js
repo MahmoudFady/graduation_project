@@ -16,8 +16,11 @@ var AddTestimonialComponent = /** @class */ (function () {
         this.errMsg = null;
         this.successMsg = null;
         this.belongTo = null;
+        this.isAdmin = false;
     }
-    AddTestimonialComponent.prototype.ngOnInit = function () { };
+    AddTestimonialComponent.prototype.ngOnInit = function () {
+        this.isAdmin = this.authService.getIsAdmin() ? true : false;
+    };
     AddTestimonialComponent.prototype.onAddTestimonial = function (f) {
         var _this = this;
         if (f.valid) {

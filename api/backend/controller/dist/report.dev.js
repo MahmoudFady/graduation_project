@@ -29,28 +29,30 @@ exports.getAllReports = function _callee(req, res, next) {
 };
 
 exports.addReport = function _callee2(req, res, next) {
-  var _req$body, creator, reportMessage, reportTo, newReport;
+  var _req$body, creator, reportMessage, reportTo, reportDate, newReport;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _req$body = req.body, creator = _req$body.creator, reportMessage = _req$body.reportMessage, reportTo = _req$body.reportTo;
-          _context2.next = 3;
+          reportDate = new Date().toLocaleDateString();
+          _context2.next = 4;
           return regeneratorRuntime.awrap(new Report({
             creator: creator,
             reportMessage: reportMessage,
-            reportTo: "http://localhost:4200/view-profile/" + reportTo
+            reportTo: reportTo,
+            reportDate: reportDate
           }).save());
 
-        case 3:
+        case 4:
           newReport = _context2.sent;
           res.status(200).json({
             message: "report added",
             newReport: newReport
           });
 
-        case 5:
+        case 6:
         case "end":
           return _context2.stop();
       }
@@ -64,18 +66,19 @@ exports.deleteReport = function _callee3(req, res, next) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
+          console.log("delete report");
           id = req.params["id"];
-          _context3.next = 3;
-          return regeneratorRuntime.awrap(findByIdAndDelete(id));
+          _context3.next = 4;
+          return regeneratorRuntime.awrap(Report.findByIdAndDelete(id));
 
-        case 3:
+        case 4:
           deletedReport = _context3.sent;
           res.status(200).json({
             message: "report deleted",
             deletedReport: deletedReport
           });
 
-        case 5:
+        case 6:
         case "end":
           return _context3.stop();
       }

@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AppRoutingModule = void 0;
+var admin_auth_guard_1 = require("./admin/admin-auth.guard");
 var user_guard_1 = require("./auth/user.guard");
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
@@ -32,6 +33,13 @@ var routes = [
         path: 'post',
         loadChildren: function () {
             return Promise.resolve().then(function () { return require('./create-post/post.module'); }).then(function (m) { return m.PostModule; });
+        }
+    },
+    {
+        path: 'admin',
+        canActivate: [admin_auth_guard_1.AdminAuthGuard],
+        loadChildren: function () {
+            return Promise.resolve().then(function () { return require('./admin/admin.module'); }).then(function (m) { return m.AddminModule; });
         }
     },
     { path: 'error-page', component: error_page_component_1.ErrorPageComponent },

@@ -2,7 +2,7 @@
 
 var multer = require("multer");
 
-var diskStorage = multer.diskStorage({
+var storage = multer.diskStorage({
   destination: function destination(req, file, cb) {
     cb(null, "backend/uploads/");
   },
@@ -13,6 +13,6 @@ var diskStorage = multer.diskStorage({
 
 exports.uploadFiles = function () {
   return multer({
-    storage: diskStorage
+    storage: storage
   });
 };

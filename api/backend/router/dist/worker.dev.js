@@ -8,7 +8,8 @@ var worker = require("../controller/worker");
 
 var router = express.Router(); // GET ALL WORKERS
 
-router.get("/", worker.getAllWorkers); // GET WORKER BY HIS JOB
+router.get("/", worker.getAllAcceptedWrokers);
+router.get("/workerReq", worker.getAllWrokersReq); // GET WORKER BY HIS JOB
 
 router.get("/:job", worker.getWorkerByJob); // ACCEPT WORKER
 

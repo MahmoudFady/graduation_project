@@ -1,8 +1,15 @@
 const User = require("../model/user");
-exports.getAllWorkers = async (req, res, next) => {
-  const workers = await User.find({ job: { $exists: true } });
+exports.getAllAcceptedWrokers = async (req, res, next) => {
+  const workers = await User.find({ job: { $exists: true }, accepted: true });
   res.status(200).json({
-    workers,
+    users: workers,
+  });
+};
+//=>
+exports.getAllWrokersReq = async (req, res, next) => {
+  const workers = await User.find({ job: { $exists: true }, accepted: false });
+  res.status(200).json({
+    users: workers,
   });
 };
 // => GET WORKER BY JOB
@@ -14,8 +21,10 @@ exports.getWorkerByJob = async (req, res) => {
   });
 };
 //ACCEPT WOKER FUNCTION
-exports.acceptWorker = async (req, res, next) => {
+exports.acceptWorker = async (decode, req, res, next) => {
+  console.log("accept worker ++++++++++++++");
   const userId = req.params.id;
+
   const newUser = await User.findByIdAndUpdate(
     userId,
     {
@@ -25,10 +34,9 @@ exports.acceptWorker = async (req, res, next) => {
     },
     { returnNewDocument: true, new: true, strict: false }
   ).select("-userPassword -__v");
-  sendMailTo(newUser.userEmail, "تم الموافقه ع حسابك");
   res.status(200).json({
     message: "successfully add  worker",
-    newUser: newUser,
+    //: newUser,
   });
 };
 //BLOCK WORKER WOKER FUNCTION

@@ -6,21 +6,18 @@ const sendMailTo = require("../middleware/send-mail-to");
 // GET ALL USER FUNCTION
 exports.getAllUsers = async (req, res, next) => {
   const users = await User.find().select("-userPassword -__v");
-  if (users.length > 0) {
-    res.status(200).json({
-      message: "successfully get all users ",
-      usersCount: users.length,
-      users,
-    });
-  } else {
-    res.status(200).json({
-      message: "no existed user yet",
-    });
-  }
+  users.length > 0
+    ? res.status(200).json({
+        message: "successfully get all users ",
+        usersCount: users.length,
+        users,
+      })
+    : res.status(200).json({
+        message: "no existed user yet",
+      });
 };
 // SIGN UP FUNCTION
 exports.signup = async (req, res, next) => {
-  console.log(" sign up router");
   //CATCH MUTUAL DATA BETWEEN WORKER AND USER
   const {
     userName,
@@ -62,15 +59,14 @@ exports.signup = async (req, res, next) => {
       );
       res.status(200).json({
         message: "successfully user sign up",
-        token: token,
+        token,
         user: newUser,
       });
     }
     // IF WORKER
     else {
       //  CATCH WORKER JOB
-      console.log(req.body);
-      const job = req.body.job;
+      const { job } = req.body;
       const workerIdentityImages = req.files.map((file) => {
         return url + file.filename;
       });
@@ -203,7 +199,6 @@ exports.getUser = async (req, res, next) => {
 
 // EDIT USER FUNCTION
 exports.edit = async (decode, req, res, next) => {
-  console.log("use id " + req.params["id"]);
   const {
     userName,
     userEmail,
@@ -243,10 +238,11 @@ exports.edit = async (decode, req, res, next) => {
 };
 
 // => DELETE USER
-exports.deleteUser = async (req, res) => {
-  const userId = req.params["userId"];
+exports.deleteUser = async (decode, req, res, next) => {
+  const userId = req.params["id"];
   const deletedUser = await User.findByIdAndDelete(userId);
   res.status(200).json({
+    message: "user deleted",
     deletedUser,
   });
 };
@@ -257,5 +253,21 @@ exports.getUsers = async (req, res) => {
   });
   res.status(200).json({
     users,
+  });
+};
+//=> ADD NEW ADmin
+exports.addAdmin = async (req, res, next) => {
+  const id = req.params["id"];
+  const newAdmin = await User.updateOne(
+    { _id: id },
+    { $set: { isAdmin: true } },
+    {
+      strict: false,
+      returnNewDocument: true,
+    }
+  );
+  res.status(200).json({
+    message: "new admin added",
+    newAdmin,
   });
 };

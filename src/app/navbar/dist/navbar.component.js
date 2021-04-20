@@ -12,12 +12,22 @@ var NavbarComponent = /** @class */ (function () {
     function NavbarComponent(authService) {
         this.authService = authService;
         this.isAuthenticated = false;
+        this.isAdmin = false;
+        this.isAdminSaved = false;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         // get user state if user or not
         // by checking if there is token in local stroage
         this.isAuthSaved = this.authService.getToken() ? true : false;
+        this.isAdminSaved = this.authService.getLocalStorageData()
+            .isAdmin
+            ? true
+            : false;
+        console.log('is admin saved' + this.isAdminSaved);
+        this.authService.isAdminUpdated().subscribe(function (isAdmin) {
+            _this.isAdmin = isAdmin ? true : false;
+        });
         // update user state at run time
         this.authService.isAuthenticatedUser().subscribe(function (isAuth) {
             _this.isAuthenticated = isAuth ? true : false;

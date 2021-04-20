@@ -18,12 +18,8 @@ var UsersSearchList = /** @class */ (function () {
     // GET THE CREATOR OF POST
     UsersSearchList.prototype.onGetUser = function (id) {
         var activeUserId = this.authService.getLocalStorageData()._id;
-        if (id === activeUserId) {
-            this.router.navigate(['/profile']);
-        }
-        else {
-            this.router.navigate(["/view-profile/" + id]);
-        }
+        var path = id === activeUserId ? '/profile' : "/profile/" + id;
+        this.router.navigate([path]);
     };
     __decorate([
         core_1.Input()

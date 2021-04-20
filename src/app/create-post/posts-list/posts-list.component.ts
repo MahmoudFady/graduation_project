@@ -14,6 +14,7 @@ import { PostService } from '../post.service';
 export class PostsListComponent implements OnInit {
   @Input() posts: Post[] = [];
   @Input() showPostControls: boolean = true;
+  isAdmin = false;
   userId: string = null;
   deleltePost = false;
   displayedImageUrl: string = null;
@@ -26,6 +27,7 @@ export class PostsListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.deleltePost = false;
+    this.isAdmin = this.authService.getIsAdmin() ? true : false;
     this.userId = this.authService.getLocalStorageData()._id;
   }
   // GET THE CREATOR OF POST

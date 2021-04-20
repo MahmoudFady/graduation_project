@@ -17,9 +17,10 @@ var AuthService = /** @class */ (function () {
         this.errMsg = new rxjs_1.Subject();
         this.alertMsg = new rxjs_1.Subject();
         this.isAuthenticated = new rxjs_1.Subject();
+        this.adminUpdated = new rxjs_1.Subject();
     }
     // save some user information at local stroage of the browser
-    AuthService.prototype.save2LocalStorage = function (token, _id, profileImage, userName, userEmail, userPhone, userBigCity, userCity, job) {
+    AuthService.prototype.save2LocalStorage = function (token, _id, profileImage, userName, userEmail, userPhone, userBigCity, userCity, job, isAdmin) {
         localStorage.setItem('token', token);
         localStorage.setItem('_id', _id);
         localStorage.setItem('profileImage', profileImage);
@@ -31,6 +32,13 @@ var AuthService = /** @class */ (function () {
         if (job != undefined || job != null) {
             localStorage.setItem('job', job);
         }
+        if (isAdmin != undefined || isAdmin != null) {
+            localStorage.setItem('isAdmin', isAdmin);
+        }
+    };
+    AuthService.prototype.getIsAdmin = function () {
+        var isAdmin = this.getLocalStorageData().isAdmin ? true : false;
+        return isAdmin;
     };
     // retun token which is stored at local storage
     AuthService.prototype.getToken = function () {
@@ -55,9 +63,13 @@ var AuthService = /** @class */ (function () {
             if (signinResponse.token) {
                 _this.token = signinResponse.token;
                 var token = _this.token;
-                var _a = signinResponse.user, _id = _a._id, profileImage = _a.profileImage, userName = _a.userName, userEmail_1 = _a.userEmail, userPhone = _a.userPhone, userBigCity = _a.userBigCity, userCity = _a.userCity, job = _a.job;
+                var _a = signinResponse.user, _id = _a._id, profileImage = _a.profileImage, userName = _a.userName, userEmail_1 = _a.userEmail, userPhone = _a.userPhone, userBigCity = _a.userBigCity, userCity = _a.userCity, job = _a.job, isAdmin = _a.isAdmin;
                 _this.isAuthenticated.next(true);
-                _this.save2LocalStorage(token, _id, profileImage, userName, userEmail_1, userPhone, userBigCity, userCity, job);
+                if (isAdmin === true) {
+                    console.log('is admin' + isAdmin);
+                    _this.adminUpdated.next(true);
+                }
+                _this.save2LocalStorage(token, _id, profileImage, userName, userEmail_1, userPhone, userBigCity, userCity, job, isAdmin);
                 _this.router.navigate(['/profile']);
             }
             else {
@@ -100,7 +112,7 @@ var AuthService = /** @class */ (function () {
             }
             else if (signUpResponse.duplicatedEamil) {
                 _this.errMsg.next('الايميل مستخدم من قبل');
-                _this.router.navigate(['/signup']);
+                _this.router.navigate(['/auth', 'signup']);
             }
             else {
                 _this.alertMsg.next('يمكنك التسجيل بعد التاكد من الهويه');
@@ -139,15 +151,28 @@ var AuthService = /** @class */ (function () {
             }
         });
     };
+    //====================
+    AuthService.prototype.onAcceptWorker = function (id) {
+        return this.http.patch(this.url + 'worker/acceptWorker/' + id, {});
+    };
+    //====================
+    AuthService.prototype.onDeleteUserById = function (id) {
+        return this.http["delete"](this.url + 'user/' + id);
+    };
     // logging out
     AuthService.prototype.logout = function () {
         localStorage.clear();
         this.isAuthenticated.next(false);
+        this.adminUpdated.next(false);
         this.router.navigate(['/']);
     };
     // return authentication state true or false
     AuthService.prototype.isAuthenticatedUser = function () {
         return this.isAuthenticated.asObservable();
+    };
+    /**  */
+    AuthService.prototype.isAdminUpdated = function () {
+        return this.adminUpdated.asObservable();
     };
     AuthService = __decorate([
         core_1.Injectable({

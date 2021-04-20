@@ -1,6 +1,6 @@
 "use strict";
 
-// => ALL REQUIRED MODULES USED IN FILE
+// START REQUIRED MODULES
 require("dotenv").config();
 
 var express = require("express");
@@ -8,6 +8,10 @@ var express = require("express");
 var mongoose = require("mongoose");
 
 var morgan = require("morgan");
+
+var path = require("path"); // END REQUIRED MODULES
+// START API ROUTES
+
 
 var userRoutes = require("./router/user");
 
@@ -23,7 +27,8 @@ var searchRoutes = require("./router/search");
 
 var reportRoutes = require("./router/report");
 
-var path = require("path");
+var adminRoutes = require("./router/admin"); // END API ROUTES
+
 
 var app = express(); // => GET INFO ABOUT THE RECIVIED REQUEST (URL , STATUS)
 
@@ -35,6 +40,8 @@ mongoose.connect(process.env.MONGO_DB_URL, {
 }) // => ON SUCCESS
 .then(function () {
   console.log("connected to database at url  " + process.env.MONGO_DB_URL);
+})["catch"](function (err) {
+  console.log("database connection error : " + err.message);
 }) // => ON FAILUER
 ["catch"](function () {
   console.log("Connection to db failed!");
@@ -61,6 +68,7 @@ app.use("/api/review", reviewRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/report", reportRoutes);
+app.use("/api/admin", adminRoutes);
 module.exports = app; ////////////////////////////////////////////////////
 
 /**
