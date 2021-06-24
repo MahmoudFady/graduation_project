@@ -10,13 +10,20 @@ exports.CreateCommentComponent = void 0;
 var forms_1 = require("@angular/forms");
 var core_1 = require("@angular/core");
 var CreateCommentComponent = /** @class */ (function () {
-    function CreateCommentComponent(authService, commentService) {
+    function CreateCommentComponent(authService, commentService, langService) {
         this.authService = authService;
         this.commentService = commentService;
+        this.langService = langService;
+        this.language = '';
         this.commentImages = [];
         this.postId = null;
     }
     CreateCommentComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.isAuthenticated = this.authService.getToken() ? true : false;
         this.commentForm = new forms_1.FormGroup({
             commentText: new forms_1.FormControl(null, [forms_1.Validators.required]),

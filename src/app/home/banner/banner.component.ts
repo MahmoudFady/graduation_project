@@ -1,3 +1,4 @@
+import { LanguageService } from './../../language.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./banner.component.css'],
 })
 export class BannerComponent implements OnInit {
-  constructor() {}
+  language = '';
+  constructor(private langService: LanguageService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe(lang => {
+      this.language=lang 
+    })
+  }
 }

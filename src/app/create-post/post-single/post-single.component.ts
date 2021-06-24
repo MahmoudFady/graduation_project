@@ -6,12 +6,14 @@ import { PostService } from 'src/app/create-post/post.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/language.service';
 @Component({
   selector: 'app-post-single',
   templateUrl: './post-single.component.html',
   styleUrls: ['./post-single.component.css'],
 })
 export class SinglePostComponent implements OnInit {
+  language = '';
   postId: string = '';
   // DEFINE POST
   post: Post = {
@@ -39,9 +41,14 @@ export class SinglePostComponent implements OnInit {
     private route: ActivatedRoute,
     private postService: PostService,
     private socketIoService: SocketIoService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private langService: LanguageService
   ) {}
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.socketIoService.init();
     this.route.params.subscribe((params: Params) => {
       // GET POST ID FORM URL : HTTP://LOCALHOST:4200/POST/:POSTID

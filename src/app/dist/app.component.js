@@ -9,11 +9,13 @@ exports.__esModule = true;
 exports.AppComponent = void 0;
 var core_1 = require("@angular/core");
 var AppComponent = /** @class */ (function () {
-    function AppComponent(socketIoService) {
+    function AppComponent(socketIoService, langService) {
         this.socketIoService = socketIoService;
+        this.langService = langService;
         this.title = 'grad-project';
     }
     AppComponent.prototype.ngOnInit = function () {
+        this.langService.initialLanguage();
         this.socketIoService.init();
     };
     AppComponent = __decorate([

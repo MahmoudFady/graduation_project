@@ -63,3 +63,6 @@
 .deleteIcon a {
   cursor: pointer;
 }
+.engVersion .single-comment p:before {
+  left: 20px !important;
+}

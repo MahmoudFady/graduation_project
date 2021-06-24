@@ -9,17 +9,23 @@ exports.__esModule = true;
 exports.CommentsListComponent = void 0;
 var core_1 = require("@angular/core");
 var CommentsListComponent = /** @class */ (function () {
-    function CommentsListComponent(authService, router, route, commentService, socketIoService) {
+    function CommentsListComponent(authService, router, route, commentService, socketIoService, langService) {
         this.authService = authService;
         this.router = router;
         this.route = route;
         this.commentService = commentService;
         this.socketIoService = socketIoService;
+        this.langService = langService;
+        this.language = '';
         this.postComments = [];
         this.userId = '';
     }
     CommentsListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.userId = this.authService.getLocalStorageData()['_id'];
         this.postComments = this.commentService.getComments();
         this.commentService.getUpdatedComments().subscribe(function (newComments) {

@@ -1,3 +1,4 @@
+import { LanguageService } from './../language.service';
 import { SocketIoService } from './../shared/socket-io.service';
 import { Post } from './post.model';
 import { PostService } from './post.service';
@@ -14,6 +15,7 @@ import { AuthService } from '../auth/auth.service';
   ],
 })
 export class CreatePostComponent implements OnInit {
+  language = '';
   postCreated: boolean = false;
   loading = false;
   errorMessage = null;
@@ -28,17 +30,19 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private postService: PostService,
-    private socketIOService: SocketIoService
+    private socketIOService: SocketIoService,
+    private langService: LanguageService
   ) {}
   ngOnInit(): void {
+    // languages
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     // get user info form loacal storage`
     if (this.authService.getToken) {
-      const {
-        userBigCity,
-        userCity,
-        userPhone,
-        job,
-      } = this.authService.getLocalStorageData();
+      const { userBigCity, userCity, userPhone, job } =
+        this.authService.getLocalStorageData();
       this.userData = {
         userBigCity,
         userCity,

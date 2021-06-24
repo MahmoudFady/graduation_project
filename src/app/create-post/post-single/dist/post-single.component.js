@@ -9,11 +9,13 @@ exports.__esModule = true;
 exports.SinglePostComponent = void 0;
 var core_1 = require("@angular/core");
 var SinglePostComponent = /** @class */ (function () {
-    function SinglePostComponent(route, postService, socketIoService, commentService) {
+    function SinglePostComponent(route, postService, socketIoService, commentService, langService) {
         this.route = route;
         this.postService = postService;
         this.socketIoService = socketIoService;
         this.commentService = commentService;
+        this.langService = langService;
+        this.language = '';
         this.postId = '';
         // DEFINE POST
         this.post = {
@@ -40,6 +42,10 @@ var SinglePostComponent = /** @class */ (function () {
     }
     SinglePostComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.socketIoService.init();
         this.route.params.subscribe(function (params) {
             // GET POST ID FORM URL : HTTP://LOCALHOST:4200/POST/:POSTID

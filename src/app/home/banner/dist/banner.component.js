@@ -9,9 +9,17 @@ exports.__esModule = true;
 exports.BannerComponent = void 0;
 var core_1 = require("@angular/core");
 var BannerComponent = /** @class */ (function () {
-    function BannerComponent() {
+    function BannerComponent(langService) {
+        this.langService = langService;
+        this.language = '';
     }
-    BannerComponent.prototype.ngOnInit = function () { };
+    BannerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     BannerComponent = __decorate([
         core_1.Component({
             selector: 'app-banner',

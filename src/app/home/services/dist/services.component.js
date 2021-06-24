@@ -9,9 +9,17 @@ exports.__esModule = true;
 exports.ServicesComponent = void 0;
 var core_1 = require("@angular/core");
 var ServicesComponent = /** @class */ (function () {
-    function ServicesComponent() {
+    function ServicesComponent(langService) {
+        this.langService = langService;
+        this.language = '';
     }
-    ServicesComponent.prototype.ngOnInit = function () { };
+    ServicesComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     ServicesComponent = __decorate([
         core_1.Component({
             selector: 'app-services',

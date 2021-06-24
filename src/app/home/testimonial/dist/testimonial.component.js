@@ -9,12 +9,19 @@ exports.__esModule = true;
 exports.TestimonialComponent = void 0;
 var core_1 = require("@angular/core");
 var TestimonialComponent = /** @class */ (function () {
-    function TestimonialComponent(authService) {
+    function TestimonialComponent(authService, langService) {
         this.authService = authService;
+        this.langService = langService;
         this.isAdmin = false;
+        this.language = "";
         this.testimonials = [];
     }
     TestimonialComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.isAdmin = this.authService.getIsAdmin() ? true : false;
     };
     __decorate([

@@ -10,16 +10,24 @@ exports.CreatePostComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreatePostComponent = /** @class */ (function () {
-    function CreatePostComponent(authService, postService, socketIOService) {
+    function CreatePostComponent(authService, postService, socketIOService, langService) {
         this.authService = authService;
         this.postService = postService;
         this.socketIOService = socketIOService;
+        this.langService = langService;
+        this.language = '';
         this.postCreated = false;
         this.loading = false;
         this.errorMessage = null;
         this.postImages = [];
     }
     CreatePostComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // languages
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         // get user info form loacal storage`
         if (this.authService.getToken) {
             var _a = this.authService.getLocalStorageData(), userBigCity_1 = _a.userBigCity, userCity_1 = _a.userCity, userPhone_1 = _a.userPhone, job_1 = _a.job;

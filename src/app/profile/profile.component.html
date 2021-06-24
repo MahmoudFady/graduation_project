@@ -15,7 +15,10 @@
     </div>
   </div>
 </div>
-<section *ngIf="!loading && !err">
+<section
+  *ngIf="!loading && !err"
+  [ngStyle]="{ direction: language === 'eng' ? 'ltr' : 'rtl' }"
+>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-6 userData">
@@ -24,8 +27,11 @@
       <div class="col-sm-6 userPosts" *ngIf="!isAdminSaved">
         <app-posts-list class="userPosts" [posts]="userPosts"></app-posts-list>
         <div class="noPosts" *ngIf="userPosts.length === 0">
-          <h6>
+          <h6 *ngIf="language === 'arb'">
             يمكنك النشر عن مهنتك يا <strong>{{ userData.userName }}</strong>
+          </h6>
+          <h6 *ngIf="language === 'eng'">
+            you can create job for you <strong>{{ userData.userName }}</strong>
           </h6>
         </div>
       </div>
@@ -34,10 +40,19 @@
 </section>
 <section class="userReviews" *ngIf="userReviews.length > 0 && !isAdminSaved">
   <div class="container">
-    <h6 class="text-center" style="margin-top: 20px">
+    <h6 class="text-center" style="margin-top: 20px" *ngIf="language === 'arb'">
       ماذا قالو عنك يا<strong style="color: #328bda">
         {{ userData.userName }}</strong
       >
+    </h6>
+    <h6
+      class="text-center"
+      style="margin-top: 20px"
+      *ngIf="language === 'eng'"
+      style="direction: ltr"
+    >
+      review about you
+      <strong style="color: #328bda"> {{ userData.userName }}</strong>
     </h6>
     <div class="row justify-content-center">
       <div class="col-xs-12 col-sm-6 col-md-8">

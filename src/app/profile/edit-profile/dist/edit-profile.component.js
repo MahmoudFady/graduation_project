@@ -10,12 +10,19 @@ exports.EditProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var EditProfileComponent = /** @class */ (function () {
-    function EditProfileComponent(authService) {
+    function EditProfileComponent(authService, langService) {
         this.authService = authService;
+        this.langService = langService;
+        this.language = '';
         this.porfileEdited = false;
         this.profileImage = null;
     }
     EditProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         // check if he is authenticated or not
         if (this.authService.getToken()) {
             // get current data from local storage
@@ -34,7 +41,10 @@ var EditProfileComponent = /** @class */ (function () {
             };
             this.editForm = new forms_1.FormGroup({
                 userName: new forms_1.FormControl(userName, [forms_1.Validators.required]),
-                userEmail: new forms_1.FormControl(userEmail, [forms_1.Validators.required]),
+                userEmail: new forms_1.FormControl(userEmail, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.email,
+                ]),
                 userPhone: new forms_1.FormControl(userPhone, [forms_1.Validators.required]),
                 userBigCity: new forms_1.FormControl(userBigCity, [forms_1.Validators.required]),
                 userCity: new forms_1.FormControl(userCity, [forms_1.Validators.required]),

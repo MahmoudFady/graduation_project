@@ -1,4 +1,4 @@
-<section class="blogs">
+<section class="blogs" *ngIf="language==='arb'">
   <div class="container">
     <h1 class="text-center">لمساعدتك</h1>
     <p>
@@ -63,6 +63,76 @@
           </div>
           <div class="blog-button">
             <button>المزيد</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--###################################################################################################-->
+<!--###################################################################################################-->
+<!--###################################################################################################-->
+<!--###################################################################################################-->
+<section class="blogs engVersion" *ngIf="language==='eng'">
+  <div class="container">
+    <h1 class="text-center">to get best experience</h1>
+    <p>Your work occupies a large part of your life and the only way to achieve true satisfaction is to
+      Doing what you believe is great work. And the best way to do</p>
+    <div class="row align-item-center justify-content-center">
+      <div class="col-md-5">
+        <div class="single-blog">
+          <div class="blog-img">
+            <img src="../../../assets/blogs/bg-1.jpg" alt="" />
+          </div>
+          <div class="blog-info">
+            <ul>
+              <li>
+                <i class="fa fa-user"></i>
+                محمود فادي
+              </li>
+              <li>
+                <i class="fa fa-calendar"></i>
+                1/1/2021
+              </li>
+            </ul>
+          </div>
+          <div class="blog-text">
+            <h5>how to get a job</h5>
+            <p>Your work occupies a large part of your life and the only way to achieve true satisfaction is to
+              Doing what you believe is great work.
+            </p>
+          </div>
+          <div class="blog-button">
+            <button>more</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="single-blog">
+          <div class="blog-img">
+            <img src="../../../assets/blogs/bg-2.jpg" alt="" />
+          </div>
+          <div class="blog-info">
+            <ul>
+              <li>
+                <i class="fa fa-user"></i>
+                محمود فادي
+              </li>
+              <li>
+                <i class="fa fa-calendar"></i>
+                1/1/2021
+              </li>
+            </ul>
+          </div>
+          <div class="blog-text">
+            <h5>how to get customers</h5>
+            <p>
+              Your work occupies a large part of your life and the only way to achieve true satisfaction is to
+               Doing what you believe is great work.
+            </p>
+          </div>
+          <div class="blog-button">
+            <button>more</button>
           </div>
         </div>
       </div>

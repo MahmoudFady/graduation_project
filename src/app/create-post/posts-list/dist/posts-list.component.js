@@ -9,12 +9,14 @@ exports.__esModule = true;
 exports.PostsListComponent = void 0;
 var core_1 = require("@angular/core");
 var PostsListComponent = /** @class */ (function () {
-    function PostsListComponent(postService, authService, router, socketIoService, jobService) {
+    function PostsListComponent(postService, authService, router, socketIoService, jobService, langService) {
         this.postService = postService;
         this.authService = authService;
         this.router = router;
         this.socketIoService = socketIoService;
         this.jobService = jobService;
+        this.langService = langService;
+        this.language = '';
         this.posts = [];
         this.showPostControls = true;
         this.isAdmin = false;
@@ -22,7 +24,18 @@ var PostsListComponent = /** @class */ (function () {
         this.deleltePost = false;
         this.displayedImageUrl = null;
     }
+    PostsListComponent.prototype.ngOnChanges = function (changes) {
+        //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+        //Add '${implements OnChanges}' to the class.
+        this.postService.init(this.posts);
+    };
     PostsListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //language
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.deleltePost = false;
         this.isAdmin = this.authService.getIsAdmin() ? true : false;
         this.userId = this.authService.getLocalStorageData()._id;

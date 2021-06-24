@@ -1,8 +1,9 @@
+import { LanguageService } from './../../language.service';
 import { JobService } from './../../jobs/jobs.service';
 import { SocketIoService } from './../../shared/socket-io.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
 
@@ -12,6 +13,7 @@ import { PostService } from '../post.service';
   styleUrls: ['./posts-list.component.css'],
 })
 export class PostsListComponent implements OnInit {
+  language = '';
   @Input() posts: Post[] = [];
   @Input() showPostControls: boolean = true;
   isAdmin = false;
@@ -23,9 +25,21 @@ export class PostsListComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private socketIoService: SocketIoService,
-    private jobService: JobService
+    private jobService: JobService,
+    private langService: LanguageService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    this.postService.init(this.posts);
+  }
   ngOnInit(): void {
+    //language
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.deleltePost = false;
     this.isAdmin = this.authService.getIsAdmin() ? true : false;
     this.userId = this.authService.getLocalStorageData()._id;

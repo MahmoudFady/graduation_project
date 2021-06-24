@@ -9,12 +9,19 @@ exports.__esModule = true;
 exports.ProfileDataComponent = void 0;
 var core_1 = require("@angular/core");
 var ProfileDataComponent = /** @class */ (function () {
-    function ProfileDataComponent(authService) {
+    function ProfileDataComponent(authService, langService) {
         this.authService = authService;
+        this.langService = langService;
+        this.language = '';
         this.isAdminSaved = false;
         this.activeUserId = '';
     }
     ProfileDataComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.isAdminSaved = this.authService.getIsAdmin() ? true : false;
         this.activeUserId = this.authService.getLocalStorageData()._id;
     };

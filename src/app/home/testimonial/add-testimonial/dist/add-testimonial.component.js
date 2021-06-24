@@ -9,16 +9,23 @@ exports.__esModule = true;
 exports.AddTestimonialComponent = void 0;
 var core_1 = require("@angular/core");
 var AddTestimonialComponent = /** @class */ (function () {
-    function AddTestimonialComponent(authService, testimonialService, route) {
+    function AddTestimonialComponent(authService, testimonialService, route, langService) {
         this.authService = authService;
         this.testimonialService = testimonialService;
         this.route = route;
+        this.langService = langService;
+        this.language = '';
         this.errMsg = null;
         this.successMsg = null;
         this.belongTo = null;
         this.isAdmin = false;
     }
     AddTestimonialComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.isAdmin = this.authService.getIsAdmin() ? true : false;
     };
     AddTestimonialComponent.prototype.onAddTestimonial = function (f) {

@@ -21,8 +21,10 @@ exports.SignupComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var SignupComponent = /** @class */ (function () {
-    function SignupComponent(authService) {
+    function SignupComponent(authService, langService) {
         this.authService = authService;
+        this.langService = langService;
+        this.language = '';
         this.imagesPreview = [];
         this.isWorker = false;
         this.userFormControl = {
@@ -36,6 +38,11 @@ var SignupComponent = /** @class */ (function () {
         };
     }
     SignupComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.loading = false;
         // initial signup form
         this.signupForm = new forms_1.FormGroup(__assign({}, this.userFormControl));

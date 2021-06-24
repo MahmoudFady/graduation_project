@@ -1,3 +1,4 @@
+import { LanguageService } from './../language.service';
 import {
   Testimonial,
   TestimonialService,
@@ -13,6 +14,7 @@ import { AuthService, UserData } from '../auth/auth.service';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+  language = '';
   loading: boolean = false;
   err: string = null;
   isAdminSaved: boolean = false;
@@ -32,9 +34,14 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private postService: PostService,
-    private testimonialService: TestimonialService
+    private testimonialService: TestimonialService,
+    private langService: LanguageService
   ) {}
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.loading = true;
     this.isAdminSaved = this.authService.getIsAdmin();
     this.postService.getUpdatedPosts().subscribe((posts) => {

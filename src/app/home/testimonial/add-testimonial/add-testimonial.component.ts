@@ -1,3 +1,4 @@
+import { LanguageService } from './../../../language.service';
 import { ActivatedRoute } from '@angular/router';
 import { TestimonialService } from './../testimonial.service';
 import { AuthService } from './../../../auth/auth.service';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-testimonial.component.css'],
 })
 export class AddTestimonialComponent implements OnInit {
+  language = '';
   errMsg: string = null;
   successMsg: string = null;
   private belongTo: string = null;
@@ -17,9 +19,15 @@ export class AddTestimonialComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private testimonialService: TestimonialService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private langService :LanguageService
   ) {}
   ngOnInit(): void {
+
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe(lang => {
+      this.language = lang
+    });
     this.isAdmin = this.authService.getIsAdmin() ? true : false;
   }
   onAddTestimonial(f: NgForm) {

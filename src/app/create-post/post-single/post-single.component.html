@@ -1,4 +1,4 @@
-<section>
+<section [ngStyle]="{ direction: language === 'arb' ? 'rtl' : 'ltr' }">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6">
@@ -17,8 +17,14 @@
           <app-comments-list></app-comments-list>
         </div>
         <div *ngIf="postComments.length === 0" style="padding: 25px">
-          <h6>
-            كن اول من يعلق علي ما نشره
+          <h6
+            [ngStyle]="{ textAlign: language === 'arb' ? 'right' : 'left' }"
+            [textContent]="
+              language === 'arb'
+                ? 'كن اول من يعلق علي ما نشره'
+                : 'be first to react'
+            "
+          >
             <strong>{{ post.creator.userName }}</strong>
           </h6>
         </div>

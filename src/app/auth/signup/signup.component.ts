@@ -1,3 +1,4 @@
+import { LanguageService } from './../../language.service';
 import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['../shared-style.css', './signup.component.css'],
 })
 export class SignupComponent implements OnInit {
+  language = '';
   signupForm: FormGroup; // form for signup
   loading: boolean; // check loading state
   errorMsg: string; // get error message form
@@ -24,8 +26,15 @@ export class SignupComponent implements OnInit {
     userPassword: new FormControl(null, [Validators.required]),
     isWorker: new FormControl(false),
   };
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private langService: LanguageService
+  ) {}
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.loading = false;
     // initial signup form
     this.signupForm = new FormGroup({

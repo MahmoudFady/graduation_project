@@ -9,9 +9,17 @@ exports.__esModule = true;
 exports.BlogsComponent = void 0;
 var core_1 = require("@angular/core");
 var BlogsComponent = /** @class */ (function () {
-    function BlogsComponent() {
+    function BlogsComponent(langService) {
+        this.langService = langService;
+        this.language = '';
     }
-    BlogsComponent.prototype.ngOnInit = function () { };
+    BlogsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     BlogsComponent = __decorate([
         core_1.Component({
             selector: 'app-blogs',

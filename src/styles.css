@@ -5,16 +5,24 @@
   /*  --mainColor: #f00;*/
   /* --mainColor: #0077b5;*/
 }
+
 * {
   padding: 0px;
   margin: 0px;
 }
 body {
-  direction: rtl !important;
+  direction: rtl;
   text-align: right;
   overflow-x: hidden;
   padding: 0px;
   margin: 0px;
+}
+.engVersion {
+  text-align: left !important;
+  direction: ltr !important;
+  text-transform: capitalize;
+  font-family: Arial;
+  font-weight: bold;
 }
 input.ng-touched.ng-invalid {
   border: 1px solid #f00 !important;

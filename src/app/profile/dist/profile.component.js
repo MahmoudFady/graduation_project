@@ -9,10 +9,12 @@ exports.__esModule = true;
 exports.ProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent(authService, postService, testimonialService) {
+    function ProfileComponent(authService, postService, testimonialService, langService) {
         this.authService = authService;
         this.postService = postService;
         this.testimonialService = testimonialService;
+        this.langService = langService;
+        this.language = '';
         this.loading = false;
         this.err = null;
         this.isAdminSaved = false;
@@ -31,6 +33,10 @@ var ProfileComponent = /** @class */ (function () {
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.loading = true;
         this.isAdminSaved = this.authService.getIsAdmin();
         this.postService.getUpdatedPosts().subscribe(function (posts) {

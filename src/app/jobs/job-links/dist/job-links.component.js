@@ -10,10 +10,21 @@ exports.JobLinksComponent = void 0;
 var core_1 = require("@angular/core");
 var core_2 = require("@angular/core");
 var JobLinksComponent = /** @class */ (function () {
-    function JobLinksComponent(jobService) {
+    function JobLinksComponent(jobService, langService) {
         this.jobService = jobService;
+        this.langService = langService;
+        this.language = '';
         this.postedJobs = [];
     }
+    JobLinksComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+        //Add 'implements OnInit' to the class.
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     JobLinksComponent.prototype.getPosts = function (job, ele) {
         document.querySelectorAll('ul li').forEach(function (li) {
             li.classList.remove('active');

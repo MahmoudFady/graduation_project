@@ -1,3 +1,4 @@
+import { LanguageService } from './../../language.service';
 import { ReportService } from './report.service';
 import { NgForm } from '@angular/forms';
 import {
@@ -15,6 +16,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./view-profile.component.css'],
 })
 export class ViewProfileComponent implements OnInit {
+  language = '';
   userId: string = '';
   userPosts: Post[] = [];
   userReviews: Testimonial[] = [];
@@ -36,10 +38,15 @@ export class ViewProfileComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private testimonialService: TestimonialService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private langService: LanguageService
   ) {}
 
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.isAuth = this.authService.getToken() ? true : false;
     this.isAdminSaved = this.authService.getIsAdmin();
     this.route.params.subscribe((params: Params) => {
@@ -55,7 +62,7 @@ export class ViewProfileComponent implements OnInit {
         }) => {
           this.userData = getUserResualt.user;
           this.userPosts = getUserResualt.userPosts;
-          console.log(this.userData.accepted);
+          console.log(this.userPosts);
         }
       );
     this.testimonialService.getReview(this.userId);
@@ -76,7 +83,7 @@ export class ViewProfileComponent implements OnInit {
           console.log(resualt);
           this.router.navigate(['/admin/statistic']);
         })
-      : '';
+      : null;
   }
   onAddReport(f: NgForm) {
     const reportMessage = f.value['reportMessage'];

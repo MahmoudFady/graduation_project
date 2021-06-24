@@ -9,15 +9,23 @@ exports.__esModule = true;
 exports.SigninComponent = void 0;
 var core_1 = require("@angular/core");
 var SigninComponent = /** @class */ (function () {
-    function SigninComponent(autService) {
+    function SigninComponent(autService, langService) {
         this.autService = autService;
+        this.langService = langService;
         this.errorMsg = null;
+        this.language = '';
         this.signinData = {
             userEmail: '',
             userPassword: ''
         };
     }
-    SigninComponent.prototype.ngOnInit = function () { };
+    SigninComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     SigninComponent.prototype.onSignin = function (signinForm) {
         var _this = this;
         this.loading = true;

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/language.service';
 
 @Component({
   selector: 'app-services',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['../shared-style.css', './services.component.css'],
 })
 export class ServicesComponent implements OnInit {
-  constructor() {}
+  language = '';
+  constructor(private langService: LanguageService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe(lang => {
+      this.language=lang
+    })}
 }

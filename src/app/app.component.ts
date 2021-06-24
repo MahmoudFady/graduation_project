@@ -1,3 +1,4 @@
+import { LanguageService } from './language.service';
 import { SocketIoService } from './shared/socket-io.service';
 import { Component, OnInit } from '@angular/core';
 @Component({
@@ -7,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'grad-project';
-  constructor(private socketIoService: SocketIoService) {}
+  constructor(
+    private socketIoService: SocketIoService,
+    private langService: LanguageService
+  ) {}
   ngOnInit() {
+    this.langService.initialLanguage();
     this.socketIoService.init();
   }
 }

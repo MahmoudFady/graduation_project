@@ -1,16 +1,17 @@
+import { LanguageService } from './../../../language.service';
 import { SocketIoService } from './../../../shared/socket-io.service';
 import { CommentService } from './../comment.service';
 import { Comment } from '../create-comment/comment.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
-import { SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-comments-list',
   templateUrl: './comments-list.commponent.html',
   styleUrls: ['./comments-list.component.css'],
 })
 export class CommentsListComponent implements OnInit {
+  language = '';
   postComments: Comment[] = [];
   userId: string = '';
   constructor(
@@ -18,10 +19,14 @@ export class CommentsListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private commentService: CommentService,
-    private socketIoService: SocketIoService
+    private socketIoService: SocketIoService,
+    private langService: LanguageService
   ) {}
-
-  ngOnInit() {
+  ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.userId = this.authService.getLocalStorageData()['_id'];
     this.postComments = this.commentService.getComments();
     this.commentService.getUpdatedComments().subscribe((newComments) => {

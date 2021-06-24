@@ -1,24 +1,29 @@
 import { CommentService } from './../comment.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Comment } from './comment.model';
-import { PostService } from 'src/app/create-post/post.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/language.service';
 @Component({
   selector: 'app-create-comment',
   templateUrl: './create-comment.component.html',
   styleUrls: ['./create-comment.component.css'],
 })
 export class CreateCommentComponent implements OnInit {
+  language = '';
   isAuthenticated: boolean;
   commentImages: string[] = [];
   commentForm: FormGroup;
   @Input() postId: string = null;
   constructor(
     private authService: AuthService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private langService: LanguageService
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.isAuthenticated = this.authService.getToken() ? true : false;
     this.commentForm = new FormGroup({
       commentText: new FormControl(null, [Validators.required]),

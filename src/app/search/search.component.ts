@@ -1,3 +1,4 @@
+import { LanguageService } from './../language.service';
 import { Post } from './../create-post/post.model';
 import { SearchService } from './search.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +14,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./search.component.css'],
 })
 export class SearchComponent implements OnInit {
+  language = '';
   searched: boolean = false;
   selectedPosts: Post[] = [];
   savedSelectedPost: Post[] = [];
@@ -31,16 +33,19 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private autService: AuthService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private langService: LanguageService
   ) {}
 
   ngOnInit(): void {
+    // language
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     if (this.autService.getToken) {
-      const {
-        job,
-        userBigCity,
-        userCity,
-      } = this.autService.getLocalStorageData();
+      const { job, userBigCity, userCity } =
+        this.autService.getLocalStorageData();
       this.userData = {
         job,
         userBigCity,

@@ -57,3 +57,15 @@ form > div.form-group.submit-button button {
   color: #f00;
   cursor: pointer;
 }
+/*++++++++++++++++*/
+
+.engVersion form div.form-group > i {
+  width: 20px;
+  float: left;
+  left: 10px;
+}
+.engVersion form div.form-group > i.fa-exclamation-circle,
+.engVersion form div.form-group > i.fa-check {
+  float: right;
+  left: 90% !important;
+}

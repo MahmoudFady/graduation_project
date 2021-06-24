@@ -161,7 +161,9 @@ var AuthService = /** @class */ (function () {
     };
     // logging out
     AuthService.prototype.logout = function () {
+        var currentLanguage = localStorage.getItem('lang');
         localStorage.clear();
+        localStorage.setItem('lang', currentLanguage);
         this.isAuthenticated.next(false);
         this.adminUpdated.next(false);
         this.router.navigate(['/']);

@@ -19,7 +19,7 @@ const adminRoutes = require("./router/admin");
 const app = express();
 // => GET INFO ABOUT THE RECIVIED REQUEST (URL , STATUS)
 app.use(morgan("dev"));
-// => CONNECTING TO DATA BSE
+// => CONNECTING TO DATA BASE
 mongoose
   .connect(process.env.MONGO_DB_URL, {
     useUnifiedTopology: true,

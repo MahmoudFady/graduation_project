@@ -9,8 +9,17 @@ exports.__esModule = true;
 exports.FooterComponent = void 0;
 var core_1 = require("@angular/core");
 var FooterComponent = /** @class */ (function () {
-    function FooterComponent() {
+    function FooterComponent(langService) {
+        this.langService = langService;
+        this.language = '';
     }
+    FooterComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     FooterComponent = __decorate([
         core_1.Component({
             selector: 'app-footer',

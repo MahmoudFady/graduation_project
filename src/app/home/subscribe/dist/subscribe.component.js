@@ -9,9 +9,17 @@ exports.__esModule = true;
 exports.SubscribeComponent = void 0;
 var core_1 = require("@angular/core");
 var SubscribeComponent = /** @class */ (function () {
-    function SubscribeComponent() {
+    function SubscribeComponent(langService) {
+        this.langService = langService;
+        this.language = '';
     }
-    SubscribeComponent.prototype.ngOnInit = function () { };
+    SubscribeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
+    };
     SubscribeComponent = __decorate([
         core_1.Component({
             selector: 'app-subscribe',

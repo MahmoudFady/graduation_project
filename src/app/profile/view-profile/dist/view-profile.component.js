@@ -9,12 +9,14 @@ exports.__esModule = true;
 exports.ViewProfileComponent = void 0;
 var core_1 = require("@angular/core");
 var ViewProfileComponent = /** @class */ (function () {
-    function ViewProfileComponent(route, router, authService, testimonialService, reportService) {
+    function ViewProfileComponent(route, router, authService, testimonialService, reportService, langService) {
         this.route = route;
         this.router = router;
         this.authService = authService;
         this.testimonialService = testimonialService;
         this.reportService = reportService;
+        this.langService = langService;
+        this.language = '';
         this.userId = '';
         this.userPosts = [];
         this.userReviews = [];
@@ -34,6 +36,10 @@ var ViewProfileComponent = /** @class */ (function () {
     }
     ViewProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.isAuth = this.authService.getToken() ? true : false;
         this.isAdminSaved = this.authService.getIsAdmin();
         this.route.params.subscribe(function (params) {
@@ -44,7 +50,7 @@ var ViewProfileComponent = /** @class */ (function () {
             .subscribe(function (getUserResualt) {
             _this.userData = getUserResualt.user;
             _this.userPosts = getUserResualt.userPosts;
-            console.log(_this.userData.accepted);
+            console.log(_this.userPosts);
         });
         this.testimonialService.getReview(this.userId);
         this.testimonialService.getUpdatedTestimonials().subscribe(function (testis) {
@@ -66,7 +72,7 @@ var ViewProfileComponent = /** @class */ (function () {
                 console.log(resualt);
                 _this.router.navigate(['/admin/statistic']);
             })
-            : '';
+            : null;
     };
     ViewProfileComponent.prototype.onAddReport = function (f) {
         var reportMessage = f.value['reportMessage'];

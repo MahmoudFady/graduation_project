@@ -151,9 +151,7 @@ export class AuthService {
       );
   }
   // get specific user by it's id
-  getUserById(
-    id: string
-  ): Observable<{
+  getUserById(id: string): Observable<{
     message: string;
     user: UserData;
     userPosts: Post[];
@@ -289,7 +287,9 @@ export class AuthService {
   }
   // logging out
   logout(): void {
+    const currentLanguage = localStorage.getItem('lang');
     localStorage.clear();
+    localStorage.setItem('lang', currentLanguage);
     this.isAuthenticated.next(false);
     this.adminUpdated.next(false);
     this.router.navigate(['/']);

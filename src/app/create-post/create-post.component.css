@@ -66,6 +66,9 @@ div.form-group > i {
 i.fa.fa-exclamation-circle {
   color: #f00 !important;
 }
+.engVersion div.form-group > i {
+  right: 5% !important;
+}
 form button {
   display: inline-block;
   margin-right: 20px;
