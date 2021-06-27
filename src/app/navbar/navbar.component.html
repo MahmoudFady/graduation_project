@@ -25,21 +25,21 @@
         ><i class="fa fa-home"></i> الرئيسه
       </a>
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/admin/statistic"
         ><i class="fa fa-calculator"></i> الاحصأيات</a
       >
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLink="/admin/users"
         [routerLinkActive]="'active'"
         ><i class="fa fa-users"></i> المستخدمين</a
       >
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLink="/admin/reports"
         routerLinkActive="active"
@@ -50,7 +50,7 @@
       >
       <a
         class="nav-link"
-        *ngIf="!isAdmin && !isAdminSaved"
+        *ngIf="!isAdmin"
         routerLinkActive="active"
         routerLink="/post/create"
         ><i class="fa fa-paper-plane"></i> نشر وظيفه</a
@@ -59,14 +59,14 @@
         ><i class="fa fa-search"></i> بحث</a
       >
       <a
-        *ngIf="!isAuthenticated && !isAuthSaved"
+        *ngIf="!isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/auth/signin"
         ><i class="fa fa-sign-in-alt"></i> تسجيل دخول</a
       >
       <a
-        *ngIf="!isAuthenticated && !isAuthSaved"
+        *ngIf="!isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/auth/signup"
@@ -74,14 +74,14 @@
       >
 
       <a
-        *ngIf="isAuthenticated || isAuthSaved"
+        *ngIf="isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/profile"
         ><i class="fa fa-user-circle"></i> الحساب الشخصي</a
       >
       <a
-        *ngIf="isAuthenticated || isAuthSaved"
+        *ngIf="isAuthenticated"
         class="nav-link"
         style="cursor: pointer"
         (click)="onLogout()"
@@ -101,9 +101,9 @@
   class="navbar navbar-expand-md navbar-light bg-light engVersion"
   *ngIf="language === 'eng'"
 >
-  <a class="navbar-brand" href="#">Shak</a>
+  <a class="navbar-brand" href="#">wazfty</a>
   <button
-    style="left: 90%;"
+    style="left: 90%"
     class="navbar-toggler"
     type="button"
     data-toggle="collapse"
@@ -125,21 +125,21 @@
         ><i class="fa fa-home"></i> home
       </a>
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/admin/statistic"
         ><i class="fa fa-calculator"></i> statistics</a
       >
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLink="/admin/users"
         [routerLinkActive]="'active'"
         ><i class="fa fa-users"></i> users</a
       >
       <a
-        *ngIf="(isAuthenticated || isAuthSaved) && (isAdmin || isAdminSaved)"
+        *ngIf="isAdmin"
         class="nav-link"
         routerLink="/admin/reports"
         routerLinkActive="active"
@@ -150,7 +150,7 @@
       >
       <a
         class="nav-link"
-        *ngIf="!isAdmin && !isAdminSaved"
+        *ngIf="!isAdmin"
         routerLinkActive="active"
         routerLink="/post/create"
         ><i class="fa fa-paper-plane"></i> create job</a
@@ -159,14 +159,14 @@
         ><i class="fa fa-search"></i> search</a
       >
       <a
-        *ngIf="!isAuthenticated && !isAuthSaved"
+        *ngIf="!isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/auth/signin"
         ><i class="fa fa-sign-in-alt"></i> sigin in</a
       >
       <a
-        *ngIf="!isAuthenticated && !isAuthSaved"
+        *ngIf="!isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/auth/signup"
@@ -174,14 +174,14 @@
       >
 
       <a
-        *ngIf="isAuthenticated || isAuthSaved"
+        *ngIf="isAuthenticated"
         class="nav-link"
         routerLinkActive="active"
         routerLink="/profile"
         ><i class="fa fa-user-circle"></i> profile</a
       >
       <a
-        *ngIf="isAuthenticated || isAuthSaved"
+        *ngIf="isAuthenticated"
         class="nav-link"
         style="cursor: pointer"
         (click)="onLogout()"

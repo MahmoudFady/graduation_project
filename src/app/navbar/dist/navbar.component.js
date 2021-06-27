@@ -16,27 +16,24 @@ var NavbarComponent = /** @class */ (function () {
         this.language = 'arb';
         this.isAuthenticated = false;
         this.isAdmin = false;
-        this.isAdminSaved = false;
     }
     NavbarComponent.prototype.ngOnInit = function () {
         var _this = this;
         // check language
         this.language = this.langService.getCurrentLang();
-        this.lang = this.language === 'arb' ? 'English' : 'عربي';
         this.langService.getCurrentLanguage().subscribe(function (lang) {
             _this.language = lang;
         });
+        this.lang = this.language === 'arb' ? 'English' : 'عربي';
         // get user state if user or not
         // by checking if there is token in local stroage
-        this.isAuthSaved = this.authService.getToken() ? true : false;
-        this.isAdminSaved = this.authService.getLocalStorageData()
-            .isAdmin
+        this.isAdmin = this.authService.getLocalStorageData().isAdmin
             ? true
             : false;
-        console.log('is admin saved' + this.isAdminSaved);
         this.authService.isAdminUpdated().subscribe(function (isAdmin) {
             _this.isAdmin = isAdmin ? true : false;
         });
+        this.isAuthenticated = this.authService.getToken() ? true : false;
         // update user state at run time
         this.authService.isAuthenticatedUser().subscribe(function (isAuth) {
             _this.isAuthenticated = isAuth ? true : false;
@@ -49,7 +46,6 @@ var NavbarComponent = /** @class */ (function () {
     };
     // logout form site
     NavbarComponent.prototype.onLogout = function () {
-        this.isAuthSaved = false;
         this.authService.logout();
     };
     NavbarComponent = __decorate([

@@ -20,8 +20,8 @@ body {
 .engVersion {
   text-align: left !important;
   direction: ltr !important;
-  text-transform: capitalize;
-  font-family: Arial;
+  text-transform: capitalize !important;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif !important;
   font-weight: bold;
 }
 input.ng-touched.ng-invalid {

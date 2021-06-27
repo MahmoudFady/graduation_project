@@ -9,8 +9,10 @@ exports.__esModule = true;
 exports.StatisticComponent = void 0;
 var core_1 = require("@angular/core");
 var StatisticComponent = /** @class */ (function () {
-    function StatisticComponent(statisticService) {
+    function StatisticComponent(statisticService, langService) {
         this.statisticService = statisticService;
+        this.langService = langService;
+        this.language = '';
         this.counts = {
             postCount: 0,
             userCount: 0,
@@ -20,6 +22,10 @@ var StatisticComponent = /** @class */ (function () {
     }
     StatisticComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.statisticService.getNumbers().subscribe(function (resualt) {
             _this.counts = resualt;
             console.log(resualt);

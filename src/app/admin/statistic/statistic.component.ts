@@ -1,3 +1,4 @@
+import { LanguageService } from 'src/app/language.service';
 import { StatisticService } from './statistic.service';
 import { Component } from '@angular/core';
 @Component({
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./statistic.component.css'],
 })
 export class StatisticComponent {
+  language = '';
   counts: {
     postCount: number;
     userCount: number;
@@ -17,8 +19,15 @@ export class StatisticComponent {
     commentCount: 0,
     reportCount: 0,
   };
-  constructor(private statisticService: StatisticService) {}
+  constructor(
+    private statisticService: StatisticService,
+    private langService: LanguageService
+  ) {}
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.statisticService.getNumbers().subscribe((resualt) => {
       this.counts = resualt;
       console.log(resualt);

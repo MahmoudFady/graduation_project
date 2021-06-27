@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 exports.__esModule = true;
 exports.AuthModule = void 0;
+var reset_password_component_1 = require("./reset-password/reset-password.component");
 var forms_1 = require("@angular/forms");
 var shared_module_1 = require("./../shared/shared.module");
 var router_1 = require("@angular/router");
@@ -19,7 +20,7 @@ var AuthModule = /** @class */ (function () {
     }
     AuthModule = __decorate([
         core_1.NgModule({
-            declarations: [signin_component_1.SigninComponent, signup_component_1.SignupComponent],
+            declarations: [signin_component_1.SigninComponent, signup_component_1.SignupComponent, reset_password_component_1.ResetPassword],
             imports: [
                 common_1.CommonModule,
                 forms_1.FormsModule,

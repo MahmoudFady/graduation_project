@@ -1,3 +1,4 @@
+import { ResetPassword } from './reset-password/reset-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
 import { RouterModule } from '@angular/router';
@@ -7,7 +8,7 @@ import { SigninComponent } from './signin/signin.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [SigninComponent, SignupComponent],
+  declarations: [SigninComponent, SignupComponent, ResetPassword],
   imports: [
     CommonModule,
     FormsModule,

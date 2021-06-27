@@ -44,9 +44,10 @@
 .banner .banner-content .banner-text > p {
   width: 350px;
   margin: 10px auto;
-  color: #ffffff;
+  color: #000;
   padding: 5px;
   line-height: 1.3m;
+  font-size: 18px;
 }
 
 .banner .banner-content .banner-text > button {

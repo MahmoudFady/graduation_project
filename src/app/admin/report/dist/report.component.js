@@ -9,13 +9,19 @@ exports.__esModule = true;
 exports.ReportComponent = void 0;
 var core_1 = require("@angular/core");
 var ReportComponent = /** @class */ (function () {
-    function ReportComponent(reportService) {
+    function ReportComponent(reportService, langService) {
         this.reportService = reportService;
+        this.langService = langService;
         this.reports = [];
         this.reportDeleted = false;
+        this.language = '';
     }
     ReportComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.reportService.getAllReports();
         this.reports = this.reportService.getReports();
         this.reportService.getUpdatedReports().subscribe(function (reports) {

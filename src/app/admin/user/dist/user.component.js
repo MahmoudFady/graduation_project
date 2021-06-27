@@ -9,12 +9,18 @@ exports.__esModule = true;
 exports.UserComponent = void 0;
 var core_1 = require("@angular/core");
 var UserComponent = /** @class */ (function () {
-    function UserComponent(userService) {
+    function UserComponent(userService, langService) {
         this.userService = userService;
+        this.langService = langService;
         this.users = [];
+        this.language = '';
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.language = this.langService.getCurrentLang();
+        this.langService.getCurrentLanguage().subscribe(function (lang) {
+            _this.language = lang;
+        });
         this.userService.getUsersByPath('user');
         this.users = this.userService.getUsers();
         this.userService.getUpdatedUser().subscribe(function (users) {

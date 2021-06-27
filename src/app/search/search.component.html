@@ -73,16 +73,19 @@
       <h6 class="text-center">
         تم العثور علي
         <strong style="color: var(--mainColor)"
-          >{{ selectedPosts.length }} {{ selectedPosts[0].job }}
+          >{{ selectedPosts.length }} وظيفه
         </strong>
       </h6>
       <app-posts-list [posts]="selectedPosts"></app-posts-list>
     </div>
     <div *ngIf="selectedUsers.length > 0" class="col-md-6">
+      <h6>
+        تم العثور علي {{ selectedUsers.length }} {{ selectedUsers[0].job }}
+      </h6>
       <app-users-search-list [users]="selectedUsers"></app-users-search-list>
     </div>
     <div
-      *ngIf="selectedPosts.length === 0 && selectedPosts.length === 0"
+      *ngIf="selectedPosts.length === 0 && selectedUsers.length === 0"
       class="col-md-6"
     >
       <app-alert-danger
@@ -186,11 +189,10 @@
       <app-posts-list [posts]="selectedPosts"></app-posts-list>
     </div>
     <div *ngIf="selectedUsers.length > 0" class="col-md-6">
-      
       <app-users-search-list [users]="selectedUsers"></app-users-search-list>
     </div>
     <div
-      *ngIf="selectedPosts.length === 0 && selectedPosts.length === 0"
+      *ngIf="selectedPosts.length === 0 && selectedUsers.length === 0"
       class="col-md-6"
     >
       <app-alert-danger

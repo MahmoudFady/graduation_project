@@ -2,6 +2,7 @@ import { NgForm } from '@angular/forms';
 import { User } from './user.model';
 import { UserService } from './user.service';
 import { Component, OnInit } from '@angular/core';
+import { LanguageService } from 'src/app/language.service';
 
 @Component({
   selector: 'app-user',
@@ -10,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
   users: User[] = [];
-  constructor(private userService: UserService) {}
-
+  language = '';
+  constructor(
+    private userService: UserService,
+    private langService: LanguageService
+  ) {}
   ngOnInit(): void {
+    this.language = this.langService.getCurrentLang();
+    this.langService.getCurrentLanguage().subscribe((lang) => {
+      this.language = lang;
+    });
     this.userService.getUsersByPath('user');
     this.users = this.userService.getUsers();
     this.userService.getUpdatedUser().subscribe((users) => {
